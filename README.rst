@@ -26,6 +26,7 @@ Runing tests
 Run tests with pytest:
 
 .. code-block:: console
+
     $ cd pandas-validation
     $ py.test -v --cov-report term-missing --cov pandasvalidation.py
 
@@ -36,5 +37,6 @@ Build the documentation
 The documentation can be built with sphinx:
 
 .. code-block:: console
+
     $ cd pandas-validation
     $ sphinx-build -b html ./docs/source ./docs/_build/html
