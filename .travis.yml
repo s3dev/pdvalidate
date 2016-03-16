@@ -11,7 +11,10 @@ branches:
 
 before_install:
     - pip install pytest pytest-cov
+    - pip install codecov
 
 script:
     - py.test
 
+after_success:
+  - codecov
