@@ -14,3 +14,6 @@ before_install:
 
 script:
     py.test --cov=./
+
+after_success:
+  - codecov
