@@ -6,6 +6,12 @@ with the Python package `pandas <http://pandas.pydata.org>`_.
 
 Source repository: `<https://github.com/jmenglund/pandas-validation>`_
 
+.. image:: https://api.travis-ci.org/jmenglund/pandas-validation.svg?branch=master
+  :target: https://travis-ci.org/jmenglund/pandas-validation
+
+.. image:: https://codecov.io/github/jmenglund/pandas-validation/coverage.svg?branch=master
+    :target: https://codecov.io/github/jmenglund/pandas-validation?branch=master
+
 
 Installation
 ------------
@@ -20,8 +26,8 @@ can be installed using git:
     $ python setup.py install
 
 
-Runing tests
-------------
+Running tests
+-------------
 
 Run tests with pytest:
 

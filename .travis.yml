@@ -1,8 +1,6 @@
 language: python
 
 python:
-    - '2.7'
-    - '3.3'
     - '3.4'
     - '3.5'
 
@@ -12,8 +10,11 @@ branches:
         - master
 
 before_install:
+    - pip install codecov
     - pip install pytest pytest-cov
 
 script:
-    - py.test
-    - sphinx-build -nW -b html ./docs/source ./docs/build-html
+    py.test --cov=pandasvalidation.py
+
+after_success:
+  - codecov

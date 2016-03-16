@@ -23,6 +23,9 @@ from re import match
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #sys.path.insert(0, os.path.abspath('.'))
 
+# Add project directory to sys.path
+sys.path.insert(0, os.path.abspath("../.."))
+
 # -- General configuration ------------------------------------------------
 
 # If your documentation needs a minimal Sphinx version, state it here.
