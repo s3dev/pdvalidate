@@ -26,8 +26,8 @@ can be installed using git:
     $ python setup.py install
 
 
-Runing tests
-------------
+Running tests
+-------------
 
 Run tests with pytest:
 
