@@ -1,2 +1,2 @@
 pandas>=0.16
-
+pytest>=2.8
