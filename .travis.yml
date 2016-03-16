@@ -12,5 +12,5 @@ branches:
 before_install:
     - pip install pytest pytest-cov
 
-after_success:
+script:
     py.test --cov=./
