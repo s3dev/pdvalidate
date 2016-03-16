@@ -6,11 +6,20 @@ with the Python package `pandas <http://pandas.pydata.org>`_.
 
 Source repository: `<https://github.com/jmenglund/pandas-validation>`_
 
+Documentation at `<http://pandas-validation.readthedocs.org>`_
+
 .. image:: https://api.travis-ci.org/jmenglund/pandas-validation.svg?branch=master
   :target: https://travis-ci.org/jmenglund/pandas-validation
+:alt: Documentation Status
 
 .. image:: https://codecov.io/github/jmenglund/pandas-validation/coverage.svg?branch=master
     :target: https://codecov.io/github/jmenglund/pandas-validation?branch=master
+:alt: Code coverage
+
+.. image:: https://readthedocs.org/projects/pandas-validation/badge/?version=latest
+:target: http://pandas-validation.readthedocs.org/en/latest/?badge=latest
+:alt: Documentation status
+
 
 
 Installation
