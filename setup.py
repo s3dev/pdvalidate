@@ -7,7 +7,7 @@ setup(
     version=__import__('pandasvalidation').__version__,
     description=(
         'A Python package for validating data with pandas'),
-    long_description = open(
+    long_description=open(
         join(dirname(__file__), 'README.rst'), encoding='utf-8').read(),
     packages=find_packages(exclude=['docs', 'tests*']),
     py_modules=['pandasvalidation'],
