@@ -13,7 +13,7 @@ Documentation at `<http://pandas-validation.readthedocs.org>`_
     :alt: Documentation Status
 
 .. image:: https://codecov.io/gh/jmenglund/pandas-validation/branch/master/graph/badge.svg
-  :target: https://codecov.io/gh/jmenglund/pandas-validation
+    :target: https://codecov.io/gh/jmenglund/pandas-validation
     :alt: Code coverage
 
 .. image:: https://readthedocs.org/projects/pandas-validation/badge/?version=latest
