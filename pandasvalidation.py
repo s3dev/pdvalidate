@@ -15,7 +15,7 @@ import pandas
 
 __authors__ = "Markus Englund"
 __license__ = "MIT"
-__version__ = '0.1.0'
+__version__ = '0.1.1'
 
 
 class ValidationWarning(Warning):
@@ -300,10 +300,10 @@ def validate_string(
     unique : bool
         If True, check that values are unique. Default: False.
     min_length : int
-        If defined, check for strings shorter than 
+        If defined, check for strings shorter than
         minimum length. Optional.
     max_length : int
-        If defined, check for strings longer than 
+        If defined, check for strings longer than
         maximum length. Optional.
     case : str
         Check for a character case constraint. Available values
