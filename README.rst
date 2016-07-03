@@ -12,8 +12,8 @@ Documentation at `<http://pandas-validation.readthedocs.org>`_
     :target: https://travis-ci.org/jmenglund/pandas-validation
     :alt: Documentation Status
 
-.. image:: https://codecov.io/github/jmenglund/pandas-validation/coverage.svg?branch=master
-    :target: https://codecov.io/github/jmenglund/pandas-validation?branch=master
+.. image:: https://codecov.io/gh/jmenglund/pandas-validation/branch/master/graph/badge.svg
+  :target: https://codecov.io/gh/jmenglund/pandas-validation
     :alt: Code coverage
 
 .. image:: https://readthedocs.org/projects/pandas-validation/badge/?version=latest
