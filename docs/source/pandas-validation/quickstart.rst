@@ -5,7 +5,11 @@
 Quickstart
 ==========
 
-This guide gives you a brief introduction on how to use pandas-validation. The library contains three core functions that let you validate values in a pandas Series. The examples shown below will help you get started. If you want to know more, I suggest that you have a look at the :ref:`API reference<api>`.
+This guide gives you a brief introduction on how to use pandas-validation.
+The library contains three core functions that let you validate values in a
+pandas Series. The examples shown below will help you get started. If you
+want to know more, I suggest that you have a look at the
+:ref:`API reference<api>`.
 
 * :ref:`validate-dates`
 * :ref:`validate-numbers`
@@ -26,7 +30,12 @@ The code examples below assumes that you first do the following imports:
 Validate datetimes
 ------------------
 
-Our first example shows how to validate a pandas Series with a few dates entered as strings. The strings will be automatically converted to datetimes before the validation is done. Warnings will then be issued and inform the user that values are invalid. If `return_values` is set to ``True``, a pandas Series will be returned with the values converted to the datetime data type. 
+Our first example shows how to validate a pandas Series with a few dates
+entered as strings. The strings will be automatically converted to datetimes
+before the validation is done. Warnings will then be issued and inform the
+user that values are invalid. If `return_values` is set to ``True``, a
+pandas Series will be returned with the values converted to the datetime
+data type.
 
 
 .. code-block:: pycon
@@ -48,7 +57,10 @@ Our first example shows how to validate a pandas Series with a few dates entered
 Validate numeric values
 -----------------------
 
-Validation of numeric values works similarly to validation of datetime values. Like in the example above, warnings will indicate invalid values to the user. If `return_values` is set to ``True``, a pandas Series will be returned with the values converted to a numeric data type. 
+Validation of numeric values works similarly to validation of datetime values.
+Like in the example above, warnings will indicate invalid values to the user.
+If `return_values` is set to ``True``, a pandas Series will be returned with
+the values converted to a numeric data type.
 
 .. code-block:: pycon
 
@@ -70,7 +82,11 @@ Validation of numeric values works similarly to validation of datetime values. L
 Validate strings
 ----------------
 
-String validation is similar to validation of numeric datetime or numeric values. Under the hood, all non-string values are converted to strings and warnings then issued if there are invalid values. If `return_values` is set to ``True``, a pandas Series will be returned with the values rendered as strings.
+String validation is similar to validation of numeric datetime or numeric
+values. Under the hood, all non-string values are converted to strings and
+warnings then issued if there are invalid values. If `return_values` is
+set to ``True``, a pandas Series will be returned with the values rendered
+as strings.
 
 .. code-block:: pycon
 
