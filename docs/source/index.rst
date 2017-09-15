@@ -6,14 +6,15 @@
 Welcome to pandas-validation's documentation!
 =============================================
 
-pandas-validation is a small Python package for casting and validating data handled with `pandas <http://pandas.pydata.org>`_.
+pandas-validation is a small Python package for casting and validating data
+handled with `pandas <http://pandas.pydata.org>`_.
 
 .. toctree::
    :caption: Contents
    :name: mastertoc
    :maxdepth: 2
    :glob:
-   
+
    pandas-validation/installation
    pandas-validation/quickstart
    pandas-validation/api
@@ -25,4 +26,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
