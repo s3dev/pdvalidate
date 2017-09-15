@@ -1,19 +1,19 @@
 # Changelog #
 
-Tracking changes in pandas-validation between versions. 
+Tracking changes in pandas-validation between versions.
 See also https://github.com/jmenglund/pandas-validation/releases.
 
 
 ## 0.1.1 ##
 
-This release contains a number of small fixes and enhancements.
+This patch release contains a number of small fixes.
 
+* Updated text *README.rst*
+* Updated instructions for Travis-CI (*.travis.yml*)
+* Added *release-checklist.rst*
+* Libraries for testing removed from *requirements.txt*
 
-### New features ###
-
-* 
-
-Released
+Released: 2017-09-15
 
 [View commits](https://github.com/jmenglund/pandas-validation/compare/v0.1.0...v0.1.1)
 
@@ -22,4 +22,4 @@ Released
 
 Initial release
 
-Released 2016-03-16
+Released: 2016-03-16

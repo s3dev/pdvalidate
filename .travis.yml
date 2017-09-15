@@ -1,8 +1,8 @@
 language: python
 
 python:
-    - '3.4'
     - '3.5'
+    - '3.6'
 
 # whitelist
 branches:
@@ -10,11 +10,14 @@ branches:
         - master
 
 before_install:
-    - pip install codecov
-    - pip install pytest pytest-cov
+    - pip install coverage
+    - pip install pytest
+    - pip install pytest-pep8
 
 script:
-    py.test --cov=pandasvalidation.py
+    - py.test pandasvalidation.py --pep8
+    - coverage run -m py.test
+    - coverage report --include pandasvalidation.py -m
 
 after_success:
-  - codecov
+    - codecov
