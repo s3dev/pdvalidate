@@ -1,24 +1,14 @@
 pandas-validation
 =================
 
+|Build-Status| |Coverage-Status| |PyPI-Status| |Doc-Status| |License|
+
 pandas-validation is a small Python library for validating data
 with the Python package `pandas <http://pandas.pydata.org>`_.
 
 Source repository: `<https://github.com/jmenglund/pandas-validation>`_
 
 Documentation at `<http://pandas-validation.readthedocs.io>`_
-
-.. image:: https://api.travis-ci.org/jmenglund/pandas-validation.svg?branch=master
-    :target: https://travis-ci.org/jmenglund/pandas-validation
-    :alt: Build status
-
-.. image:: https://codecov.io/gh/jmenglund/pandas-validation/branch/master/graph/badge.svg
-    :target: https://codecov.io/gh/jmenglund/pandas-validation
-    :alt: Code coverage
-
-.. image:: https://readthedocs.org/projects/pandas-validation/badge/?version=latest
-    :target: http://pandas-validation.readthedocs.io/en/latest/?badge=latest
-    :alt: Documentation Status
 
 
 Installation
@@ -77,4 +67,17 @@ Author
 
 Markus Englund, `orcid.org/0000-0003-1688-7112 <http://orcid.org/0000-0003-1688-7112>`_
 
+
+.. |Build-Status| image:: https://api.travis-ci.org/jmenglund/pandas-validation.svg?branch=master
+    :target: https://travis-ci.org/jmenglund/pandas-validation
+    :alt: Build status
+.. |Coverage-Status| image:: https://codecov.io/gh/jmenglund/pandas-validation/branch/master/graph/badge.svg
+    :target: https://codecov.io/gh/jmenglund/pandas-validation
+    :alt: Code coverage
+.. |PyPI-Status| image:: https://img.shields.io/pypi/v/pandas-validation.svg
+   :target: https://pypi.python.org/pypi/pandas-validation
+.. |Doc-Status| image:: https://readthedocs.org/projects/pandas-validation/badge/?version=latest
+    :target: http://pandas-validation.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
+.. |License| image:: https://img.shields.io/pypi/l/pandas-validation.svg
     :target: https://raw.githubusercontent.com/jmenglund/pandas-validation/master/LICENSE.txt
