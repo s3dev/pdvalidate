@@ -58,12 +58,13 @@ with `coverage <https://coverage.readthedocs.io/>`_:
 Building the documentation
 --------------------------
 
-The documentation can be built with `sphinx <http://www.sphinx-doc.org>`_:
+The documentation can be built with `Sphinx <http://www.sphinx-doc.org>`_:
 
 .. code-block::
 
     $ cd pandas-validation
     $ sphinx-build -b html ./docs/source ./docs/_build/html
+
 
 License
 -------
