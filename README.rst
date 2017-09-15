@@ -16,7 +16,7 @@ Documentation at `<http://pandas-validation.readthedocs.io>`_
     :target: https://codecov.io/gh/jmenglund/pandas-validation
     :alt: Code coverage
 
-.. image:: https://readthedocs.io/projects/pandas-validation/badge/?version=latest
+.. image:: http://pandas-validation.readthedocs.io/en/latest/?badge=latest
     :target: http://pandas-validation.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation status
 
