@@ -67,7 +67,7 @@ the values converted to a numeric data type.
     >>> s2 = pandas.Series(
     ...     [1, '1', '2.3', np.nan],
     ...     name='My numeric values')
-    >>> pv.validate_datetime(
+    >>> pv.validate_numeric(
     ...     s2,
     ...     nullable=False,
     ...     unique=True,
