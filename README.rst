@@ -21,7 +21,6 @@ Documentation at `<http://pandas-validation.readthedocs.io>`_
     :alt: Documentation Status
 
 
-
 Installation
 ------------
 
