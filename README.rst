@@ -10,15 +10,15 @@ Documentation at `<http://pandas-validation.readthedocs.io>`_
 
 .. image:: https://api.travis-ci.org/jmenglund/pandas-validation.svg?branch=master
     :target: https://travis-ci.org/jmenglund/pandas-validation
-    :alt: Documentation Status
+    :alt: Build status
 
 .. image:: https://codecov.io/gh/jmenglund/pandas-validation/branch/master/graph/badge.svg
     :target: https://codecov.io/gh/jmenglund/pandas-validation
     :alt: Code coverage
 
-.. image:: http://pandas-validation.readthedocs.io/en/latest/?badge=latest
+.. image:: https://readthedocs.org/projects/pandas-validation/badge/?version=latest
     :target: http://pandas-validation.readthedocs.io/en/latest/?badge=latest
-    :alt: Documentation status
+    :alt: Documentation Status
 
 
 
