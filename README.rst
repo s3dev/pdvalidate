@@ -71,4 +71,10 @@ License
 
 pandas-validation is distributed under the `MIT license <https://opensource.org/licenses/MIT>`_.
 
+
+Author
+------
+
+Markus Englund, `orcid.org/0000-0003-1688-7112 <http://orcid.org/0000-0003-1688-7112>`_
+
     :target: https://raw.githubusercontent.com/jmenglund/pandas-validation/master/LICENSE.txt
