@@ -64,4 +64,10 @@ The documentation can be built with `sphinx <http://www.sphinx-doc.org>`_:
 
     $ cd pandas-validation
     $ sphinx-build -b html ./docs/source ./docs/_build/html
+
+License
+-------
+
+pandas-validation is distributed under the `MIT license <https://opensource.org/licenses/MIT>`_.
+
     :target: https://raw.githubusercontent.com/jmenglund/pandas-validation/master/LICENSE.txt
