@@ -27,14 +27,14 @@ Installation
 For most users, the easiest way is probably to install the latest version
 hosted on `PyPI <https://pypi.python.org/>`_:
 
-.. code-block:: bash
+.. code-block::
 
     $ pip install pandas-validation
 
 The project is hosted at https://github.com/jmenglund/pandas-validation and
 can also be installed using git:
 
-.. code-block:: bash
+.. code-block::
 
     $ git clone https://github.com/jmenglund/pandas-validation.git
     $ cd pandas-validation
@@ -60,7 +60,8 @@ Build the documentation
 
 The documentation can be built with `sphinx <http://www.sphinx-doc.org>`_:
 
-.. code-block:: bash
+.. code-block::
 
     $ cd pandas-validation
     $ sphinx-build -b html ./docs/source ./docs/_build/html
+    :target: https://raw.githubusercontent.com/jmenglund/pandas-validation/master/LICENSE.txt
