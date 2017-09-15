@@ -41,8 +41,8 @@ can also be installed using git:
     $ python setup.py install
 
 
-Running tests
--------------
+Running the tests
+-----------------
 
 Testing is carried out with `pytest <http://pytest.org>`_. The following
 example shows how you can run the test suite and generate a coverage report
@@ -55,8 +55,8 @@ with `coverage <https://coverage.readthedocs.io/>`_:
     $ coverage report --include pandasvalidation.py -m
 
 
-Build the documentation
------------------------
+Building the documentation
+--------------------------
 
 The documentation can be built with `sphinx <http://www.sphinx-doc.org>`_:
 
