@@ -13,15 +13,15 @@ Things to remember when making a new release of pandas-validation.
 
     .. code-block:: bash
 
-    $ py.test -v --pep8 pandasvalidation.py
-    $ coverage run -m py.test
-    $ coverage report --include pandasvalidation.py -m
+        $ py.test -v --pep8 pandasvalidation.py
+        $ coverage run -m py.test
+        $ coverage report --include pandasvalidation.py -m
 
 #.  Update *README.rst* and the documentation (in `docs/`).
 
     .. code-block:: bash
 
-    $ sphinx-build -b html ./docs/source ./docs/_build/html
+        $ sphinx-build -b html ./docs/source ./docs/_build/html
 
 #.  Update *CHANGELOG.rst*.
 
@@ -33,5 +33,5 @@ Things to remember when making a new release of pandas-validation.
 
     .. code-block:: bash
 
-    $ python setup.py bdist_wheel --universal
-    $ python setup.py sdist
+        $ python setup.py bdist_wheel --universal
+        $ python setup.py sdist
