@@ -12,7 +12,6 @@ Things to remember when making a new release of pandas-validation.
 #.  Run tests with PEP8 check and report coverage:
 
     .. code-block:: console
-
         $ py.test -v --pep8 pandasvalidation.py
         $ coverage run -m py.test
         $ coverage report --include pandasvalidation.py -m
@@ -20,7 +19,6 @@ Things to remember when making a new release of pandas-validation.
 #.  Update *README.rst* and the documentation (in `docs/`).
 
     .. code-block:: console
-
         $ sphinx-build -b html ./docs/source ./docs/_build/html
 
 #.  Update *CHANGELOG.rst*.
@@ -32,6 +30,5 @@ Things to remember when making a new release of pandas-validation.
 #.  Create distributions and upload the files to `PyPI <https://pypi.python.org/pypi>`_.
 
     .. code-block:: console
-
         $ python setup.py bdist_wheel --universal
         $ python setup.py sdist
