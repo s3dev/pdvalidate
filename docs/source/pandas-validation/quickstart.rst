@@ -7,16 +7,15 @@ Quickstart
 
 This guide gives you a brief introduction on how to use pandas-validation.
 The library contains three core functions that let you validate values in a
-pandas Series. The examples shown below will help you get started. If you
-want to know more, I suggest that you have a look at the
-:ref:`API reference<api>`.
+pandas Series. The examples below will help you get started. If you want to
+know more, I suggest that you have a look at the :ref:`API reference<api>`.
 
 * :ref:`validate-dates`
 * :ref:`validate-numbers`
 * :ref:`validate-strings`
 
 
-The code examples below assumes that you first do the following imports:
+The code examples below assume that you first do the following imports:
 
 .. code-block:: pycon
 
@@ -32,8 +31,8 @@ Validate datetimes
 
 Our first example shows how to validate a pandas Series with a few dates
 entered as strings. The strings will be automatically converted to datetimes
-before the validation is done. Warnings will then be issued and inform the
-user that values are invalid. If `return_values` is set to ``True``, a
+before they are validated. Warnings will then be issued and inform the
+user that some values are invalid. If `return_values` is set to ``True``, a
 pandas Series will be returned with the values converted to the datetime
 data type.
 
