@@ -6,7 +6,7 @@ Things to remember when making a new release of pandas-validation.
 #.  Changes should be made to some branch other than master (a pull request
     should then be created before making the release).
 
-#.  Make desirable changes to code and docs.
+#.  Make desirable changes to the code.
 
 #.  Run tests with PEP8 check and report coverage:
 
