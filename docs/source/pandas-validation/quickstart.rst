@@ -7,9 +7,8 @@ Quickstart
 
 This guide gives you a brief introduction on how to use pandas-validation.
 The library contains three core functions that let you validate values in a
-pandas Series. The examples shown below will help you get started. If you
-want to know more, I suggest that you have a look at the
-:ref:`API reference<api>`.
+pandas Series. The examples below will help you get started. If you want to
+know more, I suggest that you have a look at the :ref:`API reference<api>`.
 
 * :ref:`validate-dates`
 * :ref:`validate-numbers`
