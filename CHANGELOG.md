@@ -8,10 +8,10 @@ See also https://github.com/jmenglund/pandas-validation/releases.
 
 This patch release contains a number of small fixes.
 
-* Updated text *README.rst*
-* Updated instructions for Travis-CI (*.travis.yml*)
-* Added *release-checklist.rst*
-* Libraries for testing removed from *requirements.txt*
+* Updated text `README.rst`
+* Updated instructions for Travis-CI (`.travis.yml`)
+* Added `release-checklist.rst`
+* Libraries for testing removed from `requirements.txt`
 
 Released: 2017-09-15
 
