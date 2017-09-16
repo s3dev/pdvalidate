@@ -22,7 +22,8 @@ can also be installed using git:
     $ python setup.py install
 
 .. tip::
-   You may consider installing pandas-validation (and its required packages)
-   within a virtual environment in order to avoid cluttering your system's
-   Python path. See for example the package
-   `virtualenv <https://virtualenv.pypa.io/en/latest/>`_.
+    You may consider installing pandas-validation and its required Python
+    packages within a virtual environment in order to avoid cluttering your
+    system's Python path. See for example the environment management system
+    `conda <http://conda.pydata.org>`_ or the package 
+    `virtualenv <https://virtualenv.pypa.io/en/latest/>`_.
