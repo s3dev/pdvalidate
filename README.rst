@@ -38,7 +38,7 @@ Testing is carried out with `pytest <http://pytest.org>`_. The following
 example shows how you can run the test suite and generate a coverage report
 with `coverage <https://coverage.readthedocs.io/>`_:
 
-.. code-block:: bash
+.. code-block::
 
     $ py.test -v --pep8 pandasvalidation.py
     $ coverage run -m py.test
