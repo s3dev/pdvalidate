@@ -3,35 +3,39 @@ Release checklist
 
 Things to remember when making a new release of pandas-validation.
 
-#.  Changes should be made to some branch other than master (a pull request should then be created before making the release).
+#.  Changes should be made to some branch other than master (a pull request
+    should then be created before making the release).
 
-#.  Update the release (version) numbers in *setup.py* and *pandasvalidation.py*.
-
-#.  Make desirable changes to the code.
+#.  Make desirable changes to code and docs.
 
 #.  Run tests with PEP8 check and report coverage:
 
-    .. code-block:: bash
+    .. code-block::
 
         $ py.test -v --pep8 pandasvalidation.py
         $ coverage run -m py.test
         $ coverage report --include pandasvalidation.py -m
 
-#.  Update *README.rst* and the documentation (in `docs/`).
+#.  Update `README.rst` and the documentation (in `docs/`).
 
-    .. code-block:: bash
+    .. code-block::
 
         $ sphinx-build -b html ./docs/source ./docs/_build/html
 
-#.  Update *CHANGELOG.rst*.
+#.  Update `CHANGELOG.rst`.
+
+#.  Update the release (version) numbers in `setup.py` and
+    `pandasvalidation.py`.
 
 #.  Create pull request(s) with changes for the new release.
 
+#.  Create distributions and upload the files to
+    `PyPI <https://pypi.python.org/pypi>`_ with
+    `twine <https://github.com/pypa/twine>`_.
+
+    .. code-block::
+
+        $ python setup.py sdist bdist_wheel
+        $ twine upload dist/*
+
 #.  Create the new release in GitHub.
-
-#.  Create distributions and upload the files to `PyPI <https://pypi.python.org/pypi>`_.
-
-    .. code-block:: bash
-
-        $ python setup.py bdist_wheel --universal
-        $ python setup.py sdist
