@@ -16,16 +16,16 @@ Things to remember when making a new release of pandas-validation.
         $ coverage run -m py.test
         $ coverage report --include pandasvalidation.py -m
 
-#.  Update `README.rst` and the documentation (in `docs/`).
+#.  Update ``README.rst`` and the documentation (in ``docs/``).
 
     .. code-block:: none
 
         $ sphinx-build -b html ./docs/source ./docs/_build/html
 
-#.  Update `CHANGELOG.rst`.
+#.  Update ``CHANGELOG.rst``.
 
 #.  Update the release (version) number in `setup.py` and
-    `pandasvalidation.py`. Use `Semantic Versioning <http://semver.org>`_.
+    ``pandasvalidation.py``. Use `Semantic Versioning <http://semver.org>`_.
 
 #.  Create pull request(s) with changes for the new release.
 
