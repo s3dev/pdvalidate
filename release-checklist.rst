@@ -10,7 +10,7 @@ Things to remember when making a new release of pandas-validation.
 
 #.  Run tests with PEP8 check and report coverage:
 
-    .. code-block::
+    .. code-block:: none
 
         $ py.test -v --pep8 pandasvalidation.py
         $ coverage run -m py.test
@@ -18,7 +18,7 @@ Things to remember when making a new release of pandas-validation.
 
 #.  Update `README.rst` and the documentation (in `docs/`).
 
-    .. code-block::
+    .. code-block:: none
 
         $ sphinx-build -b html ./docs/source ./docs/_build/html
 
@@ -33,7 +33,7 @@ Things to remember when making a new release of pandas-validation.
     `PyPI <https://pypi.python.org/pypi>`_ with
     `twine <https://github.com/pypa/twine>`_.
 
-    .. code-block::
+    .. code-block:: none
 
         $ python setup.py sdist bdist_wheel
         $ twine upload dist/*
