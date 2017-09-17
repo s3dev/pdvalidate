@@ -13,7 +13,7 @@ import pandas
 
 __authors__ = "Markus Englund"
 __license__ = "MIT"
-__version__ = '0.1.1'
+__version__ = '0.2.0'
 
 
 class ValidationWarning(Warning):
