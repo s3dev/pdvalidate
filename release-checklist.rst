@@ -24,7 +24,7 @@ Things to remember when making a new release of pandas-validation.
 
 #.  Update ``CHANGELOG.rst``.
 
-#.  Update the release (version) number in `setup.py` and
+#.  Update the release (version) number in ``setup.py`` and
     ``pandasvalidation.py``. Use `Semantic Versioning <http://semver.org>`_.
 
 #.  Create pull request(s) with changes for the new release.
