@@ -14,7 +14,7 @@ from pandasvalidation import (
     ValidationWarning,
     _datetime_to_string,
     _numeric_to_string,
-    not_convertible,
+    mask_nonconvertible,
     to_datetime,
     to_numeric,
     to_string,
@@ -23,7 +23,7 @@ from pandasvalidation import (
     validate_string)
 
 
-class TestNotConvertible():
+class TestMaskNonconvertible():
 
     mixed = pandas.Series([
         1, 2.3, numpy.nan, 'abc', pandas.datetime(2014, 1, 7), '2014'])
@@ -39,16 +39,17 @@ class TestNotConvertible():
 
     def test_numeric(self):
         assert_series_equal(
-            not_convertible(self.mixed, 'numeric'), self.inconvertible_numeric)
+            mask_nonconvertible(self.mixed, 'numeric'),
+            self.inconvertible_numeric)
 
     def test_datetime_exact_date(self):
         assert_series_equal(
-            not_convertible(
+            mask_nonconvertible(
                 self.mixed, 'datetime', datetime_format='%Y', exact_date=True),
             self.inconvertible_exact_dates)
 
         assert_series_equal(
-            not_convertible(
+            mask_nonconvertible(
                 self.mixed, 'datetime', datetime_format='%Y',
                 exact_date=False), self.inconvertible_inexact_dates)
 

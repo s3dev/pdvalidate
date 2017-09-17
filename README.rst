@@ -69,15 +69,17 @@ Markus Englund, `orcid.org/0000-0003-1688-7112 <http://orcid.org/0000-0003-1688-
 
 
 .. |Build-Status| image:: https://api.travis-ci.org/jmenglund/pandas-validation.svg?branch=master
-    :target: https://travis-ci.org/jmenglund/pandas-validation
-    :alt: Build status
+   :target: https://travis-ci.org/jmenglund/pandas-validation
+   :alt: Build status
 .. |Coverage-Status| image:: https://codecov.io/gh/jmenglund/pandas-validation/branch/master/graph/badge.svg
     :target: https://codecov.io/gh/jmenglund/pandas-validation
     :alt: Code coverage
 .. |PyPI-Status| image:: https://img.shields.io/pypi/v/pandas-validation.svg
    :target: https://pypi.python.org/pypi/pandas-validation
+   :alt: PyPI status
 .. |Doc-Status| image:: https://readthedocs.org/projects/pandas-validation/badge/?version=latest
-    :target: http://pandas-validation.readthedocs.io/en/latest/?badge=latest
-    :alt: Documentation Status
+   :target: http://pandas-validation.readthedocs.io/en/latest/?badge=latest
+   :alt: Documentatio status
 .. |License| image:: https://img.shields.io/pypi/l/pandas-validation.svg
-    :target: https://raw.githubusercontent.com/jmenglund/pandas-validation/master/LICENSE.txt
+   :target: https://raw.githubusercontent.com/jmenglund/pandas-validation/master/LICENSE.txt
+   :alt: License

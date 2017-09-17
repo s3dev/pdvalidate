@@ -1,9 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""
-Module for validating data managed with the pandas-package.
-"""
+"""Module for validating data with the library pandas."""
 
 import os
 import warnings
@@ -15,7 +13,7 @@ import pandas
 
 __authors__ = "Markus Englund"
 __license__ = "MIT"
-__version__ = '0.1.1'
+__version__ = '0.2.0'
 
 
 class ValidationWarning(Warning):
@@ -73,7 +71,7 @@ def _numeric_to_string(series, float_format='%g'):
     return converted.where(numeric_mask, series)
 
 
-def not_convertible(
+def mask_nonconvertible(
         series, to_datatype, datetime_format=None, exact_date=True):
     """
     Return a boolean same-sized object indicating whether values
@@ -112,7 +110,7 @@ def to_datetime(
         format=None, exact=True, coerce=None, unit='ns',
         infer_datetime_format=False):
     """
-    Convert argument to datetime and set inconvertible values as NaT.
+    Convert argument to datetime and set nonconvertible values to NaT.
 
     This function calls :func:`~pandas.to_datetime` with ``errors='coerce'``
     and issues a warning if values cannot be converted.
@@ -138,8 +136,8 @@ def to_datetime(
 
 def to_numeric(arg):
     """
-    Convert argument to numeric type and set inconvertible values
-    as NaN.
+    Convert argument to numeric type and set nonconvertible values
+    to NaN.
 
     This function calls :func:`~pandas.to_numeric` with ``errors='coerce'``
     and issues a warning if values cannot be converted.
@@ -187,7 +185,7 @@ def validate_datetime(
         series, nullable=True, unique=False,
         min_datetime=None, max_datetime=None, return_values=False):
     """
-    Validate a pandas Series with datetimes.
+    Validate a pandas Series containing datetimes.
 
     Parameters
     ----------
@@ -234,7 +232,7 @@ def validate_numeric(
         series, nullable=True, unique=False, integer=False,
         min_value=None, max_value=None, return_values=False):
     """
-    Validate a pandas Series with numeric values.
+    Validate a pandas Series containing numeric values.
 
     Parameters
     ----------
