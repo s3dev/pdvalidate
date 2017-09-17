@@ -22,7 +22,7 @@ Things to remember when making a new release of pandas-validation.
 
         $ sphinx-build -b html ./docs/source ./docs/_build/html
 
-#.  Update ``CHANGELOG.rst``.
+#.  Update ``CHANGELOG.rst`` and add a release date.
 
 #.  Update the release (version) number in ``setup.py`` and
     ``pandasvalidation.py``. Use `Semantic Versioning <http://semver.org>`_.
