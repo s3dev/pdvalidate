@@ -39,7 +39,7 @@ data type.
 
 .. code-block:: pycon
 
-    >>> s1 = pandas.Series(
+    >>> s1 = pd.Series(
     ...     ['2014', '2014-01-07', '2014-02-28', np.nan],
     ...     name='My dates')
     >>> pv.validate_datetime(
@@ -63,7 +63,7 @@ the values converted to a numeric data type.
 
 .. code-block:: pycon
 
-    >>> s2 = pandas.Series(
+    >>> s2 = pd.Series(
     ...     [1, '1', '2.3', np.nan],
     ...     name='My numeric values')
     >>> pv.validate_numeric(
@@ -89,7 +89,7 @@ as strings.
 
 .. code-block:: pycon
 
-    >>> s3 = pandas.Series(
+    >>> s3 = pd.Series(
     ...     [1, 1, 'ab\n', 'a b', 'Ab', 'AB', np.nan],
     ...     name='My strings')
     >>> pv.validate_string(
