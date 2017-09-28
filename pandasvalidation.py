@@ -38,7 +38,7 @@ def _datetime_to_string(series, format='%Y-%m-%d'):
     """
     converted = series.copy()
     datetime_mask = series.apply(type).isin(
-        [datetime.datetime, pandas.tslib.Timestamp])
+        [datetime.datetime, pandas.Timestamp])
     if datetime_mask.any():
         converted[datetime_mask] = (
             series[datetime_mask].apply(lambda x: x.strftime(format)))
