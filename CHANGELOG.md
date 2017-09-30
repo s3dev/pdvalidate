@@ -4,6 +4,18 @@ Tracking changes in pandas-validation between versions.
 See also https://github.com/jmenglund/pandas-validation/releases.
 
 
+## 0.2.1 ##
+
+This patch release contains a number of small fixes.
+
+* Corrected typos in the documentation's quickstart examples
+* Removed use of the deprecated pandas.tslib
+
+Released: not released yet
+
+[View commits](https://github.com/jmenglund/pandas-validation/compare/v0.2.0...v0.2.1)
+
+
 ## 0.2.0 ##
 
 This minor release contains the following changes:
