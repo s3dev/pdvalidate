@@ -138,7 +138,7 @@ def to_datetime(
         converted = pandas.to_datetime(
             arg, errors='raise', dayfirst=dayfirst, yearfirst=yearfirst,
             utc=utc, box=box, format=format, exact=exact)
-    except:
+    except ValueError:
         converted = pandas.to_datetime(
             arg, errors='coerce', dayfirst=dayfirst, yearfirst=yearfirst,
             utc=utc, box=box, format=format, exact=exact)
@@ -163,7 +163,7 @@ def to_numeric(arg):
     """
     try:
         converted = pandas.to_numeric(arg, errors='raise')
-    except:
+    except ValueError:
         converted = pandas.to_numeric(arg, errors='coerce')
         if isinstance(arg, pandas.Series):
             warnings.warn(
@@ -224,16 +224,16 @@ def validate_datetime(
     """
 
     error_info = {
-        'nonconvertible' : 'Value(s) not converted to datetime set as NaT',
-        'isnull' : 'NaT value(s)',
-        'nonunique' : 'duplicates',
-        'toolow' : 'date(s) too early',
-        'toohigh' : 'date(s) too late'}
+        'nonconvertible': 'Value(s) not converted to datetime set as NaT',
+        'isnull': 'NaT value(s)',
+        'nonunique': 'duplicates',
+        'toolow': 'date(s) too early',
+        'toohigh': 'date(s) too late'}
 
     if not series.dtype.type == numpy.datetime64:
-         converted = pandas.to_datetime(series, errors='coerce')
+        converted = pandas.to_datetime(series, errors='coerce')
     else:
-         converted = series.copy()
+        converted = series.copy()
     masks = {}
     masks['nonconvertible'] = series.notnull() & converted.isnull()
     if not nullable:
