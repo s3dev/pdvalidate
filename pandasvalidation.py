@@ -71,6 +71,25 @@ def _numeric_to_string(series, float_format='%g'):
     return converted.where(numeric_mask, series)
 
 
+def _get_error_messages(masks, error_info):
+    """
+    Get list of error messages.
+
+    Parameters
+    ----------
+    masks : list
+        List of pandas.Series with masked errors.
+    error_info : dict
+        Dictionary with error messages corresponding to different
+        validation errors.
+    """
+    msg_list = []
+    for key, value in masks.items():
+        if value.any():
+            msg_list.append(error_info[key])
+    return msg_list
+
+
 def mask_nonconvertible(
         series, to_datatype, datetime_format=None, exact_date=True):
     """
