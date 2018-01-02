@@ -12,9 +12,9 @@ Things to remember when making a new release of pandas-validation.
 
     .. code-block:: none
 
-        $ py.test -v --pep8 pandasvalidation.py
-        $ coverage run -m py.test
-        $ coverage report --include pandasvalidation.py -m
+        $ pytest -v test_pandasvalidation.py
+        $ coverage run -m pytest test_pandasvalidation.py
+        $ coverage report -m pandasvalidation.py
 
 #.  Update ``README.rst`` and the documentation (in ``docs/``).
 
