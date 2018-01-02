@@ -201,8 +201,8 @@ def to_string(series, float_format='%g', datetime_format='%Y-%m-%d'):
 
 
 def validate_datetime(
-        series, nullable=True, unique=False,
-        min_datetime=None, max_datetime=None, return_values=False):
+        series, nullable=True, unique=False, min_datetime=None,
+        max_datetime=None, return_type=None):
     """
     Validate a pandas Series containing datetimes.
 
@@ -218,33 +218,49 @@ def validate_datetime(
         If defined, check for values before min_date. Optional.
     max_datetime : str
         If defined, check for value later than max_date. Optional.
-    return_values : bool
-        If True, return validated values. Default: False.
+    return_type : str
+        Kind of data to return; 'mask_series', 'mask_frame'
+        or 'values'. Default: None.
     """
+
+    error_info = {
+        'nonconvertible' : 'Value(s) not converted to datetime set as NaT',
+        'isnull' : 'NaT value(s)',
+        'nonunique' : 'duplicates',
+        'toolow' : 'date(s) too early',
+        'toohigh' : 'date(s) too late'}
+
     if not series.dtype.type == numpy.datetime64:
-        validated = to_datetime(series)
+         converted = pandas.to_datetime(series, errors='coerce')
     else:
-        validated = series.copy()
-    if not nullable and validated.isnull().any():
-        warnings.warn(
-            '{}: NaT value(s)'
-            .format(repr(validated.name)), ValidationWarning)
-    if unique and validated.duplicated().any():
-        warnings.warn(
-            '{}: duplicates'
-            .format(repr(validated.name)), ValidationWarning)
-    if min_datetime is not None and (validated.dropna() < min_datetime).any():
-        warnings.warn(
-            '{}: date(s) too early (before {})'
-            .format(repr(validated.name), repr(min_datetime)),
-            ValidationWarning)
-    if max_datetime is not None and (validated.dropna() > max_datetime).any():
-        warnings.warn(
-            '{}: date(s) too late (after {})'
-            .format(repr(validated.name), repr(max_datetime)),
-            ValidationWarning)
-    if return_values:
-        return validated
+         converted = series.copy()
+    masks = {}
+    masks['nonconvertible'] = series.notnull() & converted.isnull()
+    if not nullable:
+        masks['isnull'] = converted.isnull()
+    if unique:
+        masks['nonunique'] = converted.dropna().duplicated()
+    if min_datetime:
+        masks['toolow'] = converted.dropna() < min_datetime
+    if max_datetime:
+        masks['toohigh'] = converted.dropna() > max_datetime
+
+    msg_list = _get_error_messages(masks, error_info)
+
+    if len(msg_list) > 0:
+        msg = repr(series.name) + ': ' + '; '.join(msg_list) + '.'
+        warnings.warn(msg, ValidationWarning)
+
+    if return_type is not None:
+        mask_frame = pandas.concat(masks, axis='columns')
+        if return_type == 'mask_frame':
+            return mask_frame
+        elif return_type == 'mask_series':
+            return mask_frame.any(axis=1)
+        elif return_type == 'values':
+            return converted.where(~mask_frame.any(axis=1))
+        else:
+            raise ValueError('Invalid return_type')
 
 
 def validate_numeric(
