@@ -152,8 +152,8 @@ class TestValidateNumber():
     def test_validation(self):
 
         assert_series_equal(
-            validate_numeric(self.numeric_as_strings, return_values=True),
-            validate_numeric(self.numeric, return_values=True))
+            validate_numeric(self.numeric_as_strings, return_type='values'),
+            validate_numeric(self.numeric, return_type='values'))
 
         pytest.warns(
             ValidationWarning, validate_numeric, self.numeric, nullable=False)
