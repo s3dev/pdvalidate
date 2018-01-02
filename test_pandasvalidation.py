@@ -126,8 +126,8 @@ class TestValidateDatetime():
     def test_validation(self):
 
         assert_series_equal(
-            validate_datetime(self.dates_as_strings, return_values=True),
-            validate_datetime(self.dates, return_values=True))
+            validate_datetime(self.dates_as_strings, return_type='values'),
+            validate_datetime(self.dates, return_type='values'))
 
         pytest.warns(
             ValidationWarning, validate_datetime, self.dates, nullable=False)
