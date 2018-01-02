@@ -219,7 +219,7 @@ def validate_datetime(
     max_datetime : str
         If defined, check for value later than max_date. Optional.
     return_type : str
-        Kind of data to return; 'mask_series', 'mask_frame'
+        Kind of data object to return; 'mask_series', 'mask_frame'
         or 'values'. Default: None.
     """
 
