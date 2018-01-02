@@ -265,7 +265,7 @@ def validate_datetime(
 
 def validate_numeric(
         series, nullable=True, unique=False, integer=False,
-        min_value=None, max_value=None, return_values=False):
+        min_value=None, max_value=None, return_type=None):
     """
     Validate a pandas Series containing numeric values.
 
@@ -283,35 +283,55 @@ def validate_numeric(
         If defined, check for values below minimum. Optional.
     max_value : int
         If defined, check for value above maximum. Optional.
-    return_values : bool
-        If True, return validated values. Default: False.
+    return_type : str
+        Kind of data object to return; 'mask_series', 'mask_frame'
+        or 'values'. Default: None.
     """
+
+    error_info = {
+        'nonconvertible': 'Value(s) not converted to datetime set as NaT',
+        'isnull': 'NaN value(s)',
+        'nonunique': 'duplicates',
+        'noninteger': 'non-integer(s)',
+        'toolow': 'value(s) too low',
+        'toohigh': 'values(s) too high'}
+
     if not numpy.issubdtype(series.dtype, numpy.number):
-        validated = to_numeric(series)
+        converted = pandas.to_numeric(series, errors='coerce')
     else:
-        validated = series.copy()
-    if not nullable and validated.isnull().any():
-        warnings.warn(
-            '{}: NaN value(s)'
-            .format(repr(validated.name)), ValidationWarning)
-    if unique and validated.duplicated().any():
-        warnings.warn(
-            '{}: duplicates'
-            .format(repr(validated.name)), ValidationWarning)
-    if integer and (validated.dropna() != validated.dropna().apply(int)).any():
-        warnings.warn(
-            '{}: non-integer(s)'
-            .format(repr(validated.name)), ValidationWarning)
-    if min_value is not None and (validated.dropna() < min_value).any():
-        warnings.warn(
-            '{}: value(s) too low (< {})'
-            .format(repr(validated.name), min_value), ValidationWarning)
-    if max_value is not None and (validated.dropna() > max_value).any():
-        warnings.warn(
-            '{}: value(s) too high (> {})'
-            .format(repr(validated.name), max_value), ValidationWarning)
-    if return_values:
-        return validated
+        converted = series.copy()
+
+    masks = {}
+    masks['nonconvertible'] = series.notnull() & converted.isnull()
+    if not nullable:
+        masks['isnull'] = converted.isnull()
+    if unique:
+        masks['nonunique'] = converted.dropna().duplicated()
+    if integer:
+        null_dropped = (
+            converted.dropna() != converted.dropna().apply(int)).any()
+        masks['noninteger'] = pandas.Series(null_dropped, index=series.index)
+    if min_value:
+        masks['toolow'] = converted.dropna() < min_value
+    if max_value:
+        masks['toohigh'] = converted.dropna() > max_value
+
+    msg_list = _get_error_messages(masks, error_info)
+
+    if len(msg_list) > 0:
+        msg = repr(series.name) + ': ' + '; '.join(msg_list) + '.'
+        warnings.warn(msg, ValidationWarning)
+
+    if return_type is not None:
+        mask_frame = pandas.concat(masks, axis='columns')
+        if return_type == 'mask_frame':
+            return mask_frame
+        elif return_type == 'mask_series':
+            return mask_frame.any(axis=1)
+        elif return_type == 'values':
+            return converted.where(~mask_frame.any(axis=1))
+        else:
+            raise ValueError('Invalid return_type')
 
 
 def validate_string(
