@@ -227,8 +227,8 @@ def validate_datetime(
         'nonconvertible': 'Value(s) not converted to datetime set as NaT',
         'isnull': 'NaT value(s)',
         'nonunique': 'duplicates',
-        'toolow': 'date(s) too early',
-        'toohigh': 'date(s) too late'}
+        'too_low': 'date(s) too early',
+        'too_high': 'date(s) too late'}
 
     if not series.dtype.type == numpy.datetime64:
         converted = pandas.to_datetime(series, errors='coerce')
@@ -241,9 +241,9 @@ def validate_datetime(
     if unique:
         masks['nonunique'] = converted.dropna().duplicated()
     if min_datetime:
-        masks['toolow'] = converted.dropna() < min_datetime
+        masks['too_low'] = converted.dropna() < min_datetime
     if max_datetime:
-        masks['toohigh'] = converted.dropna() > max_datetime
+        masks['too_high'] = converted.dropna() > max_datetime
 
     msg_list = _get_error_messages(masks, error_info)
 
@@ -293,8 +293,8 @@ def validate_numeric(
         'isnull': 'NaN value(s)',
         'nonunique': 'duplicates',
         'noninteger': 'non-integer(s)',
-        'toolow': 'value(s) too low',
-        'toohigh': 'values(s) too high'}
+        'too_low': 'value(s) too low',
+        'too_high': 'values(s) too high'}
 
     if not numpy.issubdtype(series.dtype, numpy.number):
         converted = pandas.to_numeric(series, errors='coerce')
@@ -312,9 +312,9 @@ def validate_numeric(
             converted.dropna() != converted.dropna().apply(int)).any()
         masks['noninteger'] = pandas.Series(null_dropped, index=series.index)
     if min_value:
-        masks['toolow'] = converted.dropna() < min_value
+        masks['too_low'] = converted.dropna() < min_value
     if max_value:
-        masks['toohigh'] = converted.dropna() > max_value
+        masks['too_high'] = converted.dropna() > max_value
 
     msg_list = _get_error_messages(masks, error_info)
 
