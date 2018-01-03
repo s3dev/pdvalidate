@@ -375,8 +375,9 @@ def validate_string(
         Check that values are in `whitelist`. Optional.
     blacklist : list
         Check that values are not in `blacklist`. Optional.
-    return_values : bool
-        If True, return validated values. Default: False.
+    return_type : str
+        Kind of data object to return; 'mask_series', 'mask_frame'
+        or 'values'. Default: None.
     """
     if series.dropna().apply(lambda x: not isinstance(x, str)).any():
         validated = to_string(series)
