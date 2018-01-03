@@ -73,13 +73,15 @@ and the `Read the Docs Sphinx Theme
 License
 -------
 
-pandas-validation is distributed under the `MIT license <https://opensource.org/licenses/MIT>`_.
+pandas-validation is distributed under the `MIT license
+<https://opensource.org/licenses/MIT>`_.
 
 
 Author
 ------
 
-Markus Englund, `orcid.org/0000-0003-1688-7112 <http://orcid.org/0000-0003-1688-7112>`_
+Markus Englund, `orcid.org/0000-0003-1688-7112
+<http://orcid.org/0000-0003-1688-7112>`_
 
 
 .. |Build-Status| image:: https://api.travis-ci.org/jmenglund/pandas-validation.svg?branch=master
