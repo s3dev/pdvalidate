@@ -37,10 +37,11 @@ pandas Series will be returned with the values converted to the datetime
 data type.
 
 
-.. code-block:: pycon
+.. code-block:: python
 
     s1 = pd.Series(
-        ['2014', '2014-01-07', '2014-02-28', np.nan], name='My dates')
+        ['2014', '2014-01-07', '2014-02-28', np.nan],
+        name='My dates')
     pv.validate_datetime(
         s1,
         nullable=False,
@@ -60,10 +61,11 @@ Like in the example above, warnings will indicate invalid values to the user.
 If `return_values` is set to ``True``, a pandas Series will be returned with
 the values converted to a numeric data type.
 
-.. code-block:: pycon
+.. code-block:: python
 
     s2 = pd.Series(
-        [1, '1', '2.3', np.nan], name='My numeric values')
+        [1, '1', '2.3', np.nan],
+        name='My numeric values')
     pv.validate_numeric(
         s2,
         nullable=False,
@@ -85,10 +87,11 @@ warnings then issued if there are invalid values. If `return_values` is
 set to ``True``, a pandas Series will be returned with the values rendered
 as strings.
 
-.. code-block:: pycon
+.. code-block:: python
 
     s3 = pd.Series(
-        [1, 1, 'ab\n', 'a b', 'Ab', 'AB', np.nan], name='My strings')
+        [1, 1, 'ab\n', 'a b', 'Ab', 'AB', np.nan],
+        name='My strings')
     pv.validate_string(
         s3,
         nullable=False,
@@ -99,4 +102,4 @@ as strings.
         newlines=False,
         trailing_whitespace=False,
         whitespace=False,
-        return_type=None)
+        return_type=False)
