@@ -413,16 +413,16 @@ def validate_string(
         wrong_case_dropped = (
             altered_case.dropna() != converted[altered_case.notnull()])
         masks['wrong_case'] = pandas.Series(wrong_case_dropped, series.index)
-    if newlines == False:
+    if newlines is False:
         masks['newlines'] = converted.str.contains(os.linesep)
-    if trailing_whitespace == False:
+    if trailing_whitespace is False:
         masks['trailing_space'] = converted.str.contains('^\s|\s$', regex=True)
-    if whitespace == False:
+    if whitespace is False:
         masks['whitespace'] = converted.str.contains('\s', regex=True)
     if matching_regex:
-        regex_match_true = (
-            converted.dropna().str.contains(matching_regex, regex=True))
-        masks['regex_mismatch'] = regex_match_true == False
+        masks['regex_mismatch'] = (
+            converted.str.contains(matching_regex, regex=True)
+            .apply(lambda x: x is False) & converted.notnull())
     if non_matching_regex:
         masks['regex_match'] = converted.str.contains(
             non_matching_regex, regex=True)
