@@ -13,7 +13,7 @@ import pandas
 
 __author__ = 'Markus Englund'
 __license__ = 'MIT'
-__version__ = '0.2.0'
+__version__ = '0.3.0'
 
 
 class ValidationWarning(Warning):
@@ -428,7 +428,7 @@ def validate_string(
             non_matching_regex, regex=True)
     if whitelist is not None:
         masks['not_in_whitelist'] = (
-            converted.notnull() & converted.isin(whitelist))
+            converted.notnull() & ~converted.isin(whitelist))
     if blacklist is not None:
         masks['in_blacklist'] = (
             converted.isin(blacklist) == False & converted.notnull())
