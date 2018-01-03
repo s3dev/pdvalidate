@@ -17,8 +17,8 @@ install:
 
 script:
     - pycodestyle pandasvalidation.py test_pandasvalidation.py setup.py
-    - coverage run -m pytest test_pandasvalidation
-    - c- coverage report -m pandasvalidation.py
+    - coverage run -m pytest test_pandasvalidation.py
+    - coverage report -m pandasvalidation.py
 
 after_success:
     - codecov
