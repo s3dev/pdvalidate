@@ -101,4 +101,4 @@ strings.
         newlines=False,
         trailing_whitespace=False,
         whitespace=False,
-        return_type=False)
+        return_type=None)
