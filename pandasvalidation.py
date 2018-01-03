@@ -306,7 +306,7 @@ def validate_numeric(
     if not nullable:
         masks['isnull'] = converted.isnull()
     if unique:
-        masks['nonunique'] = converted.dropna().duplicated()
+        masks['nonunique'] = converted.duplicated() & converted.notnull()
     if integer:
         null_dropped = (
             converted.dropna() != converted.dropna().apply(int)).any()
