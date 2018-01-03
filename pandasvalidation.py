@@ -430,8 +430,7 @@ def validate_string(
         masks['not_in_whitelist'] = (
             converted.notnull() & ~converted.isin(whitelist))
     if blacklist is not None:
-        masks['in_blacklist'] = (
-            converted.isin(blacklist) == False & converted.notnull())
+        masks['in_blacklist'] = converted.isin(blacklist)
 
     msg_list = _get_error_messages(masks, error_info)
 
