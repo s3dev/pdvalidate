@@ -379,6 +379,22 @@ def validate_string(
         Kind of data object to return; 'mask_series', 'mask_frame'
         or 'values'. Default: None.
     """
+
+    error_info = {
+        'nonconvertible': 'Value(s) not converted to datetime set as NaT',
+        'isnull': 'NaN value(s)',
+        'nonunique': 'duplicates',
+        'too_short': 'string(s) too short',
+        'too_long': 'string(s) too long',
+        'wrong_case': 'wrong case letter(s)',
+        'newlines': 'newline character(s)',
+        'trailing_space': 'trailing whitespace',
+        'whitespace': 'whitespace',
+        'regex_mismatch': 'mismatch(es) for "matching regular expression"',
+        'regex_match': 'match(es) for "non-matching regular expression"',
+        'not_in_whitelist': 'string(s) not in whitelist',
+        'in_blacklist': 'string(s) in blacklist'}
+
     if series.dropna().apply(lambda x: not isinstance(x, str)).any():
         validated = to_string(series)
     else:
