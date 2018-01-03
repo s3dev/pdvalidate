@@ -46,4 +46,5 @@ Things to remember when making a new release of pandas-validation.
 
 #.  Create the new release in GitHub.
 
-#.  Trigger a new build of the documentation on `http://readthedocs.io`_.
+#.  Trigger a new build (latest version) of the documentation on
+    `http://readthedocs.io`_.
