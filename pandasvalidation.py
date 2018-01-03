@@ -308,9 +308,9 @@ def validate_numeric(
     if unique:
         masks['nonunique'] = converted.duplicated() & converted.notnull()
     if integer:
-        null_dropped = (
-            converted.dropna() != converted.dropna().apply(int)).any()
-        masks['noninteger'] = pandas.Series(null_dropped, index=series.index)
+        noninteger_dropped = (
+            converted.dropna() != converted.dropna().apply(int))
+        masks['noninteger'] = pandas.Series(noninteger_dropped, series.index)
     if min_value:
         masks['too_low'] = converted.dropna() < min_value
     if max_value:
