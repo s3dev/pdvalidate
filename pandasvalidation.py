@@ -396,70 +396,60 @@ def validate_string(
         'in_blacklist': 'string(s) in blacklist'}
 
     if series.dropna().apply(lambda x: not isinstance(x, str)).any():
-        validated = to_string(series)
+        converted = to_string(series)
     else:
-        validated = series.copy()
-    if not nullable and validated.isnull().any():
-        warnings.warn(
-            '{}: NaN value(s)'
-            .format(repr(validated.name)), ValidationWarning)
-    if unique and validated.duplicated().any():
-        warnings.warn(
-            '{}: duplicates'.format(repr(validated.name)), ValidationWarning)
-    if min_length is not None and (validated.str.len().min() < min_length):
-        warnings.warn(
-            '{}: string(s) too short (< {} characters)'
-            .format(repr(validated.name), min_length), ValidationWarning)
-    if max_length is not None and (validated.str.len().max() > max_length):
-        warnings.warn(
-            '{}: string(s) too long (> {} characters)'
-            .format(repr(validated.name), max_length), ValidationWarning)
-    if case and not getattr(validated.dropna().str, 'is' + case)().all():
-        warnings.warn(
-            '{}: wrong case letter(s) (non-{}case)'
-            .format(repr(validated.name), case), ValidationWarning)
-    if not newlines and validated.str.contains(os.linesep, na=False).any():
-        warnings.warn(
-            '{}: newline character(s)'
-            .format(repr(validated.name)), ValidationWarning)
-    if (
-        not trailing_whitespace and
-        validated.str.contains('^\s|\s$', regex=True, na=False).any()
-    ):
-        warnings.warn(
-            '{}: trailing whitespace'
-            .format(repr(validated.name)), ValidationWarning)
-    if (
-        not whitespace and
-        validated.str.contains('\s', regex=True, na=False).any()
-    ):
-        warnings.warn(
-            '{}: whitespace'
-            .format(repr(validated.name)), ValidationWarning)
-    if matching_regex and not (
-        validated.dropna().str.contains(matching_regex, na=True, regex=True)
-        .all()
-    ):
-        warnings.warn(
-            '{}: mismatch(es) for "matching regular expression" ({})'
-            .format(repr(validated.name), repr(matching_regex)),
-            ValidationWarning)
-    if non_matching_regex and (
-        validated.dropna()
-        .str.contains(non_matching_regex, na=False, regex=True)
-        .any()
-    ):
-        warnings.warn(
-            '{}: match(es) for "non-matching regular expression" ({})'
-            .format(repr(validated.name), repr(non_matching_regex)),
-            ValidationWarning)
-    if whitelist is not None and not validated.dropna().isin(whitelist).all():
-        warnings.warn(
-            '{}: Value(s) not in whitelist'
-            .format(repr(validated.name)), ValidationWarning)
-    if blacklist is not None and validated.dropna().isin(blacklist).any():
-        warnings.warn(
-            '{}: Value(s) in blacklist'
-            .format(repr(validated.name)), ValidationWarning)
-    if return_values:
-        return validated
+        converted = series.copy()
+
+    masks = {}
+    masks['nonconvertible'] = series.notnull() & converted.isnull()
+    if not nullable:
+        masks['isnull'] = converted.isnull()
+    if unique:
+        masks['nonunique'] = converted.duplicated() & converted.notnull()
+    if min_length:
+        too_short_dropped = converted.dropna().apply(len) < min_length
+        masks['too_short'] = pandas.Series(too_short_dropped, series.index)
+    if max_length:
+        too_long_dropped = converted.dropna().apply(len) > max_length
+        masks['too_long'] = pandas.Series(too_long_dropped, series.index)
+    if case:
+        altered_case = getattr(converted.str, case)()
+        wrong_case_dropped = (
+            altered_case.dropna() != converted[altered_case.notnull()])
+        masks['wrong_case'] = pandas.Series(wrong_case_dropped, series.index)
+    if newlines == False:
+        masks['newlines'] = converted.str.contains(os.linesep)
+    if trailing_whitespace == False:
+        masks['trailing_space'] = converted.str.contains('^\s|\s$', regex=True)
+    if whitespace == False:
+        masks['whitespace'] = converted.str.contains('\s', regex=True)
+    if matching_regex:
+        regex_match_true = (
+            converted.dropna().str.contains(matching_regex, regex=True))
+        masks['regex_mismatch'] = regex_match_true == False
+    if non_matching_regex:
+        masks['regex_match'] = converted.str.contains(
+            non_matching_regex, regex=True)
+    if whitelist is not None:
+        masks['not_in_whitelist'] = (
+            converted.notnull() & converted.isin(whitelist))
+    if blacklist is not None:
+        masks['in_blacklist'] = (
+            converted.isin(blacklist) == False & converted.notnull())
+
+    msg_list = _get_error_messages(masks, error_info)
+
+    if len(msg_list) > 0:
+        msg = repr(series.name) + ': ' + '; '.join(msg_list) + '.'
+        warnings.warn(msg, ValidationWarning)
+
+    if return_type is not None:
+        mask_frame = pandas.concat(masks, axis='columns')
+        if return_type == 'mask_frame':
+            return mask_frame
+        elif return_type == 'mask_series':
+            return mask_frame.any(axis=1)
+        elif return_type == 'values':
+            return converted.where(~mask_frame.any(axis=1))
+        else:
+            raise ValueError('Invalid return_type')
