@@ -8,12 +8,13 @@ import pytest
 import numpy
 import pandas
 
-from pandas.util.testing import assert_series_equal
+from pandas.util.testing import assert_series_equal, assert_frame_equal
 
 from pandasvalidation import (
     ValidationWarning,
     _datetime_to_string,
     _numeric_to_string,
+    _get_return_object,
     mask_nonconvertible,
     to_datetime,
     to_numeric,
@@ -21,6 +22,35 @@ from pandasvalidation import (
     validate_datetime,
     validate_numeric,
     validate_string)
+
+
+class TestReturnTypes():
+
+    strings = pandas.Series(['1', '1', 'ab\n', 'a b', 'Ab', 'AB', numpy.nan])
+    masks = [
+        pandas.Series([False, False, False, True, True, False, False]),
+        pandas.Series([True, True, False, True, True, False, True])]
+
+    def test_return_mask_series(self):
+        assert_series_equal(
+            _get_return_object(self.masks, self.strings, 'mask_series'),
+            pandas.Series([True, True, False, True, True, False, True]))
+
+    def test_return_mask_frame(self):
+        assert_frame_equal(
+            _get_return_object(self.masks, self.strings, 'mask_frame'),
+            pandas.concat(self.masks, axis='columns'))
+
+    def test_return_values(self):
+        assert_series_equal(
+            _get_return_object(self.masks, self.strings, 'values'),
+            pandas.Series([
+                numpy.nan, numpy.nan, 'ab\n', numpy.nan,
+                numpy.nan, 'AB', numpy.nan]))
+
+    def test_wrong_return_type(self):
+        with pytest.raises(ValueError):
+            _get_return_object(self.masks, self.strings, 'wrong return type')
 
 
 class TestMaskNonconvertible():

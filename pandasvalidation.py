@@ -90,6 +90,18 @@ def _get_error_messages(masks, error_info):
     return msg_list
 
 
+def _get_return_object(masks, values, return_type):
+    mask_frame = pandas.concat(masks, axis='columns')
+    if return_type == 'mask_frame':
+        return mask_frame
+    elif return_type == 'mask_series':
+        return mask_frame.any(axis=1)
+    elif return_type == 'values':
+        return values.where(~mask_frame.any(axis=1))
+    else:
+        raise ValueError('Invalid return_type')
+
+
 def mask_nonconvertible(
         series, to_datatype, datetime_format=None, exact_date=True):
     """
@@ -252,15 +264,7 @@ def validate_datetime(
         warnings.warn(msg, ValidationWarning)
 
     if return_type is not None:
-        mask_frame = pandas.concat(masks, axis='columns')
-        if return_type == 'mask_frame':
-            return mask_frame
-        elif return_type == 'mask_series':
-            return mask_frame.any(axis=1)
-        elif return_type == 'values':
-            return converted.where(~mask_frame.any(axis=1))
-        else:
-            raise ValueError('Invalid return_type')
+        return _get_return_object(masks, converted, return_type)
 
 
 def validate_numeric(
@@ -323,15 +327,7 @@ def validate_numeric(
         warnings.warn(msg, ValidationWarning)
 
     if return_type is not None:
-        mask_frame = pandas.concat(masks, axis='columns')
-        if return_type == 'mask_frame':
-            return mask_frame
-        elif return_type == 'mask_series':
-            return mask_frame.any(axis=1)
-        elif return_type == 'values':
-            return converted.where(~mask_frame.any(axis=1))
-        else:
-            raise ValueError('Invalid return_type')
+        return _get_return_object(masks, converted, return_type)
 
 
 def validate_string(
@@ -444,12 +440,4 @@ def validate_string(
         warnings.warn(msg, ValidationWarning)
 
     if return_type is not None:
-        mask_frame = pandas.concat(masks, axis='columns')
-        if return_type == 'mask_frame':
-            return mask_frame
-        elif return_type == 'mask_series':
-            return mask_frame.any(axis=1)
-        elif return_type == 'values':
-            return converted.where(~mask_frame.any(axis=1))
-        else:
-            raise ValueError('Invalid return_type')
+        return _get_return_object(masks, converted, return_type)
