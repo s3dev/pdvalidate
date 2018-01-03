@@ -32,9 +32,8 @@ Validate datetimes
 Our first example shows how to validate a pandas Series with a few dates
 entered as strings. The strings will be automatically converted to datetimes
 before they are validated. Warnings will then be issued and inform the
-user that some values are invalid. If `return_values` is set to ``True``, a
-pandas Series will be returned with the values converted to the datetime
-data type.
+user that some values are invalid. If `return_type` is set to ``values``, a
+pandas Series will be returned with only the valid datetime values.
 
 
 .. code-block:: python
@@ -58,8 +57,8 @@ Validate numeric values
 
 Validation of numeric values works similarly to validation of datetime values.
 Like in the example above, warnings will indicate invalid values to the user.
-If `return_values` is set to ``True``, a pandas Series will be returned with
-the values converted to a numeric data type.
+If `return_type` is set to ``values``, a pandas Series will be returned with
+only the valid numeric values.
 
 .. code-block:: python
 
@@ -83,9 +82,9 @@ Validate strings
 
 String validation is similar to validation of numeric datetime or numeric
 values. Under the hood, all non-string values are converted to strings and
-warnings then issued if there are invalid values. If `return_values` is
-set to ``True``, a pandas Series will be returned with the values rendered
-as strings.
+warnings then issued if there are invalid values. If `return_type` is
+set to ``values``, a pandas Series will be returned with only the valid
+strings.
 
 .. code-block:: python
 
