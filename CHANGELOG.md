@@ -14,8 +14,8 @@ This minor release contains the following changes:
   values.
 * A few tests have been added to `test_pandasvalidation.py`. The code now has
   full test coverage.
-* Some minor updates to the documentation
-* Removed use of the deprecated pandas.tslib
+* Updates to the documentation.
+* Removed use of the deprecated `pandas.tslib`
 
 Released: 2018-01-03
 
