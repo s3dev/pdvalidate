@@ -239,7 +239,7 @@ def validate_datetime(
     if not nullable:
         masks['isnull'] = converted.isnull()
     if unique:
-        masks['nonunique'] = converted.dropna().duplicated()
+        masks['nonunique'] = converted.duplicated() & converted.notnull()
     if min_datetime:
         masks['too_low'] = converted.dropna() < min_datetime
     if max_datetime:
