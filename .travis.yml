@@ -9,15 +9,16 @@ branches:
     only:
         - master
 
-before_install:
-    - pip install coverage
+install:
+    - pip install .
+    - pip install pycodestyle
     - pip install pytest
-    - pip install pytest-pep8
+    - pip install coverage
 
 script:
-    - py.test pandasvalidation.py --pep8
-    - coverage run -m py.test
-    - coverage report --include pandasvalidation.py -m
+    - pycodestyle pandasvalidation.py test_pandasvalidation.py setup.py
+    - coverage run -m pytest test_pandasvalidation.py
+    - coverage report -m pandasvalidation.py
 
 after_success:
     - codecov

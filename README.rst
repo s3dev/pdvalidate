@@ -34,21 +34,35 @@ can also be installed using git:
 Running the tests
 -----------------
 
-Testing is carried out with `pytest <http://pytest.org>`_. The following
-example shows how you can run the test suite and generate a coverage report
-with `coverage <https://coverage.readthedocs.io/>`_:
+Testing is carried out with `pytest <https://docs.pytest.org/>`_:
 
 .. code-block::
 
-    $ py.test -v --pep8 pandasvalidation.py
-    $ coverage run -m py.test
-    $ coverage report --include pandasvalidation.py -m
+    $ pytest -v test_pandasvalidation.py
+
+Test coverage can be calculated with `Coverage.py
+<https://coverage.readthedocs.io/>`_ using the following commands:
+
+.. code-block::
+
+    $ coverage run -m pytest
+    $ coverage report -m pandasvalidation.py
+
+The code follow style conventions in `PEP8
+<https://www.python.org/dev/peps/pep-0008/>`_, which can be checked
+with `pycodestyle <http://pycodestyle.pycqa.org>`_:
+
+.. code-block::
+
+    $ pycodestyle pandasvalidation.py test_pandasvalidation.py setup.py
 
 
 Building the documentation
 --------------------------
 
-The documentation can be built with `Sphinx <http://www.sphinx-doc.org>`_:
+The documentation can be built with `Sphinx <http://www.sphinx-doc.org>`_
+and the `Read the Docs Sphinx Theme
+<https://sphinx-rtd-theme.readthedocs.io>`_:
 
 .. code-block::
 
@@ -59,13 +73,15 @@ The documentation can be built with `Sphinx <http://www.sphinx-doc.org>`_:
 License
 -------
 
-pandas-validation is distributed under the `MIT license <https://opensource.org/licenses/MIT>`_.
+pandas-validation is distributed under the `MIT license
+<https://opensource.org/licenses/MIT>`_.
 
 
 Author
 ------
 
-Markus Englund, `orcid.org/0000-0003-1688-7112 <http://orcid.org/0000-0003-1688-7112>`_
+Markus Englund, `orcid.org/0000-0003-1688-7112
+<http://orcid.org/0000-0003-1688-7112>`_
 
 
 .. |Build-Status| image:: https://api.travis-ci.org/jmenglund/pandas-validation.svg?branch=master

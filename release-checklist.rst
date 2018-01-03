@@ -8,13 +8,19 @@ Things to remember when making a new release of pandas-validation.
 
 #.  Make desirable changes to the code.
 
-#.  Run tests with PEP8 check and report coverage:
+#.  Check coding style against some of the conventions in PEP8:
 
     .. code-block:: none
 
-        $ py.test -v --pep8 pandasvalidation.py
-        $ coverage run -m py.test
-        $ coverage report --include pandasvalidation.py -m
+        $ pycodestyle *.py
+
+#.  Run tests and report coverage:
+
+    .. code-block:: none
+
+        $ pytest -v test_pandasvalidation.py
+        $ coverage run -m pytest test_pandasvalidation.py
+        $ coverage report -m pandasvalidation.py
 
 #.  Update ``README.rst`` and the documentation (in ``docs/``).
 

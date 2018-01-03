@@ -4,6 +4,24 @@ Tracking changes in pandas-validation between versions.
 See also https://github.com/jmenglund/pandas-validation/releases.
 
 
+## 0.3.0 ##
+
+This minor release contains the following changes:
+
+* The validation functions now has a `return_type` argument that gives
+  the user control of the output. This replaces the `return_values` argument.
+* When returning values, the validation functions now filter out all invalid
+  values.
+* A few tests have been added to `test_pandasvalidation.py`. The code now has
+  full test coverage.
+* Updates to the documentation.
+* Removed use of the deprecated `pandas.tslib`
+
+Released: 2018-01-03
+
+[View commits](https://github.com/jmenglund/pandas-validation/compare/v0.2.0...v0.3.0)
+
+
 ## 0.2.0 ##
 
 This minor release contains the following changes:
