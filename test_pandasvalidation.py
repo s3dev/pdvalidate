@@ -179,8 +179,8 @@ class TestValidateString():
     def test_validation(self):
 
         assert_series_equal(
-            validate_string(self.mixed, return_values=True),
-            validate_string(self.strings, return_values=True))
+            validate_string(self.mixed, return_type='values'),
+            validate_string(self.strings, return_type='values'))
 
         pytest.warns(
             ValidationWarning, validate_string, self.strings, nullable=False)
