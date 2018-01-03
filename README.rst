@@ -60,7 +60,9 @@ with `pycodestyle <http://pycodestyle.pycqa.org>`_:
 Building the documentation
 --------------------------
 
-The documentation can be built with `Sphinx <http://www.sphinx-doc.org>`_:
+The documentation can be built with `Sphinx <http://www.sphinx-doc.org>`_
+and the `Read the Docs Sphinx Theme
+<https://sphinx-rtd-theme.readthedocs.io>`_:
 
 .. code-block::
 
