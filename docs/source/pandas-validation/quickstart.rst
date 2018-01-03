@@ -17,7 +17,7 @@ know more, I suggest that you have a look at the :ref:`API reference<api>`.
 
 The code examples below assume that you first do the following imports:
 
-.. code-block:: pycon
+.. code-block:: python
 
     import numpy as np
     import pandas as pd
