@@ -339,7 +339,7 @@ def validate_string(
         min_length=None, max_length=None, case=None, newlines=True,
         trailing_whitespace=True, whitespace=True, matching_regex=None,
         non_matching_regex=None, whitelist=None, blacklist=None,
-        return_values=False):
+        return_type=None):
     """
     Validate a pandas Series with strings. Non-string values
     will be converted to strings prior to validation.
