@@ -4,6 +4,15 @@ Tracking changes in pandas-validation between versions.
 See also https://github.com/jmenglund/pandas-validation/releases.
 
 
+## 0.3.1 ##
+
+This patch release with a few fixes to the documentation.
+
+Released: 2018-10-18
+
+[View commits](https://github.com/jmenglund/pandas-validation/compare/v0.3.0...v0.3.1)
+
+
 ## 0.3.0 ##
 
 This minor release contains the following changes:
