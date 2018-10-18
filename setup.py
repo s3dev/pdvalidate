@@ -4,7 +4,7 @@ from os.path import join, dirname
 
 setup(
     name='pandas-validation',
-    version='0.3.0',
+    version='0.3.1',
     description=(
         'A Python package for validating data with pandas'),
     long_description=open(
