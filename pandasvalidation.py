@@ -13,7 +13,7 @@ import pandas
 
 __author__ = 'Markus Englund'
 __license__ = 'MIT'
-__version__ = '0.3.0'
+__version__ = '0.3.1'
 
 
 class ValidationWarning(Warning):
@@ -416,9 +416,10 @@ def validate_string(
     if newlines is False:
         masks['newlines'] = converted.str.contains(os.linesep)
     if trailing_whitespace is False:
-        masks['trailing_space'] = converted.str.contains('^\s|\s$', regex=True)
+        masks['trailing_space'] = converted.str.contains(
+            r'^\s|\s$', regex=True)
     if whitespace is False:
-        masks['whitespace'] = converted.str.contains('\s', regex=True)
+        masks['whitespace'] = converted.str.contains(r'\s', regex=True)
     if matching_regex:
         masks['regex_mismatch'] = (
             converted.str.contains(matching_regex, regex=True)
