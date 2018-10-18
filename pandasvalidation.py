@@ -417,9 +417,9 @@ def validate_string(
         masks['newlines'] = converted.str.contains(os.linesep)
     if trailing_whitespace is False:
         masks['trailing_space'] = converted.str.contains(
-            br'^\s|\s$', regex=True)
+            r'^\s|\s$', regex=True)
     if whitespace is False:
-        masks['whitespace'] = converted.str.contains(br'\s', regex=True)
+        masks['whitespace'] = converted.str.contains(r'\s', regex=True)
     if matching_regex:
         masks['regex_mismatch'] = (
             converted.str.contains(matching_regex, regex=True)
