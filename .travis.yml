@@ -22,4 +22,4 @@ script:
     - coverage report -m pandasvalidation.py
 
 after_success:
-    - codecov # --token 8ed1d992-c486-41ff-8950-1779f9be6c1c
+    - codecov
