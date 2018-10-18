@@ -189,16 +189,16 @@ class TestValidateNumber():
             ValidationWarning, validate_numeric, self.numeric, nullable=False)
 
         pytest.warns(
-             ValidationWarning, validate_numeric, self.numeric, unique=True)
+            ValidationWarning, validate_numeric, self.numeric, unique=True)
 
         pytest.warns(
-             ValidationWarning, validate_numeric, self.numeric, integer=True)
+            ValidationWarning, validate_numeric, self.numeric, integer=True)
 
         pytest.warns(
-             ValidationWarning, validate_numeric, self.numeric, min_value=2)
+            ValidationWarning, validate_numeric, self.numeric, min_value=2)
 
         pytest.warns(
-             ValidationWarning, validate_numeric, self.numeric, max_value=2)
+            ValidationWarning, validate_numeric, self.numeric, max_value=2)
 
 
 class TestValidateString():
@@ -216,49 +216,45 @@ class TestValidateString():
             ValidationWarning, validate_string, self.strings, nullable=False)
 
         pytest.warns(
-             ValidationWarning, validate_string, self.strings, unique=True)
+            ValidationWarning, validate_string, self.strings, unique=True)
 
         pytest.warns(
-             ValidationWarning, validate_string, self.strings, min_length=2)
+            ValidationWarning, validate_string, self.strings, min_length=2)
 
         pytest.warns(
-             ValidationWarning, validate_string, self.strings, max_length=2)
+            ValidationWarning, validate_string, self.strings, max_length=2)
 
         pytest.warns(
-             ValidationWarning, validate_string, self.strings[3:],
-             case='lower')
+            ValidationWarning, validate_string, self.strings[3:], case='lower')
 
         pytest.warns(
-             ValidationWarning, validate_string, self.strings[3:],
-             case='upper')
+            ValidationWarning, validate_string, self.strings[3:], case='upper')
 
         pytest.warns(
-             ValidationWarning, validate_string, self.strings[3:],
-             case='title')
+            ValidationWarning, validate_string, self.strings[3:], case='title')
 
         pytest.warns(
-             ValidationWarning, validate_string, self.strings, newlines=False)
+            ValidationWarning, validate_string, self.strings, newlines=False)
 
         pytest.warns(
-             ValidationWarning, validate_string, self.strings,
-             trailing_whitespace=False)
+            ValidationWarning, validate_string, self.strings,
+            trailing_whitespace=False)
 
         pytest.warns(
-             ValidationWarning, validate_string, self.strings,
-             whitespace=False)
+            ValidationWarning, validate_string, self.strings, whitespace=False)
 
         pytest.warns(
-             ValidationWarning, validate_string, self.strings,
-             matching_regex='\d')
+            ValidationWarning, validate_string, self.strings,
+            matching_regex='\d')
 
         pytest.warns(
-             ValidationWarning, validate_string, self.strings,
-             non_matching_regex='[\d\s\w]')
+            ValidationWarning, validate_string, self.strings,
+            non_matching_regex='[\d\s\w]')
 
         pytest.warns(
-             ValidationWarning, validate_string, self.strings,
-             whitelist=self.strings[:5])
+            ValidationWarning, validate_string, self.strings,
+            whitelist=self.strings[:5])
 
         pytest.warns(
-             ValidationWarning, validate_string, self.strings,
-             blacklist=['a', 'Ab'])
+            ValidationWarning, validate_string, self.strings,
+            blacklist=['a', 'Ab'])
