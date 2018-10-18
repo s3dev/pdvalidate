@@ -6,7 +6,7 @@ See also https://github.com/jmenglund/pandas-validation/releases.
 
 ## 0.3.1 ##
 
-This patch release with a few fixes to the documentation.
+This is a patch release with a few fixes to the documentation.
 
 Released: 2018-10-18
 
