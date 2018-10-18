@@ -245,11 +245,11 @@ class TestValidateString():
 
         pytest.warns(
             ValidationWarning, validate_string, self.strings,
-            matching_regex='\d')
+            matching_regex=br'\d')
 
         pytest.warns(
             ValidationWarning, validate_string, self.strings,
-            non_matching_regex='[\d\s\w]')
+            non_matching_regex=br'[\d\s\w]')
 
         pytest.warns(
             ValidationWarning, validate_string, self.strings,
