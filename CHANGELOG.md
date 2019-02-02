@@ -4,6 +4,16 @@ Tracking changes in pandas-validation between versions.
 See also https://github.com/jmenglund/pandas-validation/releases.
 
 
+## 0.3.2 ##
+
+This is a patch release that fixes an issue with validating numbers with `min_value=0`
+or `max_value=0`.
+
+Released: 2019-02-02
+
+[View commits](https://github.com/jmenglund/pandas-validation/compare/v0.3.1...v0.3.2)
+
+
 ## 0.3.1 ##
 
 This is a patch release with a few fixes to the documentation.
