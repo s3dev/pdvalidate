@@ -252,9 +252,9 @@ def validate_datetime(
         masks['isnull'] = converted.isnull()
     if unique:
         masks['nonunique'] = converted.duplicated() & converted.notnull()
-    if min_datetime:
+    if min_datetime is not None:
         masks['too_low'] = converted.dropna() < min_datetime
-    if max_datetime:
+    if max_datetime is not None:
         masks['too_high'] = converted.dropna() > max_datetime
 
     msg_list = _get_error_messages(masks, error_info)
@@ -291,7 +291,6 @@ def validate_numeric(
         Kind of data object to return; 'mask_series', 'mask_frame'
         or 'values'. Default: None.
     """
-
     error_info = {
         'nonconvertible': 'Value(s) not converted to datetime set as NaT',
         'isnull': 'NaN value(s)',
@@ -315,9 +314,9 @@ def validate_numeric(
         noninteger_dropped = (
             converted.dropna() != converted.dropna().apply(int))
         masks['noninteger'] = pandas.Series(noninteger_dropped, series.index)
-    if min_value:
+    if min_value is not None:
         masks['too_low'] = converted.dropna() < min_value
-    if max_value:
+    if max_value is not None:
         masks['too_high'] = converted.dropna() > max_value
 
     msg_list = _get_error_messages(masks, error_info)
@@ -402,10 +401,10 @@ def validate_string(
         masks['isnull'] = converted.isnull()
     if unique:
         masks['nonunique'] = converted.duplicated() & converted.notnull()
-    if min_length:
+    if min_length is not None:
         too_short_dropped = converted.dropna().apply(len) < min_length
         masks['too_short'] = pandas.Series(too_short_dropped, series.index)
-    if max_length:
+    if max_length is not None:
         too_long_dropped = converted.dropna().apply(len) > max_length
         masks['too_long'] = pandas.Series(too_long_dropped, series.index)
     if case:
