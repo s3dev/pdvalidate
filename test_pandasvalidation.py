@@ -176,8 +176,8 @@ class TestValidateDatetime():
 
 class TestValidateNumber():
 
-    numeric_as_strings = pandas.Series(['1', '1', '2.3', numpy.nan])
-    numeric = pandas.Series([1, 1, 2.3, numpy.nan])
+    numeric_as_strings = pandas.Series(['-1', '-1', '2.3', numpy.nan])
+    numeric = pandas.Series([-1, -1, 2.3, numpy.nan])
 
     def test_validation(self):
 
@@ -195,10 +195,10 @@ class TestValidateNumber():
             ValidationWarning, validate_numeric, self.numeric, integer=True)
 
         pytest.warns(
-            ValidationWarning, validate_numeric, self.numeric, min_value=2)
+            ValidationWarning, validate_numeric, self.numeric, min_value=0)
 
         pytest.warns(
-            ValidationWarning, validate_numeric, self.numeric, max_value=2)
+            ValidationWarning, validate_numeric, self.numeric, max_value=0)
 
 
 class TestValidateString():

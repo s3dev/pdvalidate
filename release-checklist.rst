@@ -41,7 +41,7 @@ Things to remember when making a new release of pandas-validation.
 
     .. code-block:: none
 
-        $ python setup.py sdist bdist_wheel
+        $ python setup.py sdist bdist_wheel --universal
         $ twine upload dist/*
 
 #.  Create the new release in GitHub.
