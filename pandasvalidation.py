@@ -223,7 +223,7 @@ def validate_datetime(
     series : pandas.Series
         Values to validate.
     nullable : bool
-        If False, check for NaN values. Default: False.
+        If False, check for NaN values. Default: True.
     unique : bool
         If True, check that values are unique. Default: False
     min_datetime : str
@@ -344,7 +344,7 @@ def validate_string(
     series : pandas.Series
         Values to validate.
     nullable : bool
-        If False, check for NaN values. Default: False.
+        If False, check for NaN values. Default: True.
     unique : bool
         If True, check that values are unique. Default: False.
     min_length : int
