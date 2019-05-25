@@ -299,7 +299,7 @@ def validate_numeric(
         'too_low': 'value(s) too low',
         'too_high': 'values(s) too high'}
 
-    if not numpy.issubdtype(series.dtype, numpy.number):
+    if not pandas.api.types.is_numeric_dtype(series.dtype):
         converted = pandas.to_numeric(series, errors='coerce')
     else:
         converted = series.copy()
