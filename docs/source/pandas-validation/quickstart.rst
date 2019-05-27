@@ -17,11 +17,11 @@ know more, I suggest that you have a look at the :ref:`API reference<api>`.
 
 The code examples below assume that you first do the following imports:
 
-.. code-block:: python
+.. code-block:: pycon
 
-    import numpy as np
-    import pandas as pd
-    import pandasvalidation as pv
+    >>> import numpy as np
+    >>> import pandas as pd
+    >>> import pandasvalidation as pv
 
 
 .. _validate-dates:
@@ -36,18 +36,19 @@ user that some values are invalid. If `return_type` is set to ``values``, a
 pandas Series will be returned with only the valid datetime values.
 
 
-.. code-block:: python
+.. code-block:: pycon
 
-    s1 = pd.Series(
+    >>> s1 = pd.Series(
         ['2014', '2014-01-07', '2014-02-28', np.nan],
         name='My dates')
-    pv.validate_datetime(
+    >>> pv.validate_datetime(
         s1,
         nullable=False,
         unique=True,
         min_datetime='2014-01-05',
         max_datetime='2014-02-15',
         return_type=None)
+    ValidationWarning: 'My dates': NaT value(s); date(s) too early; date(s) too late.
 
 
 .. _validate-numbers:
@@ -60,12 +61,12 @@ Like in the example above, warnings will indicate invalid values to the user.
 If `return_type` is set to ``values``, a pandas Series will be returned with
 only the valid numeric values.
 
-.. code-block:: python
+.. code-block:: pycon
 
-    s2 = pd.Series(
+    >>> s2 = pd.Series(
         [1, '1', '2.3', np.nan],
         name='My numeric values')
-    pv.validate_numeric(
+    >>> pv.validate_numeric(
         s2,
         nullable=False,
         unique=True,
@@ -73,7 +74,7 @@ only the valid numeric values.
         min_value=2,
         max_value=2,
         return_type=None)
-
+    ValidationWarning: 'My numeric values': NaN value(s); duplicates; non-integer(s); value(s) too low; values(s) too high.
 
 .. _validate-strings:
 
@@ -86,12 +87,12 @@ warnings then issued if there are invalid values. If `return_type` is
 set to ``values``, a pandas Series will be returned with only the valid
 strings.
 
-.. code-block:: python
+.. code-block:: pycon
 
-    s3 = pd.Series(
+    >>> s3 = pd.Series(
         [1, 1, 'ab\n', 'a b', 'Ab', 'AB', np.nan],
         name='My strings')
-    pv.validate_string(
+    >>> pv.validate_string(
         s3,
         nullable=False,
         unique=True,
@@ -102,3 +103,4 @@ strings.
         trailing_whitespace=False,
         whitespace=False,
         return_type=None)
+    ValidationWarning: 'My strings': NaN value(s); duplicates; string(s) too short; string(s) too long; wrong case letter(s); newline character(s); trailing whitespace; whitespace.
