@@ -4,6 +4,19 @@ Tracking changes in pandas-validation between versions.
 See also https://github.com/jmenglund/pandas-validation/releases.
 
 
+## 0.4.0 ##
+
+This is a minor release with the following changes:
+
+* Non-NumPy numeric dtypes should now be supported.
+* The ValidationWarning is now issued att stack level 2. This makes it possible to
+  trace the line of code that called the function that raised the warning.
+
+Released: 2019-05-27
+
+[View commits](https://github.com/jmenglund/pandas-validation/compare/v0.3.2...v0.4.0)
+
+
 ## 0.3.2 ##
 
 This is a patch release that fixes an issue with validating numbers with `min_value=0`
