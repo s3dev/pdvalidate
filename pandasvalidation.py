@@ -13,7 +13,7 @@ import pandas
 
 __author__ = 'Markus Englund'
 __license__ = 'MIT'
-__version__ = '0.3.2'
+__version__ = '0.4.0'
 
 
 class ValidationWarning(Warning):
@@ -157,11 +157,11 @@ def to_datetime(
         if isinstance(arg, pandas.Series):
             warnings.warn(
                 '{}: value(s) not converted to datetime set as NaT'
-                .format(repr(arg.name)), ValidationWarning)
+                .format(repr(arg.name)), ValidationWarning, stacklevel=2)
         else:  # pragma: no cover
             warnings.warn(
                 'Value(s) not converted to datetime set as NaT',
-                ValidationWarning)
+                ValidationWarning, stacklevel=2)
     return converted
 
 
@@ -180,11 +180,11 @@ def to_numeric(arg):
         if isinstance(arg, pandas.Series):
             warnings.warn(
                 '{}: value(s) not converted to numeric set as NaN'
-                .format(repr(arg.name)), ValidationWarning)
+                .format(repr(arg.name)), ValidationWarning, stacklevel=2)
         else:  # pragma: no cover
             warnings.warn(
                 'Value(s) not converted to numeric set as NaN',
-                ValidationWarning)
+                ValidationWarning, stacklevel=2)
     return converted
 
 
@@ -261,7 +261,7 @@ def validate_datetime(
 
     if len(msg_list) > 0:
         msg = repr(series.name) + ': ' + '; '.join(msg_list) + '.'
-        warnings.warn(msg, ValidationWarning)
+        warnings.warn(msg, ValidationWarning, stacklevel=2)
 
     if return_type is not None:
         return _get_return_object(masks, converted, return_type)
@@ -299,7 +299,7 @@ def validate_numeric(
         'too_low': 'value(s) too low',
         'too_high': 'values(s) too high'}
 
-    if not numpy.issubdtype(series.dtype, numpy.number):
+    if not pandas.api.types.is_numeric_dtype(series.dtype):
         converted = pandas.to_numeric(series, errors='coerce')
     else:
         converted = series.copy()
@@ -323,7 +323,7 @@ def validate_numeric(
 
     if len(msg_list) > 0:
         msg = repr(series.name) + ': ' + '; '.join(msg_list) + '.'
-        warnings.warn(msg, ValidationWarning)
+        warnings.warn(msg, ValidationWarning, stacklevel=2)
 
     if return_type is not None:
         return _get_return_object(masks, converted, return_type)
@@ -436,7 +436,7 @@ def validate_string(
 
     if len(msg_list) > 0:
         msg = repr(series.name) + ': ' + '; '.join(msg_list) + '.'
-        warnings.warn(msg, ValidationWarning)
+        warnings.warn(msg, ValidationWarning, stacklevel=2)
 
     if return_type is not None:
         return _get_return_object(masks, converted, return_type)
