@@ -36,7 +36,7 @@ Things to remember when making a new release of pandas-validation.
 #.  Create pull request(s) with changes for the new release.
 
 #.  Create distributions and upload the files to
-    `PyPI <https://pypi.python.org/pypi>`_ with
+    `PyPI <https://pypi.org>`_ with
     `twine <https://github.com/pypa/twine>`_.
 
     .. code-block:: none
