@@ -266,6 +266,60 @@ def validate_date(
         return _get_return_object(masks, to_validate, return_type)
 
 
+def validate_timestamp(
+        series, nullable=True, unique=False, min_timestamp=None,
+        max_timestamp=None, return_type=None):
+    """
+    Validate a pandas Series with values of type `pandas.Timestamp`.
+    Values of a different data type will be replaced with NaT prior to
+    the validataion.
+
+    Parameters
+    ----------
+    series : pandas.Series
+        Values to validate.
+    nullable : bool
+        If False, check for NaN values. Default: True.
+    unique : bool
+        If True, check that values are unique. Default: False
+    min_timestamp : pandas.Timestamp
+        If defined, check for values before min_timestamp. Optional.
+    max_timestamp : pandas.Timestamp
+        If defined, check for value later than max_timestamp. Optional.
+    return_type : str
+        Kind of data object to return; 'mask_series', 'mask_frame'
+        or 'values'. Default: None.
+    """
+    error_info = {
+        'invalid_type': 'Value(s) not of type pandas.Timestamp set as NaT',
+        'isnull': 'NaT value(s)',
+        'nonunique': 'duplicates',
+        'too_low': 'timestamp(s) too early',
+        'too_high': 'timestamp(s) too late'}
+
+    is_timestamp = series.apply(lambda x: isinstance(x, pandas.Timestamp))
+    masks = {}
+    masks['invalid_type'] = ~is_timestamp & series.notnull()
+    to_validate = pandas.to_datetime(series.where(is_timestamp, pandas.NaT))
+    if nullable is not True:
+        masks['isnull'] = to_validate.isnull()
+    if unique:
+        masks['nonunique'] = to_validate.duplicated() & to_validate.notnull()
+    if min_timestamp is not None:
+        masks['too_low'] = to_validate.dropna() < min_timestamp
+    if max_timestamp is not None:
+        masks['too_high'] = to_validate.dropna() > max_timestamp
+
+    msg_list = _get_error_messages(masks, error_info)
+
+    if len(msg_list) > 0:
+        msg = repr(series.name) + ': ' + '; '.join(msg_list) + '.'
+        warnings.warn(msg, ValidationWarning, stacklevel=2)
+
+    if return_type is not None:
+        return _get_return_object(masks, to_validate, return_type)
+
+
 def validate_datetime(
         series, nullable=True, unique=False, min_datetime=None,
         max_datetime=None, return_type=None):
