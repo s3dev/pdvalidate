@@ -16,6 +16,9 @@ __license__ = 'MIT'
 __version__ = '0.4.0'
 
 
+warnings.filterwarnings('default', category=DeprecationWarning)
+
+
 class ValidationWarning(Warning):
     pass
 
@@ -326,6 +329,10 @@ def validate_datetime(
     """
     Validate a pandas Series containing datetimes.
 
+    .. deprecated:: 0.5.0
+        `validate_datetime()` will be removed in version 0.7.0.
+        Use `validate_date()` or `validate_timestamp()` instead.
+
     Parameters
     ----------
     series : pandas.Series
@@ -342,6 +349,10 @@ def validate_datetime(
         Kind of data object to return; 'mask_series', 'mask_frame'
         or 'values'. Default: None.
     """
+
+    warnings.warn(
+        'validate_datetime() is deprecated, use validate_date() or '
+        'validate_timestamp() instead.', DeprecationWarning)
 
     error_info = {
         'nonconvertible': 'Value(s) not converted to datetime set as NaT',
