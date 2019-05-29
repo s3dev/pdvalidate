@@ -411,32 +411,31 @@ def validate_numeric(
         or 'values'. Default: None.
     """
     error_info = {
-        'nonconvertible': 'Value(s) not converted to datetime set as NaT',
+        'invalid_type': 'Non-numeric value(s) set as NaN',
         'isnull': 'NaN value(s)',
         'nonunique': 'duplicates',
         'noninteger': 'non-integer(s)',
         'too_low': 'value(s) too low',
         'too_high': 'values(s) too high'}
 
-    if not pandas.api.types.is_numeric_dtype(series.dtype):
-        converted = pandas.to_numeric(series, errors='coerce')
-    else:
-        converted = series.copy()
+    is_numeric = series.apply(pandas.api.types.is_number)
 
     masks = {}
-    masks['nonconvertible'] = series.notnull() & converted.isnull()
+    masks['invalid_type'] = ~is_numeric & series.notnull()
+
+    to_validate = pandas.to_numeric(series.where(is_numeric))
     if not nullable:
-        masks['isnull'] = converted.isnull()
+        masks['isnull'] = to_validate.isnull()
     if unique:
-        masks['nonunique'] = converted.duplicated() & converted.notnull()
+        masks['nonunique'] = to_validate.duplicated() & to_validate.notnull()
     if integer:
         noninteger_dropped = (
-            converted.dropna() != converted.dropna().apply(int))
+            to_validate.dropna() != to_validate.dropna().apply(int))
         masks['noninteger'] = pandas.Series(noninteger_dropped, series.index)
     if min_value is not None:
-        masks['too_low'] = converted.dropna() < min_value
+        masks['too_low'] = to_validate.dropna() < min_value
     if max_value is not None:
-        masks['too_high'] = converted.dropna() > max_value
+        masks['too_high'] = to_validate.dropna() > max_value
 
     msg_list = _get_error_messages(masks, error_info)
 
@@ -445,7 +444,7 @@ def validate_numeric(
         warnings.warn(msg, ValidationWarning, stacklevel=2)
 
     if return_type is not None:
-        return _get_return_object(masks, converted, return_type)
+        return _get_return_object(masks, to_validate, return_type)
 
 
 def validate_string(
