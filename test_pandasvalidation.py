@@ -176,14 +176,14 @@ class TestValidateDatetime():
 
 class TestValidateNumber():
 
-    numeric_as_strings = pandas.Series(['-1', '-1', '2.3', numpy.nan])
+    numeric_with_string = pandas.Series([-1, -1, 2.3, '1'])
     numeric = pandas.Series([-1, -1, 2.3, numpy.nan])
 
     def test_validation(self):
 
         assert_series_equal(
-            validate_numeric(self.numeric_as_strings, return_type='values'),
-            validate_numeric(self.numeric, return_type='values'))
+            validate_numeric(self.numeric_with_string, return_type='values'),
+            self.numeric)
 
         pytest.warns(
             ValidationWarning, validate_numeric, self.numeric, nullable=False)
@@ -203,14 +203,15 @@ class TestValidateNumber():
 
 class TestValidateString():
 
-    mixed = pandas.Series([1, 1, 'ab\n', 'a b', 'Ab', 'AB', numpy.nan])
-    strings = pandas.Series(['1', '1', 'ab\n', 'a b', 'Ab', 'AB', numpy.nan])
+    mixed = pandas.Series(['ab\n', 'a b', 'Ab', 'Ab', 'AB', 1, numpy.nan])
+    strings = pandas.Series(
+        ['ab\n', 'a b', 'Ab', 'Ab', 'AB', numpy.nan, numpy.nan])
 
     def test_validation(self):
 
         assert_series_equal(
             validate_string(self.mixed, return_type='values'),
-            validate_string(self.strings, return_type='values'))
+            self.strings)
 
         pytest.warns(
             ValidationWarning, validate_string, self.strings, nullable=False)
@@ -219,7 +220,7 @@ class TestValidateString():
             ValidationWarning, validate_string, self.strings, unique=True)
 
         pytest.warns(
-            ValidationWarning, validate_string, self.strings, min_length=2)
+            ValidationWarning, validate_string, self.strings, min_length=3)
 
         pytest.warns(
             ValidationWarning, validate_string, self.strings, max_length=2)
@@ -253,7 +254,7 @@ class TestValidateString():
 
         pytest.warns(
             ValidationWarning, validate_string, self.strings,
-            whitelist=self.strings[:5])
+            whitelist=self.strings[:4])
 
         pytest.warns(
             ValidationWarning, validate_string, self.strings,
