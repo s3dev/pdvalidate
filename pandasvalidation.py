@@ -212,6 +212,60 @@ def to_string(series, float_format='%g', datetime_format='%Y-%m-%d'):
     return converted
 
 
+def validate_date(
+        series, nullable=True, unique=False, min_date=None,
+        max_date=None, return_type=None):
+    """
+    Validate a pandas Series with values of type `datetime.date`.
+    Values of a different data type will be replaced with NaN prior to
+    the validataion.
+
+    Parameters
+    ----------
+    series : pandas.Series
+        Values to validate.
+    nullable : bool
+        If False, check for NaN values. Default: True.
+    unique : bool
+        If True, check that values are unique. Default: False
+    min_date : datetime.date
+        If defined, check for values before min_date. Optional.
+    max_date : datetime.date
+        If defined, check for value later than max_date. Optional.
+    return_type : str
+        Kind of data object to return; 'mask_series', 'mask_frame'
+        or 'values'. Default: None.
+    """
+    error_info = {
+        'invalid_type': 'Value(s) not of type datetime.date set as NaT',
+        'isnull': 'NaT value(s)',
+        'nonunique': 'duplicates',
+        'too_low': 'date(s) too early',
+        'too_high': 'date(s) too late'}
+
+    is_date = series.apply(lambda x: isinstance(x, datetime.date))
+    masks = {}
+    masks['invalid_type'] = ~is_date & series.notnull()
+    to_validate = series.where(is_date)
+    if nullable is not True:
+        masks['isnull'] = to_validate.isnull()
+    if unique:
+        masks['nonunique'] = to_validate.duplicated() & to_validate.notnull()
+    if min_date is not None:
+        masks['too_low'] = to_validate.dropna() < min_date
+    if max_date is not None:
+        masks['too_high'] = to_validate.dropna() > max_date
+
+    msg_list = _get_error_messages(masks, error_info)
+
+    if len(msg_list) > 0:
+        msg = repr(series.name) + ': ' + '; '.join(msg_list) + '.'
+        warnings.warn(msg, ValidationWarning, stacklevel=2)
+
+    if return_type is not None:
+        return _get_return_object(masks, to_validate, return_type)
+
+
 def validate_datetime(
         series, nullable=True, unique=False, min_datetime=None,
         max_datetime=None, return_type=None):
