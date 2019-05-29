@@ -494,7 +494,7 @@ def validate_string(
     """
 
     error_info = {
-        'nonconvertible': 'Value(s) not converted to datetime set as NaT',
+        'invalid_type': 'Non-string value(s) set as NaN',
         'isnull': 'NaN value(s)',
         'nonunique': 'duplicates',
         'too_short': 'string(s) too short',
@@ -508,47 +508,47 @@ def validate_string(
         'not_in_whitelist': 'string(s) not in whitelist',
         'in_blacklist': 'string(s) in blacklist'}
 
-    if series.dropna().apply(lambda x: not isinstance(x, str)).any():
-        converted = to_string(series)
-    else:
-        converted = series.copy()
+    is_string = series.apply(lambda x: isinstance(x, str))
 
     masks = {}
-    masks['nonconvertible'] = series.notnull() & converted.isnull()
+    masks['invalid_type'] = ~is_string & series.notnull()
+
+    to_validate = series.where(is_string)
+
     if not nullable:
-        masks['isnull'] = converted.isnull()
+        masks['isnull'] = to_validate.isnull()
     if unique:
-        masks['nonunique'] = converted.duplicated() & converted.notnull()
+        masks['nonunique'] = to_validate.duplicated() & to_validate.notnull()
     if min_length is not None:
-        too_short_dropped = converted.dropna().apply(len) < min_length
+        too_short_dropped = to_validate.dropna().apply(len) < min_length
         masks['too_short'] = pandas.Series(too_short_dropped, series.index)
     if max_length is not None:
-        too_long_dropped = converted.dropna().apply(len) > max_length
+        too_long_dropped = to_validate.dropna().apply(len) > max_length
         masks['too_long'] = pandas.Series(too_long_dropped, series.index)
     if case:
-        altered_case = getattr(converted.str, case)()
+        altered_case = getattr(to_validate.str, case)()
         wrong_case_dropped = (
-            altered_case.dropna() != converted[altered_case.notnull()])
+            altered_case.dropna() != to_validate[altered_case.notnull()])
         masks['wrong_case'] = pandas.Series(wrong_case_dropped, series.index)
     if newlines is False:
-        masks['newlines'] = converted.str.contains(os.linesep)
+        masks['newlines'] = to_validate.str.contains(os.linesep)
     if trailing_whitespace is False:
-        masks['trailing_space'] = converted.str.contains(
+        masks['trailing_space'] = to_validate.str.contains(
             r'^\s|\s$', regex=True)
     if whitespace is False:
-        masks['whitespace'] = converted.str.contains(r'\s', regex=True)
+        masks['whitespace'] = to_validate.str.contains(r'\s', regex=True)
     if matching_regex:
         masks['regex_mismatch'] = (
-            converted.str.contains(matching_regex, regex=True)
-            .apply(lambda x: x is False) & converted.notnull())
+            to_validate.str.contains(matching_regex, regex=True)
+            .apply(lambda x: x is False) & to_validate.notnull())
     if non_matching_regex:
-        masks['regex_match'] = converted.str.contains(
+        masks['regex_match'] = to_validate.str.contains(
             non_matching_regex, regex=True)
     if whitelist is not None:
         masks['not_in_whitelist'] = (
-            converted.notnull() & ~converted.isin(whitelist))
+            to_validate.notnull() & ~to_validate.isin(whitelist))
     if blacklist is not None:
-        masks['in_blacklist'] = converted.isin(blacklist)
+        masks['in_blacklist'] = to_validate.isin(blacklist)
 
     msg_list = _get_error_messages(masks, error_info)
 
@@ -557,4 +557,4 @@ def validate_string(
         warnings.warn(msg, ValidationWarning, stacklevel=2)
 
     if return_type is not None:
-        return _get_return_object(masks, converted, return_type)
+        return _get_return_object(masks, to_validate, return_type)
