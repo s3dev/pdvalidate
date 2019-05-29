@@ -20,6 +20,8 @@ from pandasvalidation import (
     to_numeric,
     to_string,
     validate_datetime,
+    validate_date,
+    validate_timestamp,
     validate_numeric,
     validate_string)
 
@@ -172,6 +174,66 @@ class TestValidateDatetime():
         pytest.warns(
             ValidationWarning, validate_datetime, self.dates,
             max_datetime='2014-01-08')
+
+
+class TestValidateDate():
+
+    dates = pandas.Series([
+        datetime.datetime(2014, 1, 7),
+        datetime.datetime(2014, 1, 7),
+        datetime.datetime(2014, 2, 28),
+        pandas.NaT])
+
+    def test_validation(self):
+
+        assert_series_equal(
+            validate_date(self.dates, return_type='values'),
+            self.dates)
+
+        pytest.warns(
+            ValidationWarning, validate_date, self.dates, nullable=False)
+
+        pytest.warns(
+            ValidationWarning, validate_date, self.dates, unique=True)
+
+        pytest.warns(
+            ValidationWarning, validate_date, self.dates,
+            min_date=datetime.date(2014, 1, 8))
+
+        pytest.warns(
+            ValidationWarning, validate_date, self.dates,
+            max_date=datetime.date(2014, 1, 8))
+
+
+class TestValidateTimestamp():
+
+    timestamps = pandas.Series([
+        pandas.Timestamp(2014, 1, 7, 12, 0, 5),
+        pandas.Timestamp(2014, 1, 7, 12, 0, 5),
+        pandas.Timestamp(2014, 2, 28, 0, 0, 0),
+        pandas.NaT])
+
+    def test_validation(self):
+
+        assert_series_equal(
+            validate_timestamp(self.timestamps, return_type='values'),
+            self.timestamps)
+
+        pytest.warns(
+            ValidationWarning, validate_timestamp, self.timestamps,
+            nullable=False)
+
+        pytest.warns(
+            ValidationWarning, validate_timestamp, self.timestamps,
+            unique=True)
+
+        pytest.warns(
+            ValidationWarning, validate_timestamp, self.timestamps,
+            min_timestamp=pandas.Timestamp(2014, 1, 8))
+
+        pytest.warns(
+            ValidationWarning, validate_timestamp, self.timestamps,
+            max_timestamp=pandas.Timestamp(2014, 1, 8))
 
 
 class TestValidateNumber():
