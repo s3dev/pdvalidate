@@ -227,9 +227,9 @@ def validate_datetime(
     unique : bool
         If True, check that values are unique. Default: False
     min_datetime : str
-        If defined, check for values before min_date. Optional.
+        If defined, check for values before min_datetime. Optional.
     max_datetime : str
-        If defined, check for value later than max_date. Optional.
+        If defined, check for value later than max_datetime. Optional.
     return_type : str
         Kind of data object to return; 'mask_series', 'mask_frame'
         or 'values'. Default: None.
