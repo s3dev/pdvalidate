@@ -13,7 +13,7 @@ import pandas
 
 __author__ = 'Markus Englund'
 __license__ = 'MIT'
-__version__ = '0.4.0'
+__version__ = '0.5.0'
 
 
 warnings.filterwarnings('default', category=DeprecationWarning)
