@@ -13,7 +13,10 @@ import pandas
 
 __author__ = 'Markus Englund'
 __license__ = 'MIT'
-__version__ = '0.4.0'
+__version__ = '0.5.0'
+
+
+warnings.filterwarnings('default', category=DeprecationWarning)
 
 
 class ValidationWarning(Warning):
@@ -212,11 +215,123 @@ def to_string(series, float_format='%g', datetime_format='%Y-%m-%d'):
     return converted
 
 
+def validate_date(
+        series, nullable=True, unique=False, min_date=None,
+        max_date=None, return_type=None):
+    """
+    Validate a pandas Series with values of type `datetime.date`.
+    Values of a different data type will be replaced with NaN prior to
+    the validataion.
+
+    Parameters
+    ----------
+    series : pandas.Series
+        Values to validate.
+    nullable : bool
+        If False, check for NaN values. Default: True.
+    unique : bool
+        If True, check that values are unique. Default: False
+    min_date : datetime.date
+        If defined, check for values before min_date. Optional.
+    max_date : datetime.date
+        If defined, check for value later than max_date. Optional.
+    return_type : str
+        Kind of data object to return; 'mask_series', 'mask_frame'
+        or 'values'. Default: None.
+    """
+    error_info = {
+        'invalid_type': 'Value(s) not of type datetime.date set as NaT',
+        'isnull': 'NaT value(s)',
+        'nonunique': 'duplicates',
+        'too_low': 'date(s) too early',
+        'too_high': 'date(s) too late'}
+
+    is_date = series.apply(lambda x: isinstance(x, datetime.date))
+    masks = {}
+    masks['invalid_type'] = ~is_date & series.notnull()
+    to_validate = series.where(is_date)
+    if nullable is not True:
+        masks['isnull'] = to_validate.isnull()
+    if unique:
+        masks['nonunique'] = to_validate.duplicated() & to_validate.notnull()
+    if min_date is not None:
+        masks['too_low'] = to_validate.dropna() < min_date
+    if max_date is not None:
+        masks['too_high'] = to_validate.dropna() > max_date
+
+    msg_list = _get_error_messages(masks, error_info)
+
+    if len(msg_list) > 0:
+        msg = repr(series.name) + ': ' + '; '.join(msg_list) + '.'
+        warnings.warn(msg, ValidationWarning, stacklevel=2)
+
+    if return_type is not None:
+        return _get_return_object(masks, to_validate, return_type)
+
+
+def validate_timestamp(
+        series, nullable=True, unique=False, min_timestamp=None,
+        max_timestamp=None, return_type=None):
+    """
+    Validate a pandas Series with values of type `pandas.Timestamp`.
+    Values of a different data type will be replaced with NaT prior to
+    the validataion.
+
+    Parameters
+    ----------
+    series : pandas.Series
+        Values to validate.
+    nullable : bool
+        If False, check for NaN values. Default: True.
+    unique : bool
+        If True, check that values are unique. Default: False
+    min_timestamp : pandas.Timestamp
+        If defined, check for values before min_timestamp. Optional.
+    max_timestamp : pandas.Timestamp
+        If defined, check for value later than max_timestamp. Optional.
+    return_type : str
+        Kind of data object to return; 'mask_series', 'mask_frame'
+        or 'values'. Default: None.
+    """
+    error_info = {
+        'invalid_type': 'Value(s) not of type pandas.Timestamp set as NaT',
+        'isnull': 'NaT value(s)',
+        'nonunique': 'duplicates',
+        'too_low': 'timestamp(s) too early',
+        'too_high': 'timestamp(s) too late'}
+
+    is_timestamp = series.apply(lambda x: isinstance(x, pandas.Timestamp))
+    masks = {}
+    masks['invalid_type'] = ~is_timestamp & series.notnull()
+    to_validate = pandas.to_datetime(series.where(is_timestamp, pandas.NaT))
+    if nullable is not True:
+        masks['isnull'] = to_validate.isnull()
+    if unique:
+        masks['nonunique'] = to_validate.duplicated() & to_validate.notnull()
+    if min_timestamp is not None:
+        masks['too_low'] = to_validate.dropna() < min_timestamp
+    if max_timestamp is not None:
+        masks['too_high'] = to_validate.dropna() > max_timestamp
+
+    msg_list = _get_error_messages(masks, error_info)
+
+    if len(msg_list) > 0:
+        msg = repr(series.name) + ': ' + '; '.join(msg_list) + '.'
+        warnings.warn(msg, ValidationWarning, stacklevel=2)
+
+    if return_type is not None:
+        return _get_return_object(masks, to_validate, return_type)
+
+
 def validate_datetime(
         series, nullable=True, unique=False, min_datetime=None,
         max_datetime=None, return_type=None):
     """
     Validate a pandas Series containing datetimes.
+
+    .. deprecated:: 0.5.0
+        `validate_datetime()` will be removed in version 0.7.0.
+        Use `validate_date()` or `validate_timestamp()` instead.
 
     Parameters
     ----------
@@ -227,13 +342,17 @@ def validate_datetime(
     unique : bool
         If True, check that values are unique. Default: False
     min_datetime : str
-        If defined, check for values before min_date. Optional.
+        If defined, check for values before min_datetime. Optional.
     max_datetime : str
-        If defined, check for value later than max_date. Optional.
+        If defined, check for value later than max_datetime. Optional.
     return_type : str
         Kind of data object to return; 'mask_series', 'mask_frame'
         or 'values'. Default: None.
     """
+
+    warnings.warn(
+        'validate_datetime() is deprecated, use validate_date() or '
+        'validate_timestamp() instead.', DeprecationWarning)
 
     error_info = {
         'nonconvertible': 'Value(s) not converted to datetime set as NaT',
@@ -292,32 +411,31 @@ def validate_numeric(
         or 'values'. Default: None.
     """
     error_info = {
-        'nonconvertible': 'Value(s) not converted to datetime set as NaT',
+        'invalid_type': 'Non-numeric value(s) set as NaN',
         'isnull': 'NaN value(s)',
         'nonunique': 'duplicates',
         'noninteger': 'non-integer(s)',
         'too_low': 'value(s) too low',
         'too_high': 'values(s) too high'}
 
-    if not pandas.api.types.is_numeric_dtype(series.dtype):
-        converted = pandas.to_numeric(series, errors='coerce')
-    else:
-        converted = series.copy()
+    is_numeric = series.apply(pandas.api.types.is_number)
 
     masks = {}
-    masks['nonconvertible'] = series.notnull() & converted.isnull()
+    masks['invalid_type'] = ~is_numeric & series.notnull()
+
+    to_validate = pandas.to_numeric(series.where(is_numeric))
     if not nullable:
-        masks['isnull'] = converted.isnull()
+        masks['isnull'] = to_validate.isnull()
     if unique:
-        masks['nonunique'] = converted.duplicated() & converted.notnull()
+        masks['nonunique'] = to_validate.duplicated() & to_validate.notnull()
     if integer:
         noninteger_dropped = (
-            converted.dropna() != converted.dropna().apply(int))
+            to_validate.dropna() != to_validate.dropna().apply(int))
         masks['noninteger'] = pandas.Series(noninteger_dropped, series.index)
     if min_value is not None:
-        masks['too_low'] = converted.dropna() < min_value
+        masks['too_low'] = to_validate.dropna() < min_value
     if max_value is not None:
-        masks['too_high'] = converted.dropna() > max_value
+        masks['too_high'] = to_validate.dropna() > max_value
 
     msg_list = _get_error_messages(masks, error_info)
 
@@ -326,7 +444,7 @@ def validate_numeric(
         warnings.warn(msg, ValidationWarning, stacklevel=2)
 
     if return_type is not None:
-        return _get_return_object(masks, converted, return_type)
+        return _get_return_object(masks, to_validate, return_type)
 
 
 def validate_string(
@@ -376,7 +494,7 @@ def validate_string(
     """
 
     error_info = {
-        'nonconvertible': 'Value(s) not converted to datetime set as NaT',
+        'invalid_type': 'Non-string value(s) set as NaN',
         'isnull': 'NaN value(s)',
         'nonunique': 'duplicates',
         'too_short': 'string(s) too short',
@@ -390,47 +508,47 @@ def validate_string(
         'not_in_whitelist': 'string(s) not in whitelist',
         'in_blacklist': 'string(s) in blacklist'}
 
-    if series.dropna().apply(lambda x: not isinstance(x, str)).any():
-        converted = to_string(series)
-    else:
-        converted = series.copy()
+    is_string = series.apply(lambda x: isinstance(x, str))
 
     masks = {}
-    masks['nonconvertible'] = series.notnull() & converted.isnull()
+    masks['invalid_type'] = ~is_string & series.notnull()
+
+    to_validate = series.where(is_string)
+
     if not nullable:
-        masks['isnull'] = converted.isnull()
+        masks['isnull'] = to_validate.isnull()
     if unique:
-        masks['nonunique'] = converted.duplicated() & converted.notnull()
+        masks['nonunique'] = to_validate.duplicated() & to_validate.notnull()
     if min_length is not None:
-        too_short_dropped = converted.dropna().apply(len) < min_length
+        too_short_dropped = to_validate.dropna().apply(len) < min_length
         masks['too_short'] = pandas.Series(too_short_dropped, series.index)
     if max_length is not None:
-        too_long_dropped = converted.dropna().apply(len) > max_length
+        too_long_dropped = to_validate.dropna().apply(len) > max_length
         masks['too_long'] = pandas.Series(too_long_dropped, series.index)
     if case:
-        altered_case = getattr(converted.str, case)()
+        altered_case = getattr(to_validate.str, case)()
         wrong_case_dropped = (
-            altered_case.dropna() != converted[altered_case.notnull()])
+            altered_case.dropna() != to_validate[altered_case.notnull()])
         masks['wrong_case'] = pandas.Series(wrong_case_dropped, series.index)
     if newlines is False:
-        masks['newlines'] = converted.str.contains(os.linesep)
+        masks['newlines'] = to_validate.str.contains(os.linesep)
     if trailing_whitespace is False:
-        masks['trailing_space'] = converted.str.contains(
+        masks['trailing_space'] = to_validate.str.contains(
             r'^\s|\s$', regex=True)
     if whitespace is False:
-        masks['whitespace'] = converted.str.contains(r'\s', regex=True)
+        masks['whitespace'] = to_validate.str.contains(r'\s', regex=True)
     if matching_regex:
         masks['regex_mismatch'] = (
-            converted.str.contains(matching_regex, regex=True)
-            .apply(lambda x: x is False) & converted.notnull())
+            to_validate.str.contains(matching_regex, regex=True)
+            .apply(lambda x: x is False) & to_validate.notnull())
     if non_matching_regex:
-        masks['regex_match'] = converted.str.contains(
+        masks['regex_match'] = to_validate.str.contains(
             non_matching_regex, regex=True)
     if whitelist is not None:
         masks['not_in_whitelist'] = (
-            converted.notnull() & ~converted.isin(whitelist))
+            to_validate.notnull() & ~to_validate.isin(whitelist))
     if blacklist is not None:
-        masks['in_blacklist'] = converted.isin(blacklist)
+        masks['in_blacklist'] = to_validate.isin(blacklist)
 
     msg_list = _get_error_messages(masks, error_info)
 
@@ -439,4 +557,4 @@ def validate_string(
         warnings.warn(msg, ValidationWarning, stacklevel=2)
 
     if return_type is not None:
-        return _get_return_object(masks, converted, return_type)
+        return _get_return_object(masks, to_validate, return_type)

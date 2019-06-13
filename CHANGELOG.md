@@ -4,6 +4,23 @@ Tracking changes in pandas-validation between versions.
 See also https://github.com/jmenglund/pandas-validation/releases.
 
 
+## 0.5.0 ##
+
+This is a minor release with the following changes:
+
+* The function `validate_datetime()` is deprecated and replaced by the functions
+  `validate_date()` and `validate_timestamp()`. The new functions validates
+  values of types [datetime.date](https://docs.python.org/3/library/datetime.html#datetime.date) and [pandas.Timestamp](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Timestamp.html), respectively.
+* Type conversion is no longer carried out by the functions `validate_numeric()`
+  and `validate_string()`. It will be up to the user to ensure that the data types
+  are correct before the validation.
+* Documentation has been updated with two new quickstart examples.
+
+Released: 2019-06-13
+
+[View commits](https://github.com/jmenglund/pandas-validation/compare/v0.4.0...v0.5.0)
+
+
 ## 0.4.0 ##
 
 This is a minor release with the following changes:
