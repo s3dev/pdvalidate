@@ -1,7 +1,30 @@
 # Changelog #
 
-Tracking changes in pandas-validation between versions.
-See also https://github.com/jmenglund/pandas-validation/releases.
+Tracking changes in pdvalidate between versions.
+See also https://github.com/s3dev/pdvalidate/releases.
+
+## 0.6.0.dev01 ##
+
+This is a fork from `pandas-validation` and a minor release with the following changes:
+
+* **New functionality:** Updated validation tests to return the error message string along
+  with the series mask. This enables the capture and logging of error messages (e.g. for 
+  validation reports), which was previously not available.
+  **Note:** This will break current integrations of `pandas-validation`.
+* Automated testing updated to support new functionality and the removal of ValidationWarning
+  warnings from validation tests.
+* The function `validate_datetime()` has been removed, per v0.5.0's deprecation notice, and
+  replaced by the functions:
+  `validate_date()` and `validate_timestamp()`. The new functions validate
+  values of types [datetime.date](https://docs.python.org/3/library/datetime.html#datetime.date) and [pandas.Timestamp](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Timestamp.html), respectively.
+* Restructured the package for further (future) updates.
+* Docstrings updated to Google Style, to fit with S3DEV guidelines.
+* Updated reserved words in the code (such as `format`) with non-reserved words.
+* Syntax modification for Pythonic-ness, readability and simplicity.
+* Addressed a `pandas` `FutureWarning` by converting `datetime` objects using `pd.Timestamp`.
+* Added a `_version.py` file to replace hardcoded versioning.  
+
+Released: 2020-06-04
 
 
 ## 0.5.0 ##

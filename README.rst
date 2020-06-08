@@ -1,7 +1,34 @@
-pandas-validation
-=================
+pandas-validation / pdvalidate
+==============================
 
 |Build-Status| |Coverage-Status| |PyPI-Status| |Doc-Status| |License|
+
+
+Introduction
+------------
+
+This ``pdvalidate`` package is a fork from ``pandas-validation`` (v0.5.0)
+originally written by Markus Englund, and was enhanced to include 
+additional functionality; specifically to return the validation error 
+messages (from each test) to the caller for capture and logging purposes.
+
+Great efforts have been made to retain the initial integrity of the 
+original ``pandas-validation`` project, while adding some new features.
+Additionally, the automated test suite has been maintained and updated
+to test the new functionality.
+
+Thank you Markus for your hard work on the **excellent** framework, and
+for sharing it with us all!
+
+**Please note:** The remainder of this README, the docs, GitHub and 
+Travis CI **have not** been updated to reflect '``pdvalidate``' due to 
+tight timescales around the project requiring this fork.  However, we 
+plan to make these changes in the near future; hence the 0.6.0.**dev01**
+versioning.
+
+
+Overview
+--------
 
 pandas-validation is a small Python library for validating data
 with the Python package `pandas <http://pandas.pydata.org>`_.

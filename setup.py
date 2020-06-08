@@ -1,29 +1,87 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""
+:App:       setup.py
+:Purpose:   Python library packager.
+
+:Version:   0.2.1
+:Platform:  Linux/Windows | Python 3.5
+:Developer: J Berendt
+:Email:     support@s3dev.uk
+
+:Example:
+    Create source and wheel distributions::
+
+        $ cd /path/to/package
+        $ python setup.py sdist bdist_wheel
+
+    Simple installation::
+
+        $ cd /path/to/package/dist
+        $ pip install <pkgname>-<...>.whl
+
+    git installation::
+
+        $ pip install git+file:///<drive>/path/to/package
+
+    github installation::
+
+        $ pip install git+https://github.com/s3dev/<pkgname>
+
+"""
+
+import os
 from setuptools import setup, find_packages
-from os.path import join, dirname
+from pdvalidate._version import __version__
 
 
-setup(
-    name='pandas-validation',
-    version='0.5.0',
-    description=(
-        'A Python package for validating data with pandas'),
-    long_description=open(
-        join(dirname(__file__), 'README.rst'), encoding='utf-8').read(),
-    packages=find_packages(exclude=['docs', 'tests*']),
-    py_modules=['pandasvalidation'],
-    install_requires=['pandas>=0.22'],
-    author='Markus Englund',
-    author_email='jan.markus.englund@gmail.com',
-    url='https://github.com/jmenglund/pandas-validation',
-    license='MIT',
-    classifiers=[
-        'Development Status :: 5 - Production/Stable',
-        'Intended Audience :: Developers',
-        'License :: OSI Approved :: MIT License',
-        'Operating System :: OS Independent',
-        'Programming Language :: Python',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6'],
-    keywords=['pandas', 'validation'],
-)
+class Setup(object):
+    """Create a dist package for this library."""
+
+    PACKAGE         = 'pdvalidate'
+    VERSION         = __version__
+    PLATFORMS       = 'Python 3.5'
+    DESC            = 'A Python package for validating pandas data structures.'
+    AUTHOR          = 'J.M. Englund, J. Berendt'
+    AUTHOR_EMAIL    = 'support@s3dev.uk'
+    URL             = 'https://github.com/s3dev/pdvalidate'
+    LICENSE         = 'MIT'
+    KEYWORDS        = ['pandas', 'validation']
+    ROOT            = os.path.realpath(os.path.dirname(__file__))
+    PACKAGE_ROOT    = os.path.join(ROOT, PACKAGE)
+    INCL_PKG_DATA   = False
+    CLASSIFIERS     = ['Programming Language :: Python',
+                       'Programming Language :: Python :: 3',
+                       'Programming Language :: Python :: 3.5',
+                       'Programming Language :: Python :: 3.6',
+                       'License :: OSI Approved :: MIT License',
+                       'Operating System :: Microsoft :: Windows',
+                       'Operating System :: POSIX :: Linux',
+                       'Topic :: Software Development',
+                       'Topic :: Software Development :: Libraries',
+                       'Topic :: Utilities']
+
+    # PACKAGE REQUIREMENTS
+    REQUIRES        = ['pandas>=0.22']
+    PACKAGES        = find_packages(exclude=['tests*'])
+
+    def run(self):
+        """Run the setup."""
+        setup(name=self.PACKAGE,
+              version=self.VERSION,
+              platforms=self.PLATFORMS,
+              description=self.DESC,
+              author=self.AUTHOR,
+              author_email=self.AUTHOR_EMAIL,
+              maintainer=self.AUTHOR,
+              maintainer_email=self.AUTHOR_EMAIL,
+              url=self.URL,
+              license=self.LICENSE,
+              packages=self.PACKAGES,
+              install_requires=self.REQUIRES,
+              include_package_data=self.INCL_PKG_DATA,
+              classifiers=self.CLASSIFIERS,
+              keywords=self.KEYWORDS)
+
+if __name__ == '__main__':
+    Setup().run()
