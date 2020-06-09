@@ -1,7 +1,7 @@
 Release checklist
 =================
 
-Things to remember when making a new release of pandas-validation.
+Things to remember when making a new release of pdvalidate.
 
 #.  Changes should be made to some branch other than master (a pull request
     should then be created before making the release).
@@ -12,15 +12,15 @@ Things to remember when making a new release of pandas-validation.
 
     .. code-block:: none
 
-        $ pycodestyle *.py
+        $ pylint *.py
 
 #.  Run tests and report coverage:
 
     .. code-block:: none
 
-        $ pytest -v test_pandasvalidation.py
-        $ coverage run -m pytest test_pandasvalidation.py
-        $ coverage report -m pandasvalidation.py
+        $ pytest -v test_validation.py
+        $ coverage run -m pytest test_validation.py
+        $ coverage report -m ./pdvalidate/validation.py
 
 #.  Update ``README.rst`` and the documentation (in ``docs/``).
 
@@ -30,8 +30,10 @@ Things to remember when making a new release of pandas-validation.
 
 #.  Update ``CHANGELOG.rst`` and add a release date.
 
-#.  Update the release (version) number in ``setup.py`` and
-    ``pandasvalidation.py``. Use `Semantic Versioning <http://semver.org>`_.
+#.  Update the release (version) number in ``_version.py`` and
+    ``validation.py``. Use the standard ``major.minor.revision`` 
+    convention. Note: A development version such as x.y.z.dev1 is 
+    acceptable.
 
 #.  Create pull request(s) with changes for the new release.
 

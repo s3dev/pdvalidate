@@ -3,6 +3,17 @@
 Tracking changes in pdvalidate between versions.
 See also https://github.com/s3dev/pdvalidate/releases.
 
+
+## 0.6.0 ##
+
+This is the standard release of 0.6.0.dev01 with all of the documentation
+in place.
+
+No revisions have been made to the code itself.
+
+Released: <TBD>
+
+
 ## 0.6.0.dev01 ##
 
 This is a fork from `pandas-validation` and a minor release with the following changes:
