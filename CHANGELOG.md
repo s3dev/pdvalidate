@@ -3,6 +3,20 @@
 Tracking changes in pdvalidate between versions.
 See also https://github.com/s3dev/pdvalidate/releases.
 
+## 0.6.0.dev02 ##
+
+Pandas 'match groups' regex warning suppression. README updates.
+
+Match Groups:
+- Updated to suppress the pandas warning 'pattern has match groups' which
+  is thrown if a regex pattern with match groups is passed into validation.
+
+README:
+- Updated README to align with pdvalidate fork.
+
+Released: 2020-06-11
+
+
 ## 0.6.0.dev01 ##
 
 This is a fork from `pandas-validation` and a minor release with the following changes:

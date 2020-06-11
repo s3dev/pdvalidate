@@ -8,7 +8,6 @@
             to the console and can be returned along with the rows of
             the data structure containing the validation error(s).
 
-:Version:   0.6.0.dev01
 :Platform:  Linux/Windows | Python 3.5
 :Developer: J Berendt
 :Email:     support@s3dev.uk
@@ -37,15 +36,15 @@
             Example code use::
 
                 import pandas as pd
-                from pdvalidate.validation import pdvalidate as pdv
+                from pdvalidate.validation import validate as pdv
 
-                s = pd.Series(['aaa', 'bb', 'c'])
+                s = pd.Series(['aaa', 'bb', 'c'], name='TestSeries')
                 result, msg = pdv.validate_string(s,
                                                   min_length=1,
                                                   max_length=2,
                                                   return_type='mask_series')
 
-                >>> [RangeWarning]: None: string(s) too long.
+                >>> [RangeWarning]: 'TestSeries': string(s) too long.
 
                 # Show row(s) which fail validation.
                 print(s[result])
@@ -546,9 +545,13 @@ class Validation():
         if not whitespace:
             masks['whitespace'] = to_validate.str.contains(r'\s', regex=True)
         if matching_regex:
+            # Ignore warning for regex patterns with unused matching groups
+            warnings.filterwarnings('ignore', 'This pattern has match groups.')
             masks['regex_mismatch'] = (to_validate.str.contains(matching_regex, regex=True)
                                        .apply(lambda x: x is False) & to_validate.notnull())
         if non_matching_regex:
+            # Ignore warning for regex patterns with unused matching groups
+            warnings.filterwarnings('ignore', 'This pattern has match groups.')
             masks['regex_match'] = to_validate.str.contains(non_matching_regex, regex=True)
         if whitelist:
             masks['not_in_whitelist'] = (to_validate.notnull() & ~to_validate.isin(whitelist))
@@ -645,4 +648,5 @@ class Validation():
 
 
 ei  = ErrorInfo()
-pdvalidate = Validation()
+validate = Validation()
+

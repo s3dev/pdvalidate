@@ -1,7 +1,5 @@
-pandas-validation / pdvalidate
-==============================
-
-|Build-Status| |Coverage-Status| |PyPI-Status| |Doc-Status| |License|
+pdvalidate
+==========
 
 
 Introduction
@@ -20,22 +18,21 @@ to test the new functionality.
 Thank you Markus for your hard work on the **excellent** framework, and
 for sharing it with us all!
 
-**Please note:** The remainder of this README, the docs, GitHub and 
-Travis CI **have not** been updated to reflect '``pdvalidate``' due to 
-tight timescales around the project requiring this fork.  However, we 
-plan to make these changes in the near future; hence the 0.6.0.**dev01**
-versioning.
+**Please note:** The docs, GitHub and Travis CI **have not** yet been 
+updated to reflect '``pdvalidate``' due to tight timescales around the 
+project requiring this fork.  However, we plan to make these changes 
+in the near future; hence the 0.6.0.dev2 versioning.
 
 
 Overview
 --------
 
-pandas-validation is a small Python library for validating data
-with the Python package `pandas <http://pandas.pydata.org>`_.
+pdvalidate is a small Python library for validating data with the 
+Python package `pandas <http://pandas.pydata.org>`_.
 
-Source repository: `<https://github.com/jmenglund/pandas-validation>`_
+Source repository: `<https://github.com/s3dev/pdvalidate>`_
 
-Documentation at `<http://pandas-validation.readthedocs.io>`_
+Documentation at `<http://pdvalidate.readthedocs.io>`_
 
 
 Installation
@@ -46,42 +43,44 @@ hosted on `PyPI <https://pypi.python.org/>`_:
 
 .. code-block::
 
-    $ pip install pandas-validation
+    $ pip install pdvalidate
 
-The project is hosted at https://github.com/jmenglund/pandas-validation and
+The project is hosted at https://github.com/s3dev/pdvalidate and
 can also be installed using git:
 
 .. code-block::
 
-    $ git clone https://github.com/jmenglund/pandas-validation.git
-    $ cd pandas-validation
+    $ git clone https://github.com/s3dev/pdvalidate.git
+    $ cd pdvalidate
     $ python setup.py install
 
 
 Running the tests
 -----------------
 
-Testing is carried out with `pytest <https://docs.pytest.org/>`_:
+Testing is carried out with `pytest <https://docs.pytest.org/>`_ from
+the package root directory:
 
 .. code-block::
 
-    $ pytest -v test_pandasvalidation.py
+    $ pytest -v ./tests/test_validation.py
 
 Test coverage can be calculated with `Coverage.py
-<https://coverage.readthedocs.io/>`_ using the following commands:
+<https://coverage.readthedocs.io/>`_ using the following commands
+from the package root directory:
 
 .. code-block::
 
     $ coverage run -m pytest
-    $ coverage report -m pandasvalidation.py
+    $ coverage report -m ./pdvalidate/validation.py
 
 The code follow style conventions in `PEP8
 <https://www.python.org/dev/peps/pep-0008/>`_, which can be checked
-with `pycodestyle <http://pycodestyle.pycqa.org>`_:
+with `pylint <https://pylint.org>`_ from the package root directory:
 
 .. code-block::
 
-    $ pycodestyle pandasvalidation.py test_pandasvalidation.py setup.py
+    $ pylint ./pdvalidate/validation.py ./tests/test_validation.py ./setup.py
 
 
 Building the documentation
@@ -93,7 +92,7 @@ and the `Read the Docs Sphinx Theme
 
 .. code-block::
 
-    $ cd pandas-validation
+    $ cd pdvalidate
     $ sphinx-build -b html ./docs/source ./docs/_build/html
 
 
@@ -107,22 +106,22 @@ pandas-validation is distributed under the `MIT license
 Author
 ------
 
-Markus Englund, `orcid.org/0000-0003-1688-7112
-<http://orcid.org/0000-0003-1688-7112>`_
+- Markus Englund: the original `pandas-validation` package
+- J Berendt: pdvalidate (fork)
 
 
-.. |Build-Status| image:: https://api.travis-ci.org/jmenglund/pandas-validation.svg?branch=master
-   :target: https://travis-ci.org/jmenglund/pandas-validation
+.. |Build-Status| image:: https://api.travis-ci.org/s3dev/pdvalidate.svg?branch=master
+   :target: https://travis-ci.org/s3dev/pdvalidate
    :alt: Build status
-.. |Coverage-Status| image:: https://codecov.io/gh/jmenglund/pandas-validation/branch/master/graph/badge.svg
-    :target: https://codecov.io/gh/jmenglund/pandas-validation
+.. |Coverage-Status| image:: https://codecov.io/gh/s3dev/pdvalidate/branch/master/graph/badge.svg
+    :target: https://codecov.io/gh/s3dev/pdvalidate
     :alt: Code coverage
-.. |PyPI-Status| image:: https://img.shields.io/pypi/v/pandas-validation.svg
-   :target: https://pypi.python.org/pypi/pandas-validation
+.. |PyPI-Status| image:: https://img.shields.io/pypi/v/pdvalidate.svg
+   :target: https://pypi.python.org/pypi/pdvalidate
    :alt: PyPI status
-.. |Doc-Status| image:: https://readthedocs.org/projects/pandas-validation/badge/?version=latest
-   :target: http://pandas-validation.readthedocs.io/en/latest/?badge=latest
-   :alt: Documentatio status
-.. |License| image:: https://img.shields.io/pypi/l/pandas-validation.svg
-   :target: https://raw.githubusercontent.com/jmenglund/pandas-validation/master/LICENSE.txt
+.. |Doc-Status| image:: https://readthedocs.org/projects/pdvalidate/badge/?version=latest
+   :target: http://pdvalidate.readthedocs.io/en/latest/?badge=latest
+   :alt: Documentation status
+.. |License| image:: https://img.shields.io/pypi/l/pdvalidate.svg
+   :target: https://raw.githubusercontent.com/s3dev/pdvalidate/master/LICENSE
    :alt: License
