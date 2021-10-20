@@ -8,7 +8,7 @@
             to the console and can be returned along with the rows of
             the data structure containing the validation error(s).
 
-:Platform:  Linux/Windows | Python 3.5
+:Platform:  Linux/Windows | Python 3.8
 :Developer: J Berendt
 :Email:     support@s3dev.uk
 
@@ -54,7 +54,6 @@
 
 """
 # pylint: disable=invalid-name
-# pylint: disable=invalid-unary-operand-type
 # pylint: disable=too-many-arguments
 
 import datetime
@@ -534,29 +533,32 @@ class Validation():
         if max_length is not None:
             too_long_dropped = to_validate.dropna().apply(len) > max_length
             masks['too_long'] = pd.Series(too_long_dropped, series.index)
-        if case:
-            altered_case = getattr(to_validate.str, case)()
-            wrong_case_dropped = (altered_case.dropna() != to_validate[altered_case.notnull()])
-            masks['wrong_case'] = pd.Series(wrong_case_dropped, series.index)
-        if not newlines:
-            masks['newlines'] = to_validate.str.contains(os.linesep)
-        if trailing_whitespace is False:
-            masks['trailing_space'] = to_validate.str.contains(r'^\s|\s$', regex=True)
-        if not whitespace:
-            masks['whitespace'] = to_validate.str.contains(r'\s', regex=True)
-        if matching_regex:
-            # Ignore warning for regex patterns with unused matching groups
-            warnings.filterwarnings('ignore', 'This pattern has match groups.')
-            masks['regex_mismatch'] = (to_validate.str.contains(matching_regex, regex=True)
-                                       .apply(lambda x: x is False) & to_validate.notnull())
-        if non_matching_regex:
-            # Ignore warning for regex patterns with unused matching groups
-            warnings.filterwarnings('ignore', 'This pattern has match groups.')
-            masks['regex_match'] = to_validate.str.contains(non_matching_regex, regex=True)
         if whitelist:
             masks['not_in_whitelist'] = (to_validate.notnull() & ~to_validate.isin(whitelist))
         if blacklist:
             masks['in_blacklist'] = to_validate.isin(blacklist)
+        # Test Series contains string values.
+        # The .str accessor will fall over if string values are not present.
+        if (~to_validate.isnull()).any():
+            if case:
+                altered_case = getattr(to_validate.str, case)()
+                wrong_case_dropped = (altered_case.dropna() != to_validate[altered_case.notnull()])
+                masks['wrong_case'] = pd.Series(wrong_case_dropped, series.index)
+            if not newlines:
+                masks['newlines'] = to_validate.str.contains(os.linesep)
+            if trailing_whitespace is False:
+                masks['trailing_space'] = to_validate.str.contains(r'^\s|\s$', regex=True)
+            if not whitespace:
+                masks['whitespace'] = to_validate.str.contains(r'\s', regex=True)
+            if matching_regex:
+                # Ignore warning for regex patterns with unused matching groups
+                warnings.filterwarnings('ignore', 'This pattern has match groups.')
+                masks['regex_mismatch'] = (to_validate.str.contains(matching_regex, regex=True)
+                                           .apply(lambda x: x is False) & to_validate.notnull())
+            if non_matching_regex:
+                # Ignore warning for regex patterns with unused matching groups
+                warnings.filterwarnings('ignore', 'This pattern has match groups.')
+                masks['regex_match'] = to_validate.str.contains(non_matching_regex, regex=True)
         msg_list = self._get_error_messages(masks, self.ei.validate_string)
         msg = self._build_message(series_name=repr(series.name), message_list=msg_list)
         if return_type:
@@ -649,4 +651,3 @@ class Validation():
 
 ei  = ErrorInfo()
 validate = Validation()
-

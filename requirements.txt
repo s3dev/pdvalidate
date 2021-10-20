@@ -1,4 +1,4 @@
-numpy==1.18.1
-utils3==0.13.1
-pytest==5.4.3
-pandas==0.25.3
+pandas==1.2.2
+pytest==6.2.5
+utils3==0.14.1
+numpy==1.19.2

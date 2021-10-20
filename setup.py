@@ -35,12 +35,12 @@ from setuptools import setup, find_packages
 from pdvalidate._version import __version__
 
 
-class Setup(object):
+class Setup():
     """Create a dist package for this library."""
 
     PACKAGE         = 'pdvalidate'
     VERSION         = __version__
-    PLATFORMS       = 'Python 3.5'
+    PLATFORMS       = 'Python 3.5+'
     DESC            = 'A Python package for validating pandas data structures.'
     AUTHOR          = 'J.M. Englund, J. Berendt'
     AUTHOR_EMAIL    = 'support@s3dev.uk'
@@ -54,6 +54,8 @@ class Setup(object):
                        'Programming Language :: Python :: 3',
                        'Programming Language :: Python :: 3.5',
                        'Programming Language :: Python :: 3.6',
+                       'Programming Language :: Python :: 3.7',
+                       'Programming Language :: Python :: 3.8',
                        'License :: OSI Approved :: MIT License',
                        'Operating System :: Microsoft :: Windows',
                        'Operating System :: POSIX :: Linux',
