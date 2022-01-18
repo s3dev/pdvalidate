@@ -1,11 +1,11 @@
 
-
-Report
-======
-224 statements analysed.
-
-Statistics by type
-------------------
+
+Report
+======
+236 statements analysed.
+
+Statistics by type
+------------------
 
 +---------+-------+-----------+-----------+------------+---------+
 |type     |number |old number |difference |%documented |%badname |
@@ -14,43 +14,43 @@ Statistics by type
 +---------+-------+-----------+-----------+------------+---------+
 |class    |3      |NC         |NC         |100.00      |0.00     |
 +---------+-------+-----------+-----------+------------+---------+
-|method   |17     |NC         |NC         |100.00      |0.00     |
+|method   |20     |NC         |NC         |100.00      |0.00     |
 +---------+-------+-----------+-----------+------------+---------+
 |function |0      |NC         |NC         |0           |0        |
 +---------+-------+-----------+-----------+------------+---------+
-
-
-
-External dependencies
----------------------
+
+
+
+External dependencies
+---------------------
 ::
-
-    numpy (pdvalidate.validation)
-    pandas (pdvalidate.validation)
-    utils3 
-      \-user_interface (pdvalidate.validation)
-
-
-
-Raw metrics
------------
+
+    numpy (pdvalidate.validation)
+    pandas (pdvalidate.validation)
+    utils3 
+      \-user_interface (pdvalidate.validation)
+
+
+
+Raw metrics
+-----------
 
 +----------+-------+------+---------+-----------+
 |type      |number |%     |previous |difference |
 +==========+=======+======+=========+===========+
-|code      |309    |47.18 |NC       |NC         |
+|code      |327    |44.61 |NC       |NC         |
 +----------+-------+------+---------+-----------+
-|docstring |308    |47.02 |NC       |NC         |
+|docstring |361    |49.25 |NC       |NC         |
 +----------+-------+------+---------+-----------+
-|comment   |9      |1.37  |NC       |NC         |
+|comment   |13     |1.77  |NC       |NC         |
 +----------+-------+------+---------+-----------+
-|empty     |29     |4.43  |NC       |NC         |
+|empty     |32     |4.37  |NC       |NC         |
 +----------+-------+------+---------+-----------+
-
-
-
-Duplication
------------
+
+
+
+Duplication
+-----------
 
 +-------------------------+------+---------+-----------+
 |                         |now   |previous |difference |
@@ -59,11 +59,11 @@ Duplication
 +-------------------------+------+---------+-----------+
 |percent duplicated lines |0.000 |NC       |NC         |
 +-------------------------+------+---------+-----------+
-
-
-
-Messages by category
---------------------
+
+
+
+Messages by category
+--------------------
 
 +-----------+-------+---------+-----------+
 |type       |number |previous |difference |
@@ -76,10 +76,10 @@ Messages by category
 +-----------+-------+---------+-----------+
 |error      |0      |NC       |NC         |
 +-----------+-------+---------+-----------+
+
+
+
 
-
-
-
---------------------------------------------------------------------
-Your code has been rated at 10.00/10 (previous run: 10.00/10, +0.00)
-
+--------------------------------------------------------------------
+Your code has been rated at 10.00/10 (previous run: 10.00/10, +0.00)
+

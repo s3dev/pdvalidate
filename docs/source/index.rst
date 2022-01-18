@@ -3,11 +3,15 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to pandas-validation's documentation!
-=============================================
+===========================================
+Welcome to the documentation for pdvalidate
+===========================================
 
-pandas-validation is a small Python package for casting and validating data
-handled with `pandas <http://pandas.pydata.org>`_.
+``pdvalidate`` is a small Python library used to cast and validate data
+contained in a `pandas <http://pandas.pydata.org>`_ data structure.
+
+Once installed, the :ref:`quickstart` section is a great place to start.
+
 
 .. toctree::
    :caption: Contents
@@ -15,9 +19,10 @@ handled with `pandas <http://pandas.pydata.org>`_.
    :maxdepth: 2
    :glob:
 
-   pandas-validation/installation
-   pandas-validation/quickstart
-   pandas-validation/api
+   installation
+   quickstart
+   api
+   changelog
 
 
 Indices and tables
@@ -26,3 +31,7 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+
+|lastupdated|
+

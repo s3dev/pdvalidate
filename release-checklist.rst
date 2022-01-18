@@ -12,26 +12,27 @@ Things to remember when making a new release of pandas-validation.
 
     .. code-block:: none
 
-        $ pycodestyle *.py
+        $ cd pylintr
+        $ ./pylintr.sh
 
 #.  Run tests and report coverage:
 
     .. code-block:: none
 
-        $ pytest -v test_pandasvalidation.py
-        $ coverage run -m pytest test_pandasvalidation.py
-        $ coverage report -m pandasvalidation.py
+        $ cd tests
+        $ ./run.sh
+        $ ./coverage.sh
 
 #.  Update ``README.rst`` and the documentation (in ``docs/``).
 
     .. code-block:: none
 
-        $ sphinx-build -b html ./docs/source ./docs/_build/html
+        $ cd docs
+        $ ./update.sh
 
 #.  Update ``CHANGELOG.rst`` and add a release date.
 
-#.  Update the release (version) number in ``setup.py`` and
-    ``pandasvalidation.py``. Use `Semantic Versioning <http://semver.org>`_.
+#.  Update the release (version) number in ``_version.py``.
 
 #.  Create pull request(s) with changes for the new release.
 
@@ -42,7 +43,11 @@ Things to remember when making a new release of pandas-validation.
     .. code-block:: none
 
         $ python setup.py sdist bdist_wheel --universal
-        $ twine upload dist/*
+        $ twine upload dist/*
+
+    or create a local build by running the ``setup.sh`` script::
+
+        $ ./setup.sh
 
 #.  Create the new release in GitHub.
 

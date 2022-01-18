@@ -35,32 +35,35 @@
 
             Example code use::
 
-                import pandas as pd
-                from pdvalidate.validation import validate as pdv
+                >>> import pandas as pd
+                >>> from pdvalidate.validation import validate as pdv
 
-                s = pd.Series(['aaa', 'bb', 'c'], name='TestSeries')
-                result, msg = pdv.validate_string(s,
-                                                  min_length=1,
-                                                  max_length=2,
-                                                  return_type='mask_series')
+                >>> s = pd.Series(['aaa', 'bb', 'c'], name='TestSeries')
+                >>> result, msg = pdv.validate_string(s,
+                                                      min_length=1,
+                                                      max_length=2,
+                                                      return_type='mask_series')
 
-                >>> [RangeWarning]: 'TestSeries': string(s) too long.
+                [RangeWarning]: 'TestSeries': string(s) too long.
 
                 # Show row(s) which fail validation.
-                print(s[result])
+                >>> print(s[result])
 
-                >>> 0    aaa
-                >>> dtype: object
+                0    aaa
+                Name: TestSeries, dtype: object
 
 """
+# pylint: disable=import-error
 # pylint: disable=invalid-name
 # pylint: disable=too-many-arguments
+# pylint: disable=too-many-branches
 
 import datetime
 import os
 import warnings
 import numpy as np
 import pandas as pd
+# from typing import Union
 from utils3.user_interface import UserInterface
 
 
@@ -185,17 +188,42 @@ class Validation():
                                        format=datetime_format,
                                        exact=exact_date)
         else:
-            raise ValueError('Invalid \'to_datatype\': {}'.format(to_datatype))  # pragma: no cover
+            raise ValueError(f'Invalid \'to_datatype\': {to_datatype}')  # pragma: no cover
         notnull = series.copy().notnull()
         mask = notnull & converted.isnull()
         return mask
+
+    @staticmethod
+    def test_dtype_numeric(series: pd.Series) -> bool:
+        """Test if the Series has a numeric datatype.
+
+        Args:
+            series (pd.Series): Series to be tested.
+
+        Returns:
+            bool: True if a numeric datatype, otherwise False.
+
+        """
+        return pd.api.types.is_numeric_dtype(series.dtype)
+
+    @staticmethod
+    def test_dtype_object(series: pd.Series) -> bool:
+        """Test if the Series has an object datatype.
+
+        Args:
+            series (pd.Series): Series to be tested.
+
+        Returns:
+            bool: True if an object datatype, otherwise False.
+
+        """
+        return pd.api.types.is_object_dtype(series.dtype)
 
     @staticmethod
     def to_datetime(arg,
                     dayfirst=False,
                     yearfirst=False,
                     utc=None,
-                    box=True,
                     datetime_format=None,
                     exact=True) -> pd.Series:
         """Convert argument to datetime. Set nonconvertible values to NaT.
@@ -204,13 +232,13 @@ class Validation():
         and issues a warning if values cannot be converted.
 
         Args:
-            arg (integer, float, string, datetime, list, tuple, 1-d array,
-                 Series, DataFrame, dict): Values to convert.
+            arg (Union[int, float, str, datetime, list, tuple, pd.Series, pd.DataFrame, dict]):
+                Values to convert.
 
         For help on other arguments, run: ``help(pandas.to_datetime)``.
 
         Returns:
-            A converted pd.Series.
+            pd.Series: A converted pd.Series.
 
         """
         try:
@@ -219,7 +247,6 @@ class Validation():
                                        dayfirst=dayfirst,
                                        yearfirst=yearfirst,
                                        utc=utc,
-                                       box=box,
                                        format=datetime_format,
                                        exact=exact)
         except ValueError:
@@ -228,7 +255,6 @@ class Validation():
                                        dayfirst=dayfirst,
                                        yearfirst=yearfirst,
                                        utc=utc,
-                                       box=box,
                                        format=datetime_format,
                                        exact=exact)
             if isinstance(arg, pd.Series):
@@ -307,28 +333,27 @@ class Validation():
         the validation.
 
         Args:
-        series (pd.Series): Values to validate.
-        convert (bool): Convert the Series to datetime using the
-            :func:`~pd.to_datetime` function. Also use the ``dateformat``
-            parameter to define the format.
-            Default: False
-        dateformat (str): Format code for the datetimes being passed in the
-            Series. For use with the ``convert`` parameter.
-            Default: None
-        nullable (bool): If False, check for NaN values.
-            Default: True.
-        unique (bool): If True, check that values are unique.
-            Default: False
-        min_date (datetime.date): If defined, check for values before
-            ``min_date``, inclusive. Optional.
-        max_date (datetime.date): If defined, check for value later than
-            ``max_date``, inclusive. Optional.
-        return_type (str): Kind of data object to return.
-            Options: 'mask_series', 'mask_frame', 'values'.
-            Default: None.
+            series (pd.Series): Values to validate.
+            convert (bool, optional): Convert the Series to datetime using the
+                :func:`~pd.to_datetime` function. Also use the ``dateformat``
+                parameter to define the format. Defaults to False.
+            dateformat (str, optional): Format code for the datetimes being
+                passed in the Series. For use with the ``convert`` parameter.
+                Defaults to None.
+            nullable (bool, optional): If False, check for NaN values.
+                Defaults to True.
+            unique (bool, optional): If True, check that values are unique.
+                Defaults to False
+            min_date (datetime.date, optional): If defined, check for values
+                before ``min_date``, inclusive. Defaults to None.
+            max_date (datetime.date, optional): If defined, check for value
+                later than ``max_date``, inclusive. Defaults to None.
+            return_type (str, optional): Kind of data object to return.
+                Options: 'mask_series', 'mask_frame', 'values'.
+                Defaults to None.
 
         Returns:
-            If a ``return_type`` is specified, a tuple of::
+            tuple: If a ``return_type`` is specified, a tuple of::
 
                 (return_object, error_messages)
 
@@ -340,7 +365,6 @@ class Validation():
         is_date = series.apply(lambda x: isinstance(x, datetime.date))
         masks['invalid_type'] = ~is_date & series.notnull()
         to_validate = series.where(is_date)
-        # TODO: Define these terms externally.
         if not nullable:
             masks['isnull'] = to_validate.isnull()
         if unique:
@@ -350,7 +374,7 @@ class Validation():
         if max_date:
             masks['too_late'] = to_validate.dropna() > pd.Timestamp(max_date)
         msg_list = self._get_error_messages(masks, self.ei.validate_date)
-        msg = self._build_message(series_name=repr(series.name), message_list=msg_list)
+        msg = self._build_message_range(series_name=repr(series.name), message_list=msg_list)
         if return_type:
             results = (self._get_return_object(masks, to_validate, return_type), msg)
         return results
@@ -365,24 +389,25 @@ class Validation():
         """Validate a pandas Series with values of type `pandas.Timestamp`.
 
         Values of a different data type will be replaced with NaT prior to
-        the validataion.
+        the validation.
 
         Args:
             series (pd.Series): Values to validate.
-        nullable (bool): If False, check for NaN values.
-            Default: True.
-        unique (bool): If True, check that values are unique.
-            Default: False
-        min_timestamp (pd.Timestamp): If defined, check for values before
-            ``min_timestamp``, inclusive. Optional.
-        max_timestamp (pd.Timestamp): If defined, check for value later
-            than ``max_timestamp``, inclusive. Optional.
-        return_type (str): Kind of data object to return.
-            Options: 'mask_series', 'mask_frame', 'values'.
-            Default: None.
+            nullable (bool, optional): If False, check for NaN values.
+                Defaults to True.
+            unique (bool, optional): If True, check that values are unique.
+                Defaults to False.
+            min_timestamp (pd.Timestamp, optional): If defined, check for
+                values before ``min_timestamp``, inclusive. Defaults to None.
+            max_timestamp (pd.Timestamp, optional): If defined, check for
+                value later than ``max_timestamp``, inclusive.
+                Defaults to None.
+            return_type (str, optional): Kind of data object to return.
+                Options: 'mask_series', 'mask_frame', 'values'.
+                Defaults to None.
 
         Returns:
-            If a ``return_type`` is specified, a tuple of::
+            tuple: If a ``return_type`` is specified, a tuple of::
 
                 (return_object, error_messages)
 
@@ -401,7 +426,7 @@ class Validation():
         if max_timestamp:
             masks['too_late'] = to_validate.dropna() > max_timestamp
         msg_list = self._get_error_messages(masks, self.ei.validate_timestamp)
-        msg = self._build_message(series_name=repr(series.name), message_list=msg_list)
+        msg = self._build_message_range(series_name=repr(series.name), message_list=msg_list)
         if return_type:
             results = (self._get_return_object(masks, to_validate, return_type), msg)
         return results
@@ -418,44 +443,50 @@ class Validation():
 
         Args:
             series (pd.Series): Values to validate.
-        nullable (bool): If False, check for NaN values.
-            Default: True
-        unique (bool): If True, check that values are unique.
-            Default: False
-        integer (bool): If True, check that values are integers.
-            Default: False
-        min_value (int): If defined, check for values below minimum,
-            inclusive. Optional.
-        max_value (int): If defined, check for value above maximum,
-            inclusive. Optional.
-        return_type (str): Kind of data object to return.
-            Options: 'mask_series', 'mask_frame', 'values'.
-            Default: None.
+            nullable (bool, optional): If False, check for NaN values.
+                Defaults to True.
+            unique (bool, optional): If True, check that values are unique.
+                Defaults to False.
+            integer (bool, optional): If True, check that values are integers.
+                Defaults to False.
+            min_value (int, optional): If defined, check for values below
+                minimum, inclusive. Defaults to None.
+            max_value (int, optional): If defined, check for value above
+                maximum, inclusive. Defaults to None.
+            return_type (str, optional): Kind of data object to return.
+                Options: 'mask_series', 'mask_frame', 'values'.
+                Defaults to None.
 
         Returns:
-            If a ``return_type`` is specified, a tuple of::
+            tuple: If a ``return_type`` is specified, a tuple of::
 
                 (return_object, error_messages)
 
         """
-        masks = {}
         results = None
+        masks = {}
         is_numeric = series.apply(pd.api.types.is_number)
         masks['invalid_type'] = ~is_numeric & series.notnull()
         to_validate = pd.to_numeric(series.where(is_numeric))
-        if not nullable:
-            masks['isnull'] = to_validate.isnull()
-        if unique:
-            masks['nonunique'] = to_validate.duplicated() & to_validate.notnull()
-        if integer:
-            noninteger_dropped = (to_validate.dropna() != to_validate.dropna().apply(int))
-            masks['noninteger'] = pd.Series(noninteger_dropped, series.index)
-        if min_value is not None:
-            masks['too_low'] = to_validate.dropna() < min_value
-        if max_value is not None:
-            masks['too_high'] = to_validate.dropna() > max_value
-        msg_list = self._get_error_messages(masks, self.ei.validate_numeric)
-        msg = self._build_message(series_name=repr(series.name), message_list=msg_list)
+        # Only carry out tests if dtype is numeric.
+        if self.test_dtype_numeric(series=series):
+            if not nullable:
+                masks['isnull'] = to_validate.isnull()
+            if unique:
+                masks['nonunique'] = to_validate.duplicated() & to_validate.notnull()
+            if integer:
+                noninteger_dropped = (to_validate.dropna() != to_validate.dropna().apply(int))
+                masks['noninteger'] = pd.Series(noninteger_dropped, series.index)
+            if min_value is not None:
+                masks['too_low'] = to_validate.dropna() < min_value
+            if max_value is not None:
+                masks['too_high'] = to_validate.dropna() > max_value
+            msg_list = self._get_error_messages(masks, self.ei.validate_numeric)
+            msg = self._build_message_range(series_name=repr(series.name), message_list=msg_list)
+        else:
+            msg = self._build_message_dtype(series_name=series.name,
+                                            exp='numeric',
+                                            rec=series.dtype)
         if return_type:
             results = (self._get_return_object(masks, to_validate, return_type), msg)
         return results
@@ -475,103 +506,136 @@ class Validation():
                         whitelist=None,
                         blacklist=None,
                         return_type=None):
-        """Validate a pandas Series with strings.
+        r"""Validate a pandas Series with strings.
 
         Non-string values will be flagged as errors.
 
         Args:
             series (pd.Series): Values to validate.
-        nullable (bool): If False, check for NaN values.
-            Default: True.
-        unique (bool): If True, check that values are unique.
-            Default: False.
-        min_length (int): If defined, check for strings shorter than
-            ``min_length``, inclusive. Optional.
-        max_length (int): If defined, check for strings longer than
-            ``max_length``, inclusive. Optional.
-        case (str): Check for a character case constraint.
-            Options: 'lower', 'upper', 'title'.
-            Optional.
-        newlines (bool): If False, check for platform-specific newline
-            characters.
-            Note: Linux searches for '\n'. Windows searches for '\r\n'
-            Default: True.
-        trailing_whitespace (bool): If False, check for trailing whitespace.
-            Default: True.
-        whitespace (bool): If False, check for whitespace.
-            Default: True.
-        matching_regex (str): Check that strings match the provided regular
-            expression. Optional.
-        non_matching_regex (str): Check that strings do not match the
-            provided regular expression. Optional.
-        whitelist (list): Check that values are in ``whitelist``.
-            Optional.
-        blacklist (list): Check that values are not in ``blacklist``.
-            Optional.
-        return_type (str): Kind of data object to return.
-            Options: 'mask_series', 'mask_frame', 'values'.
-            Default: None.
+            nullable (bool, optional): If False, check for NaN values.
+                Defaults to True.
+            unique (bool, optional): If True, check that values are unique.
+                Defaults to False.
+            min_length (int, optional): If defined, check for strings shorter
+                than ``min_length``, inclusive. Defaults to None.
+            max_length (int, optional): If defined, check for strings longer
+                than ``max_length``, inclusive. Defaults to None.
+            case (str, optional): Check for a character case constraint.
+                Options: 'lower', 'upper', 'title'. Defaults to None.
+            newlines (bool, optional): If False, check for platform-specific
+                newline characters.
+                Note: Linux searches for '\n'. Windows searches for '\r\n'
+                Defaults to True.
+            trailing_whitespace (bool, optional): If False, check for trailing
+                whitespace. Defaults to True.
+            whitespace (bool, optional): If False, check for whitespace.
+                Defaults to True.
+            matching_regex (str, optional): Check that strings match the
+                provided regular expression. Defaults to None.
+            non_matching_regex (str, optional): Check that strings do not
+                match the provided regular expression. Defaults to None.
+            whitelist (list, optional): Check that values are in ``whitelist``.
+                Defaults to None.
+            blacklist (list, optional): Check that values are not in
+                ``blacklist``. Defaults to None.
+            return_type (str, optional): Kind of data object to return.
+                Options: 'mask_series', 'mask_frame', 'values'. Defaults to
+                None.
 
         Returns:
-            If a ``return_type`` is specified, a tuple of::
+            tuple: If a ``return_type`` is specified, a tuple of::
 
                 (return_object, error_messages)
 
         """
-        masks = {}
         results = None
+        masks = {}
         is_string = series.apply(lambda x: isinstance(x, str))
         masks['invalid_type'] = ~is_string & series.notnull()
         to_validate = series.where(is_string)
-        if not nullable:
-            masks['isnull'] = to_validate.isnull()
-        if unique:
-            masks['nonunique'] = to_validate.duplicated() & to_validate.notnull()
-        if min_length is not None:
-            too_short_dropped = to_validate.dropna().apply(len) < min_length
-            masks['too_short'] = pd.Series(too_short_dropped, series.index)
-        if max_length is not None:
-            too_long_dropped = to_validate.dropna().apply(len) > max_length
-            masks['too_long'] = pd.Series(too_long_dropped, series.index)
-        if whitelist:
-            masks['not_in_whitelist'] = (to_validate.notnull() & ~to_validate.isin(whitelist))
-        if blacklist:
-            masks['in_blacklist'] = to_validate.isin(blacklist)
-        # Test Series contains string values.
-        # The .str accessor will fall over if string values are not present.
-        if (~to_validate.isnull()).any():
-            if case:
-                altered_case = getattr(to_validate.str, case)()
-                wrong_case_dropped = (altered_case.dropna() != to_validate[altered_case.notnull()])
-                masks['wrong_case'] = pd.Series(wrong_case_dropped, series.index)
-            if not newlines:
-                masks['newlines'] = to_validate.str.contains(os.linesep)
-            if trailing_whitespace is False:
-                masks['trailing_space'] = to_validate.str.contains(r'^\s|\s$', regex=True)
-            if not whitespace:
-                masks['whitespace'] = to_validate.str.contains(r'\s', regex=True)
-            if matching_regex:
-                # Ignore warning for regex patterns with unused matching groups
-                warnings.filterwarnings('ignore', 'This pattern has match groups.')
-                masks['regex_mismatch'] = (to_validate.str.contains(matching_regex, regex=True)
-                                           .apply(lambda x: x is False) & to_validate.notnull())
-            if non_matching_regex:
-                # Ignore warning for regex patterns with unused matching groups
-                warnings.filterwarnings('ignore', 'This pattern has match groups.')
-                masks['regex_match'] = to_validate.str.contains(non_matching_regex, regex=True)
-        msg_list = self._get_error_messages(masks, self.ei.validate_string)
-        msg = self._build_message(series_name=repr(series.name), message_list=msg_list)
+        # Only carry out tests if dtype is object.
+        if self.test_dtype_object(series=series):
+            if not nullable:
+                masks['isnull'] = to_validate.isnull()
+            if unique:
+                masks['nonunique'] = to_validate.duplicated() & to_validate.notnull()
+            if min_length is not None:
+                too_short_dropped = to_validate.dropna().apply(len) < min_length
+                masks['too_short'] = pd.Series(too_short_dropped, series.index)
+            if max_length is not None:
+                too_long_dropped = to_validate.dropna().apply(len) > max_length
+                masks['too_long'] = pd.Series(too_long_dropped, series.index)
+            if whitelist:
+                masks['not_in_whitelist'] = (to_validate.notnull() & ~to_validate.isin(whitelist))
+            if blacklist:
+                masks['in_blacklist'] = to_validate.isin(blacklist)
+            # Test Series contains string values.
+            # The .str accessor will fall over if string values are not present.
+            if (~to_validate.isnull()).any():
+                if case:
+                    altered_case = getattr(to_validate.str, case)()
+                    wrong_case_dropped = (altered_case.dropna() !=
+                                          to_validate[altered_case.notnull()])
+                    masks['wrong_case'] = pd.Series(wrong_case_dropped, series.index)
+                if not newlines:
+                    masks['newlines'] = to_validate.str.contains(os.linesep)
+                if trailing_whitespace is False:
+                    masks['trailing_space'] = to_validate.str.contains(r'^\s|\s$', regex=True)
+                if not whitespace:
+                    masks['whitespace'] = to_validate.str.contains(r'\s', regex=True)
+                if matching_regex:
+                    # Ignore warning for regex patterns with unused matching groups
+                    warnings.filterwarnings('ignore', 'This pattern has match groups.')
+                    masks['regex_mismatch'] = (to_validate.str.contains(matching_regex, regex=True)
+                                               .apply(lambda x: x is False) & to_validate.notnull())
+                if non_matching_regex:
+                    # Ignore warning for regex patterns with unused matching groups
+                    warnings.filterwarnings('ignore', 'This pattern has match groups.')
+                    masks['regex_match'] = to_validate.str.contains(non_matching_regex, regex=True)
+            msg_list = self._get_error_messages(masks, self.ei.validate_string)
+            msg = self._build_message_range(series_name=repr(series.name), message_list=msg_list)
+        else:
+            msg = self._build_message_dtype(series_name=series.name,
+                                            exp='object',
+                                            rec=series.dtype)
         if return_type:
             results = (self._get_return_object(masks, to_validate, return_type), msg)
         return results
 
-    def _build_message(self, series_name, message_list) -> str:
-        """Build the message string for console output."""
+    def _build_message_range(self, series_name: str, message_list: list) -> str:
+        """Build the range warning message string for terminal output.
+
+        Args:
+            series_name (str): Name of the Series causing the error.
+            message_list (list): List of error message strings to be printed to
+                the terminal.
+
+        Returns:
+            str: Compiled error message string.
+
+        """
         msg = ''
         if message_list:
             msg = '[RangeWarning]: {ser}: {err}.'
             msg = msg.format(ser=series_name, err='; '.join(message_list))
             self.ui.print_warning(msg)
+        return msg
+
+    def _build_message_dtype(self, series_name: str, exp: str, rec: str) -> str:
+        """Build the unexpected datatype warning message for terminal output.
+
+        Args:
+            series_name (str): Name of the Series causing the error.
+            exp (str): Expected datatype.
+            rec (str): Received datatype.
+
+        Returns:
+            str: Compiled error message string.
+
+        """
+        msg = (f'[UnexpectedDatatype]: {series_name}: Expected {exp}, received {rec}. '
+               'Please address and re-validate.')
+        self.ui.print_warning(msg)
         return msg
 
     @staticmethod
@@ -612,7 +676,21 @@ class Validation():
         return [error_info[k] for k, v in masks.items() if v.any()]
 
     @staticmethod
-    def _get_return_object(masks, values, return_type):
+    def _get_return_object(masks: dict, values: pd.Series, return_type: str) -> pd.Series:
+        """Build the return object.
+
+        Args:
+            masks (dict): Dictionary of validation failure masks.
+            values (pd.Series): Series of values which were validated.
+            return_type (str): Return type string descriptor.
+
+        Raises:
+            ValueError: For an invalid return type string.
+
+        Returns:
+            pd.Series: Series containing the records which failed validation.
+
+        """
         mask_frame = pd.concat(masks, axis='columns')
         ro = None
         if return_type == 'mask_frame':

@@ -9,7 +9,9 @@
 
 """
 # pylint: disable=protected-access
+# pylint: disable=wrong-import-order
 # pylint: disable=wrong-import-position
+# pylint: disable=import-error
 
 import os
 import sys
@@ -19,10 +21,36 @@ import datetime
 import numpy as np
 import pytest
 import pandas as pd
-from pandas.util.testing import assert_series_equal, assert_frame_equal
-from pdvalidate.validation import ei, \
-                                  validate as pdv, \
-                                  ValidationWarning
+from datetime import datetime as dt
+from pandas.testing import assert_series_equal, assert_frame_equal
+from pdvalidate.validation import ei
+from pdvalidate.validation import validate as pdv
+from pdvalidate.validation import ValidationWarning
+
+
+class TestDtype:
+
+    @staticmethod
+    def test_dtype_numeric():
+        assert (pdv.test_dtype_numeric(series=pd.Series([1, 2, 3.0])) is True)
+
+        assert (pdv.test_dtype_numeric(series=pd.Series([float('nan'), 2, 3.0])) is True)
+
+        assert (pdv.test_dtype_numeric(series=pd.Series([1, 2, '3.0'])) is False)
+
+        assert (pdv.test_dtype_numeric(series=pd.Series([1, 2, '3.0', True])) is False)
+
+    @staticmethod
+    def test_dtype_object():
+        assert (pdv.test_dtype_object(series=pd.Series(['a', 'b', 'c'])) is True)
+
+        assert (pdv.test_dtype_object(series=pd.Series(['a', '1', '2.0'])) is True)
+
+        assert (pdv.test_dtype_object(series=pd.Series([1, '1', '2.0', False])) is True)
+
+        assert (pdv.test_dtype_object(series=pd.Series([1, 2, 3, 4.0, True])) is True)
+
+        assert (pdv.test_dtype_object(series=pd.Series([1, 2, 3, 4.0, 5])) is False)
 
 
 class TestReturnTypes():
@@ -50,7 +78,7 @@ class TestReturnTypes():
 
 class TestMaskNonconvertible():
 
-    mixed = pd.Series([1, 2.3, np.nan, 'abc', pd.datetime(2014, 1, 7), '2014'])
+    mixed = pd.Series([1, 2.3, np.nan, 'abc', dt(2014, 1, 7), '2014'])
     inconvertible_numeric = pd.Series([False, False, False, True, True, False])
     inconvertible_exact_dates = pd.Series([True, True, False, True, True, False])
     inconvertible_inexact_dates = pd.Series([True, True, False, True, False, False])
@@ -68,13 +96,14 @@ class TestMaskNonconvertible():
 
         assert_series_equal(pdv.mask_nonconvertible(self.mixed,
                                                     'datetime',
-                                                    datetime_format='%Y', exact_date=False),
+                                                    datetime_format='%Y',
+                                                    exact_date=False),
                             self.inconvertible_inexact_dates)
 
 
 class TestToDatetime():
 
-    mixed = pd.Series([1, 2.3, np.nan, 'abc', pd.datetime(2014, 1, 7), '2014'])
+    mixed = pd.Series([1, 2.3, np.nan, 'abc', dt(2014, 1, 7), '2014'])
 
     def test_exact(self):
         expected_result1 = [pd.NaT, pd.NaT, pd.NaT, pd.NaT, pd.NaT,
@@ -93,7 +122,7 @@ class TestToDatetime():
 
 class TestToNumeric():
 
-    mixed = pd.Series([1, 2.3, np.nan, 'abc', pd.datetime(2014, 1, 7), '2014'])
+    mixed = pd.Series([1, 2.3, np.nan, 'abc', dt(2014, 1, 7), '2014'])
 
     def test_conversion(self):
         assert (pdv.to_numeric(self.mixed).sum() == 2017.3)
@@ -102,8 +131,8 @@ class TestToNumeric():
 
 class TestToString():
 
-    mixed = pd.Series([1, 2.3, np.nan, 'abc', pd.datetime(2014, 1, 7)])
-    numeric_as_strings = pd.Series(['1', '2.3', np.nan, 'abc', pd.datetime(2014, 1, 7)])
+    mixed = pd.Series([1, 2.3, np.nan, 'abc', dt(2014, 1, 7)])
+    numeric_as_strings = pd.Series(['1', '2.3', np.nan, 'abc', dt(2014, 1, 7)])
     datetimes_as_strings = pd.Series([1, 2.3, np.nan, 'abc', '2014-01-07'])
     all_values_as_strings = pd.Series(['1', '2.3', np.nan, 'abc', '2014-01-07'])
 

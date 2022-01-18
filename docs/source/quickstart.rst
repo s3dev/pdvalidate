@@ -1,14 +1,13 @@
-.. py:currentmodule:: pandasvalidation
-
 .. _quickstart:
 
 Quickstart
 ==========
 
-This guide gives you a brief introduction on how to use
-pandas-validation. The library contains four core functions that let
-you validate values in a pandas Series (or a DataFrame column). The
-examples below will help you get started. If you want to know more, I suggest that you have a look at the :ref:`API reference<api>`.
+This guide gives you a brief introduction on how to use ``pdvalidate``. 
+The library contains four core functions that let you validate values in a
+``pandas.Series`` (or a DataFrame column). The examples below will help 
+you get started. If you want to know more, I suggest that you have a look 
+at the :ref:`API reference guide <api>`.
 
 * :ref:`validate-dates`
 * :ref:`validate-timestamps`
@@ -22,7 +21,7 @@ The code examples below assume that you first do the following imports:
 
     >>> import numpy as np
     >>> import pandas as pd
-    >>> import pandasvalidation as pv
+    >>> from pdvalidate.validation import validate as pv
 
 
 .. _validate-dates:

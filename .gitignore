@@ -2,6 +2,9 @@
 __pycache__/
 *.py[cod]
 
+# pylint
+*pylint.d*
+
 # C extensions
 *.so
 

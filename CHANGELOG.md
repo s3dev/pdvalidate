@@ -1,7 +1,9 @@
 # Changelog #
 
-Tracking changes in pdvalidate between versions.
-See also https://github.com/s3dev/pdvalidate/releases.
+The use of this changelog has been deprecated due to the duplicated
+effort to keep git and this manual log in sync. As of v0.6.0a1, this
+log is no longer in use. Please refer to the git changelog for update
+tracking.
 
 ## 0.6.0.dev02 ##
 

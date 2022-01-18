@@ -8,7 +8,7 @@ outdirs=("build" "dist" "${pkg}.egg-info")
 printf "\nDeleting build directories ...\n"
 for d in ${outdirs[@]}; do
     if [ -d ${d} ]; then
-        printf "Deleting %s\n" "${d}"
+        printf "|- Deleting %s\n" "${d}"
         rm -rf ./"${d}"
     fi
 done
@@ -21,13 +21,8 @@ printf "Done.\n\n"
 
 # Create the wheel install file.
 printf "Creating source dist ...\n"
-./setup.py bdist_wheel
+./setup.py sdist bdist_wheel
 printf "Done.\n\n"
-
-# Copy the extraction script into ./dist
-#printf "Copying the extraction script to ./dist ...\n"
-#cp ./extract.sh ./dist
-#printf "Done.\n\n"
 
 printf "Setup complete.\n\n"
 

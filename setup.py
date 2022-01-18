@@ -40,7 +40,7 @@ class Setup():
 
     PACKAGE         = 'pdvalidate'
     VERSION         = __version__
-    PLATFORMS       = 'Python 3.5+'
+    PLATFORMS       = 'Python 3.6+'
     DESC            = 'A Python package for validating pandas data structures.'
     AUTHOR          = 'J.M. Englund, J. Berendt'
     AUTHOR_EMAIL    = 'support@s3dev.uk'
@@ -50,12 +50,13 @@ class Setup():
     ROOT            = os.path.realpath(os.path.dirname(__file__))
     PACKAGE_ROOT    = os.path.join(ROOT, PACKAGE)
     INCL_PKG_DATA   = False
+    MIN_PYTHON      = '>=3.6'
     CLASSIFIERS     = ['Programming Language :: Python',
                        'Programming Language :: Python :: 3',
-                       'Programming Language :: Python :: 3.5',
                        'Programming Language :: Python :: 3.6',
                        'Programming Language :: Python :: 3.7',
                        'Programming Language :: Python :: 3.8',
+                       'Programming Language :: Python :: 3.9',
                        'License :: OSI Approved :: MIT License',
                        'Operating System :: Microsoft :: Windows',
                        'Operating System :: POSIX :: Linux',
@@ -72,6 +73,7 @@ class Setup():
         setup(name=self.PACKAGE,
               version=self.VERSION,
               platforms=self.PLATFORMS,
+              python_requires=self.MIN_PYTHON,
               description=self.DESC,
               author=self.AUTHOR,
               author_email=self.AUTHOR_EMAIL,
