@@ -484,7 +484,7 @@ class Validation():
             msg_list = self._get_error_messages(masks, self.ei.validate_numeric)
             msg = self._build_message_range(series_name=repr(series.name), message_list=msg_list)
         else:
-            msg = self._build_message_dtype(series_name=series.name,
+            msg = self._build_message_dtype(series_name=repr(series.name),
                                             exp='numeric',
                                             rec=series.dtype)
         if return_type:
@@ -616,8 +616,7 @@ class Validation():
         """
         msg = ''
         if message_list:
-            msg = '[RangeWarning]: {ser}: {err}.'
-            msg = msg.format(ser=series_name, err='; '.join(message_list))
+            msg = f'[RangeWarning]: {series_name}: {"; ".join(message_list)}.'
             self.ui.print_warning(msg)
         return msg
 
@@ -633,8 +632,8 @@ class Validation():
             str: Compiled error message string.
 
         """
-        msg = (f'[UnexpectedDatatype]: {series_name}: Expected {exp}, received {rec}. '
-               'Please address and re-validate.')
+        msg = (f'[DatatypeWarning]: {series_name}: Expected {exp}, received {rec}. '
+                'Please address and re-validate.')
         self.ui.print_warning(msg)
         return msg
 
