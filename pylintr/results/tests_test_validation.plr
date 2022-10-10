@@ -1,87 +1,96 @@
 
-
-Report
-======
-151 statements analysed.
-
-Statistics by type
-------------------
+
+Report
+======
+151 statements analysed.
+
+Statistics by type
+------------------
 
 +---------+-------+-----------+-----------+------------+---------+
 |type     |number |old number |difference |%documented |%badname |
 +=========+=======+===========+===========+============+=========+
-|module   |1      |NC         |NC         |100.00      |0.00     |
+|module   |1      |1          |=          |100.00      |0.00     |
 +---------+-------+-----------+-----------+------------+---------+
-|class    |10     |NC         |NC         |100.00      |0.00     |
+|class    |10     |10         |=          |100.00      |0.00     |
 +---------+-------+-----------+-----------+------------+---------+
-|method   |17     |NC         |NC         |100.00      |0.00     |
+|method   |17     |17         |=          |100.00      |0.00     |
 +---------+-------+-----------+-----------+------------+---------+
 |function |0      |NC         |NC         |0           |0        |
 +---------+-------+-----------+-----------+------------+---------+
-
-
-
-External dependencies
----------------------
+
+
+
+External dependencies
+---------------------
 ::
-
-    numpy (tests.test_validation)
-    pandas (tests.test_validation)
-      \-testing (tests.test_validation)
-    pdvalidate 
-      \-validation (tests.test_validation)
-    pytest (tests.test_validation)
-
-
-
-Raw metrics
------------
+
+    numpy (tests.test_validation)
+    pandas (tests.test_validation)
+      \-testing (tests.test_validation)
+    pdvalidate 
+      \-validation (tests.test_validation)
+    pytest (tests.test_validation)
+
+
+
+Raw metrics
+-----------
 
 +----------+-------+------+---------+-----------+
 |type      |number |%     |previous |difference |
 +==========+=======+======+=========+===========+
-|code      |198    |66.00 |NC       |NC         |
+|code      |198    |66.00 |198      |=          |
 +----------+-------+------+---------+-----------+
-|docstring |10     |3.33  |NC       |NC         |
+|docstring |10     |3.33  |10       |=          |
 +----------+-------+------+---------+-----------+
-|comment   |7      |2.33  |NC       |NC         |
+|comment   |7      |2.33  |7        |=          |
 +----------+-------+------+---------+-----------+
-|empty     |85     |28.33 |NC       |NC         |
+|empty     |85     |28.33 |85       |=          |
 +----------+-------+------+---------+-----------+
-
-
-
-Duplication
------------
+
+
+
+Duplication
+-----------
 
 +-------------------------+------+---------+-----------+
 |                         |now   |previous |difference |
 +=========================+======+=========+===========+
-|nb duplicated lines      |0     |NC       |NC         |
+|nb duplicated lines      |0     |0        |0          |
 +-------------------------+------+---------+-----------+
-|percent duplicated lines |0.000 |NC       |NC         |
+|percent duplicated lines |0.000 |0.000    |=          |
 +-------------------------+------+---------+-----------+
-
-
-
-Messages by category
---------------------
+
+
+
+Messages by category
+--------------------
 
 +-----------+-------+---------+-----------+
 |type       |number |previous |difference |
 +===========+=======+=========+===========+
-|convention |0      |NC       |NC         |
+|convention |0      |0        |0          |
 +-----------+-------+---------+-----------+
-|refactor   |0      |NC       |NC         |
+|refactor   |0      |0        |0          |
 +-----------+-------+---------+-----------+
-|warning    |0      |NC       |NC         |
+|warning    |0      |0        |0          |
 +-----------+-------+---------+-----------+
-|error      |0      |NC       |NC         |
+|error      |0      |0        |0          |
 +-----------+-------+---------+-----------+
-
-
-
 
---------------------------------------------------------------------
-Your code has been rated at 10.00/10 (previous run: 10.00/10, +0.00)
-
+
+
+Messages
+--------
+
++-----------+------------+
+|message id |occurrences |
++===========+============+
+
+
+
+
+--------------------------------------------------------------------
+Your code has been rated at 10.00/10 (previous run: 10.00/10, +0.00)
+

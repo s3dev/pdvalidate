@@ -63,8 +63,7 @@ import os
 import warnings
 import numpy as np
 import pandas as pd
-# from typing import Union
-from utils3.user_interface import UserInterface
+from utils4.user_interface import ui
 
 
 class ErrorInfo():
@@ -152,7 +151,6 @@ class ValidationWarning(Warning):
 class Validation():
     """Class container for all validation functionality."""
 
-    ui = UserInterface()
     ei = ErrorInfo()
 
     @staticmethod
@@ -602,7 +600,8 @@ class Validation():
             results = (self._get_return_object(masks, to_validate, return_type), msg)
         return results
 
-    def _build_message_range(self, series_name: str, message_list: list) -> str:
+    @staticmethod
+    def _build_message_range(series_name: str, message_list: list) -> str:
         """Build the range warning message string for terminal output.
 
         Args:
@@ -617,10 +616,11 @@ class Validation():
         msg = ''
         if message_list:
             msg = f'[RangeWarning]: {series_name}: {"; ".join(message_list)}.'
-            self.ui.print_warning(msg)
+            ui.print_warning(msg)
         return msg
 
-    def _build_message_dtype(self, series_name: str, exp: str, rec: str) -> str:
+    @staticmethod
+    def _build_message_dtype(series_name: str, exp: str, rec: str) -> str:
         """Build the unexpected datatype warning message for terminal output.
 
         Args:
@@ -634,7 +634,7 @@ class Validation():
         """
         msg = (f'[DatatypeWarning]: {series_name}: Expected {exp}, received {rec}. '
                 'Please address and re-validate.')
-        self.ui.print_warning(msg)
+        ui.print_warning(msg)
         return msg
 
     @staticmethod
