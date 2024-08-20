@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #-----------------------------------------------------------------------
 # Prog:     pylintr.sh
-# Version:  0.3.1
+# Version:  0.4.1
 # Desc:     This script walks down a project tree searching for all
 #           *.py files and runs pylint over each file, using the default
 #           pylint config file and stores the report to the defined
@@ -39,6 +39,17 @@
 #                              more characters (including numbers) in the 
 #                              filename to be linted. 
 #                              Previously, numbers were not allowed.
+# 20.01.23  J. Berendt  0.4.0  Updated generate rcfile script to include
+#                              regex patterns for arguments and variable
+#                              names, as a later version of pylint 
+#                              (2.14+)? has changed the way names are 
+#                              validated.
+#                              Also updated to include more arguments
+#                              which are passed into pylint.
+#                              ** NOTE: This version of the rcfile works 
+#                              with pylint 2.14+. ** 
+# 20.03.24  J. Berendt  0.4.1  Added README.md and LICENSE files in 
+#                              preparation for uploading to GitHub.
 #-----------------------------------------------------------------------
 
 EXT=".plr"

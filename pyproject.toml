@@ -1,0 +1,46 @@
+[build-system]
+requires = ["wheel", "setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pdvalidate"
+description = "A simple library for validating pandas data structures."
+authors = [{name = "The Developers", email = "development@s3dev.uk"}]
+maintainers = [{name = "The Developers", email = "development@s3dev.uk"}]
+classifiers = [
+               "Development Status :: 5 - Production/Stable",
+               "Intended Audience :: Developers",
+               "License :: OSI Approved :: MIT License",
+               "Operating System :: POSIX :: Linux",
+               "Operating System :: Microsoft :: Windows",
+               "Programming Language :: Python :: 3.7",
+               "Programming Language :: Python :: 3.8",
+               "Programming Language :: Python :: 3.9",
+               "Programming Language :: Python :: 3.10",
+               "Programming Language :: Python :: 3.11",
+               "Programming Language :: Python :: 3.12",
+               "Programming Language :: Python :: Implementation :: CPython",
+               "Topic :: Software Development",
+               "Topic :: Software Development :: Libraries",
+               "Topic :: Utilities",
+              ]
+# Intentionally left out libs from requirements for simplicity.
+dependencies = ["numpy", "pandas>=0.22", "utils4"]
+dynamic = ["version"]
+keywords = ["library", "utility", "utilities", "pandas", "validation"]
+license = {text = "MIT"}
+readme = {file = "README.md", content-type = "text/markdown"}
+requires-python = ">=3.7"
+
+[project.urls]
+Documentation = "https://pdvalidate.readthedocs.io"
+Homepage = "https://github.com/s3dev/pdvalidate"
+Repository = "https://github.com/s3dev/pdvalidate"
+
+[tool.setuptools.dynamic]
+version = {attr = "pdvalidate.__version__"}
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["pdvalidate"]
+exclude = []

@@ -21,8 +21,8 @@ from pdvalidate._version import __version__
 # -- Project information -----------------------------------------------------
 
 project = 'pdvalidate'
-copyright = f'2022 | S3DEV | version {__version__}'
-author = 'M. Englund, J. Berendt'
+copyright = f'2022-2024 | s3dev | version {__version__}'
+author = 'The Developers'
 master_doc = 'index'
 version = __version__
 release = __version__
@@ -53,7 +53,7 @@ html_title = f'{project} Documentation'
 mathjax_path = 'js/mathjax.js'
 numfig = True
 pygments_style = 'sphinx'
-source_suffix = '.rst'
+source_suffix = {'.rst': 'restructuredtext' }
 templates_path = ['_templates']
 todo_include_todos = True
 

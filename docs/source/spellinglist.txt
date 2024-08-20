@@ -62,3 +62,6 @@ usn
 vck
 Weibull
 whitespace
+CPython
+quickstart
+counterintuitive

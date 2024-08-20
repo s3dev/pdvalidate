@@ -1,10 +1,22 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
-printf "\nSetting up ...\n"
-coverage run -m pytest
+path="./htmlcov/index.html"
 
-printf "\n\nRunning coverage test(s) ...\n"
-coverage report -m ../pdvalidate/validation.py
+# Parse HTML results to get total coverage result.
+function get_coverage() {
+    if [ -f ${path} ]; then
+        cov=$( grep "</tfoot>" -B3 ${path} | grep "data-ratio" | grep -Eo ">[0-9]{1,3}%<" | grep -Eo "[^><]+" )
+    fi
+    echo $cov
+}
+
+printf "\nRunning unit tests under coverage ..."
+coverage run -m unittest discover
+
+printf "\nGenerating HTML report ...\n- "
 coverage html
+printf "Done.\n"
 
-printf "\n\n"
+total=$( get_coverage )
+printf "\nTotal coverage: %s\n\n" $total
+

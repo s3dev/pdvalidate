@@ -1,28 +1,25 @@
 #!/usr/bin/env bash
 
-# Define directories to be deleted.
-pkg="pdvalidate"
-outdirs=("build" "dist" "${pkg}.egg-info")
+dirs="./build ./dist ./pdvalidate.egg-info"
 
-# Delete current build/dist directories.
-printf "\nDeleting build directories ...\n"
-for d in ${outdirs[@]}; do
-    if [ -d ${d} ]; then
-        printf "|- Deleting %s\n" "${d}"
-        rm -rf ./"${d}"
+# Check for existing build/dist directories.
+printf "\nChecking for existing build directories ...\n\n"
+for d in ${dirs}; do
+    # Delete the directory if it exists.
+    if [ -d "${d}" ]; then
+        printf "|- Deleting %s\n" ${d}
+        rm -rf "${d}"
     fi
 done
-printf "Done.\n\n"
 
-# Create requirements file.
-printf "Creating the requirements file ...\n"
-pipreqs --force --use-local ./
-printf "Done.\n\n"
+# Update requirements file.
+printf "Updating the requirements file, ignoring './tests' ...\n"
+preqs . --replace
 
-# Create the wheel install file.
-printf "Creating source dist ...\n"
-./setup.py sdist bdist_wheel
-printf "Done.\n\n"
+# Create the package and wheel file.
+printf "\nCreating the source distribution ...\n"
+python -m build
 
-printf "Setup complete.\n\n"
+# Notfication.
+printf "\nAll done.\n\n"
 

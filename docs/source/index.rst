@@ -1,37 +1,63 @@
-.. pandas-validation documentation master file, created by
-   sphinx-quickstart on Tue Jan 19 09:45:10 2016.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
 
-===========================================
-Welcome to the documentation for pdvalidate
-===========================================
+================================
+pdvalidate Library Documentation
+================================
 
-``pdvalidate`` is a small Python library used to cast and validate data
-contained in a `pandas <http://pandas.pydata.org>`_ data structure.
+.. contents:: Page contents
+   :local:
+   :depth: 1
 
-Once installed, the :ref:`quickstart` section is a great place to start.
 
+Overview
+========
+The ``pdvalidate`` library is a small CPython project used to validate
+data contained in `pandas`_ data structures.
+
+
+
+Installation and Quickstart
+===========================
+The easiest way to install ``pdvalidate`` is using ``pip`` *after* activating
+your virtual environment::
+    
+    pip install pdvalidate
+
+
+Once the library is installed, you may wish to refer to the 
+:ref:`quickstart-guide` to get up and running.
+
+
+Indices and contents
+====================
+
+Documentation contents
+----------------------
 
 .. toctree::
-   :caption: Contents
-   :name: mastertoc
-   :maxdepth: 2
-   :glob:
+   :maxdepth: 1
 
-   installation
    quickstart
-   api
+   library
    changelog
+   contact
 
-
-Indices and tables
-==================
+Indices and search
+------------------
 
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
 
+
+Authors
+=======
+- Markus Englund: Author of the *original* `pandas-validation`_ library.
+- The S3DEV Developers: Authors of *this* `pdvalidate`_ fork, for enhanced
+  functionality.
+
+.. _pandas: http://pandas.pydata.org
+.. _pandas-validation: https://github.com/jmenglund/pandas-validation
+.. _pdvalidate: https://github.com/s3dev/pdvalidate
 
 |lastupdated|
 

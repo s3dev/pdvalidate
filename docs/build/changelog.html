@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Change Log &mdash; pdvalidate Documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=cdd23728"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Contact Us" href="contact.html" />
+    <link rel="prev" title="validation - Functionality for validating a pandas data structure" href="validation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            pdvalidate
+              <img src="_static/s3dev_tri_white_sm.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.0.0rc1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="library.html">Library API Documentation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Change Log</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contact.html">Contact Us</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pdvalidate</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Change Log</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pdvalidate.changelog">
+<span id="change-log"></span><h1>Change Log<a class="headerlink" href="#module-pdvalidate.changelog" title="Link to this heading"></a></h1>
+<ul>
+<li><p><strong>1.0.0rc1 - Fully integrated as an S3DEV project.</strong><span> by </span><em>j_berendt</em><span> at </span><em>2024-08-20 15:21:11</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Production</span> <span class="n">release</span> <span class="n">candidate</span> <span class="k">for</span> <span class="n">version</span> <span class="mf">0.6.2</span><span class="o">.</span> <span class="n">Changes</span> <span class="n">to</span> <span class="n">integrate</span> <span class="n">the</span>
+<span class="n">pandas</span><span class="o">-</span><span class="n">validation</span> <span class="n">fork</span> <span class="k">as</span> <span class="n">an</span> <span class="n">S3DEV</span> <span class="n">project</span> <span class="n">are</span> <span class="n">complete</span> <span class="ow">and</span> <span class="n">now</span> <span class="n">available</span>
+<span class="n">on</span> <span class="n">PyPI</span><span class="o">.</span>
+
+<span class="n">Changes</span><span class="p">:</span>
+<span class="o">-</span> <span class="n">No</span> <span class="n">major</span> <span class="n">code</span> <span class="n">base</span> <span class="p">(</span><span class="n">core</span> <span class="n">functionality</span><span class="p">)</span> <span class="n">changes</span> <span class="n">have</span> <span class="n">been</span> <span class="n">made</span><span class="o">.</span>
+<span class="o">-</span> <span class="n">Replaced</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="k">with</span> <span class="n">pyproject</span><span class="o">.</span><span class="n">toml</span><span class="o">.</span>
+<span class="o">-</span> <span class="n">Documentation</span> <span class="n">updated</span> <span class="ow">and</span> <span class="n">completed</span><span class="o">.</span> <span class="n">Prepared</span> <span class="k">for</span> <span class="n">readthedocs</span><span class="o">.</span><span class="n">io</span><span class="o">.</span>
+<span class="o">-</span> <span class="n">Test</span> <span class="n">suite</span> <span class="n">updated</span> <span class="ow">and</span> <span class="n">completes</span> <span class="k">with</span> <span class="mi">100</span><span class="o">%</span> <span class="n">code</span> <span class="n">coverage</span> <span class="ow">and</span> <span class="k">pass</span> <span class="n">rate</span><span class="o">.</span>
+<span class="o">-</span> <span class="n">Pylint</span> <span class="n">completes</span> <span class="k">with</span> <span class="mi">100</span><span class="o">%</span> <span class="n">success</span><span class="o">.</span>
+
+<span class="n">Released</span><span class="p">:</span> <span class="mi">2024</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">23</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>0.6.2 - Replaced calls to utils3 with utils4.</strong><span> by </span><em>j_berendt</em><span> at </span><em>2022-10-10 21:31:52</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Changes</span><span class="p">:</span>
+<span class="o">-</span> <span class="n">The</span> <span class="n">utils3</span> <span class="n">library</span> <span class="ow">is</span> <span class="n">no</span> <span class="n">longer</span> <span class="n">used</span> <span class="n">by</span> <span class="n">this</span> <span class="n">library</span><span class="o">.</span> <span class="n">All</span> <span class="n">calls</span> <span class="n">replcaed</span>
+  <span class="k">with</span> <span class="n">calls</span> <span class="n">to</span> <span class="n">utils4</span><span class="o">.</span>
+
+<span class="n">Released</span><span class="p">:</span> <span class="mi">2022</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">11</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>0.6.1 - Production release of v0.6.1a2.</strong><span> by </span><em>J Berendt</em><span> at </span><em>2022-02-01 15:26:18</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Released</span><span class="p">:</span> <span class="mi">2022</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">01</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>0.6.1a2 - Minor updates post-0.6.1a1 testing.</strong><span> by </span><em>J Berendt</em><span> at </span><em>2022-01-19 13:20:28</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Alpha</span> <span class="n">release</span> <span class="k">for</span> <span class="n">internal</span> <span class="n">hums</span> <span class="n">testing</span><span class="o">.</span>
+
+<span class="n">Updates</span><span class="p">:</span>
+<span class="o">-</span> <span class="n">Updated</span> <span class="n">the</span> <span class="n">validate_numeric</span> <span class="n">method</span> <span class="n">to</span> <span class="k">return</span> <span class="n">an</span> <span class="nb">repr</span> <span class="n">of</span> <span class="n">the</span> <span class="n">Series</span> <span class="n">name</span>
+  <span class="n">so</span> <span class="n">single</span> <span class="n">quotes</span> <span class="n">are</span> <span class="n">kept</span> <span class="n">around</span> <span class="n">the</span> <span class="n">Series</span> <span class="n">name</span><span class="o">.</span>
+<span class="o">-</span> <span class="n">Updated</span> <span class="n">the</span> <span class="s1">&#39;UnexpectedDatatype&#39;</span> <span class="n">warning</span> <span class="n">label</span> <span class="n">to</span> <span class="s1">&#39;DatatypeWarning&#39;</span><span class="o">.</span>
+<span class="o">-</span> <span class="n">Updated</span> <span class="n">the</span> <span class="n">message</span> <span class="n">build</span> <span class="n">methods</span> <span class="n">to</span> <span class="n">use</span> <span class="n">f</span><span class="o">-</span><span class="n">strings</span><span class="o">.</span>
+
+<span class="n">Tests</span> <span class="o">/</span> <span class="n">Coverage</span><span class="p">:</span>
+<span class="o">-</span> <span class="n">All</span> <span class="n">test</span> <span class="ow">and</span> <span class="n">coverage</span> <span class="n">tests</span> <span class="k">pass</span><span class="o">.</span>
+
+<span class="n">Released</span><span class="p">:</span> <span class="mi">2022</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">19</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>0.6.1a1 - Updated numeric validation to raise warning for unexpected dtype.</strong><span> by </span><em>J Berendt</em><span> at </span><em>2022-01-18 12:58:24</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Alpha</span> <span class="n">release</span> <span class="k">for</span> <span class="n">internal</span> <span class="n">hums</span> <span class="n">testing</span><span class="o">.</span>
+
+<span class="n">validation</span><span class="o">.</span><span class="n">py</span><span class="p">:</span>
+<span class="o">-</span> <span class="n">ISSUE</span><span class="p">:</span> <span class="n">When</span> <span class="n">a</span> <span class="n">field</span> <span class="n">which</span> <span class="ow">is</span> <span class="n">expected</span> <span class="n">to</span> <span class="n">be</span> <span class="n">numeric</span> <span class="n">contains</span> <span class="n">a</span> <span class="n">single</span>
+  <span class="n">alpha</span> <span class="n">character</span><span class="p">,</span> <span class="n">the</span> <span class="n">dtype</span> <span class="n">of</span> <span class="n">the</span> <span class="n">Series</span> <span class="ow">is</span> <span class="n">changed</span> <span class="n">to</span> <span class="s1">&#39;object&#39;</span> <span class="n">by</span>
+  <span class="n">pandas</span><span class="o">.</span> <span class="n">This</span> <span class="n">causes</span> <span class="o">*</span><span class="nb">all</span><span class="o">*</span> <span class="n">rows</span> <span class="n">to</span> <span class="n">fail</span> <span class="n">validation</span><span class="p">,</span> <span class="n">rather</span> <span class="n">than</span> <span class="n">only</span>
+  <span class="n">the</span> <span class="n">responsible</span> <span class="n">value</span><span class="o">.</span>
+  <span class="n">In</span> <span class="n">the</span> <span class="n">context</span> <span class="n">of</span> <span class="n">the</span> <span class="n">hums</span> <span class="n">tool</span><span class="p">,</span> <span class="n">this</span> <span class="n">causes</span> <span class="n">the</span> <span class="n">error</span> <span class="n">count</span> <span class="n">to</span> <span class="n">show</span>
+  <span class="n">the</span> <span class="o">*</span><span class="n">total</span><span class="o">*</span> <span class="n">number</span> <span class="n">of</span> <span class="n">rows</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">Series</span> <span class="k">as</span> <span class="n">the</span> <span class="n">number</span> <span class="n">of</span> <span class="k">as</span> <span class="n">error</span>
+  <span class="n">rows</span><span class="o">.</span>
+<span class="o">-</span> <span class="n">FIX</span><span class="p">:</span> <span class="n">Updated</span> <span class="n">to</span> <span class="n">only</span> <span class="n">carry</span> <span class="n">out</span> <span class="n">tests</span> <span class="n">on</span> <span class="n">numeric</span> <span class="ow">and</span> <span class="n">string</span> <span class="n">fields</span>
+  <span class="n">when</span> <span class="n">the</span> <span class="n">datatype</span> <span class="ow">is</span> <span class="k">as</span> <span class="n">expected</span><span class="o">.</span> <span class="n">Otherwise</span><span class="p">,</span> <span class="n">an</span> <span class="p">[</span><span class="n">UnexpectedDatatype</span><span class="p">]</span>
+  <span class="n">warning</span> <span class="ow">is</span> <span class="n">thrown</span> <span class="n">to</span> <span class="n">the</span> <span class="n">terminal</span> <span class="n">to</span> <span class="n">alert</span> <span class="n">the</span> <span class="n">user</span> <span class="n">of</span> <span class="n">the</span> <span class="n">data</span> <span class="n">anomaly</span><span class="o">.</span>
+  <span class="n">The</span> <span class="n">hums</span> <span class="n">tools</span> <span class="ow">is</span> <span class="n">to</span> <span class="n">be</span> <span class="n">updated</span> <span class="n">to</span> <span class="n">watch</span> <span class="k">for</span> <span class="n">the</span> <span class="s1">&#39;UnexpectedDatatype&#39;</span>
+  <span class="n">warning</span> <span class="ow">and</span> <span class="n">handle</span> <span class="n">accordingly</span><span class="o">.</span>
+
+<span class="n">Testing</span><span class="p">:</span>
+<span class="o">-</span> <span class="n">Updated</span> <span class="n">test</span> <span class="n">cases</span> <span class="n">to</span> <span class="n">include</span> <span class="n">tests</span> <span class="k">for</span> <span class="n">the</span> <span class="n">new</span> <span class="n">methods</span><span class="o">.</span>
+<span class="o">-</span> <span class="n">All</span> <span class="n">test</span> <span class="n">cases</span> <span class="k">pass</span><span class="o">.</span>
+
+<span class="n">Coverage</span><span class="p">:</span>
+<span class="o">-</span> <span class="n">Code</span> <span class="n">coverage</span> <span class="n">analysis</span> <span class="n">passes</span><span class="o">.</span>
+
+<span class="n">Released</span><span class="p">:</span> <span class="mi">2022</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">19</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>0.6.0.dev3 - Minor string validation update.</strong><span> by </span><em>j_berendt</em><span> at </span><em>2021-10-20 15:45:27</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Details:
+- Updated to verify a Series contains strings (not just NaN values)
+  before allowing tests which use the `.str` accessor.
+
+Released: 2021-10-20
+</pre></div>
+</div>
+</li>
+<li><p><strong>0.6.0.dev2 - Pandas ‘match groups’ regex warning suppressed. README updates.</strong><span> by </span><em>j berendt</em><span> at </span><em>2020-06-11 11:46:34</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Match</span> <span class="n">Groups</span><span class="p">:</span>
+<span class="o">-</span> <span class="n">Updated</span> <span class="n">to</span> <span class="n">suppress</span> <span class="n">the</span> <span class="n">pandas</span> <span class="n">warning</span> <span class="s1">&#39;pattern has match groups&#39;</span> <span class="n">which</span>
+  <span class="ow">is</span> <span class="n">thrown</span> <span class="k">if</span> <span class="n">a</span> <span class="n">regex</span> <span class="n">pattern</span> <span class="k">with</span> <span class="n">match</span> <span class="n">groups</span> <span class="ow">is</span> <span class="n">passed</span> <span class="n">into</span> <span class="n">validation</span><span class="o">.</span>
+
+<span class="n">README</span><span class="p">:</span>
+<span class="o">-</span> <span class="n">Updated</span> <span class="n">the</span> <span class="n">README</span> <span class="n">fileto</span> <span class="n">align</span> <span class="k">with</span> <span class="n">pdvalidate</span> <span class="n">fork</span><span class="o">.</span>
+
+<span class="n">Released</span><span class="p">:</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">11</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>0.6.0.dev01 - Initial fork of pandas-validation to include new functionality.</strong><span> by </span><em>J Berendt</em><span> at </span><em>2020-06-08 13:05:20</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>This is a fork from `pandas-validation` and a minor release with the
+following changes:
+
+- **New functionality:** Updated validation tests to return the error
+  message string along with the series mask. This enables the capture
+  and logging of error messages (e.g. for validation reports), which
+  was previously not available.
+  **Note:** This will break current integrations of `pandas-validation`.
+- Automated testing updated to support new functionality and the removal
+  of ValidationWarning warnings from validation tests.
+- The function `validate_datetime()` has been removed, per v0.5.0&#39;s
+  deprecation notice, and replaced by the functions:
+  `validate_date()` and `validate_timestamp()`
+- Restructured the package for further (future) updates.
+- Docstrings updated to Google Style, to fit with S3DEV guidelines.
+- Updated reserved words in the code (such as `format`) with non-reserved
+  words.
+- Syntax modification for Pythonic-ness, readability and simplicity.
+- Addressed a `pandas` `FutureWarning` by converting `datetime` objects
+  using `pd.Timestamp`.
+- Added a `_version.py` file to replace hardcoded versioning.
+
+Released: 2020-06-04
+</pre></div>
+</div>
+</li>
+<li><p><strong>Merge pull request #21 from jmenglund/develop</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2019-06-13 16:55:21</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Update</span> <span class="n">pandas</span> <span class="n">version</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Update pandas version</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2019-06-13 16:42:32</em></p></li>
+<li><p><strong>Merge pull request #20 from jmenglund/develop</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2019-06-13 16:39:18</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Develop</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Update release version to 0.5.0</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2019-06-13 16:31:56</em></p></li>
+<li><p><strong>Update requirements.txt</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2019-06-13 16:30:04</em></p></li>
+<li><p><strong>Update CHANGELOG.md</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2019-06-04 16:52:24</em></p></li>
+<li><p><strong>Add tests for date and timestamp validation</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2019-05-29 22:09:11</em></p></li>
+<li><p><strong>Adapt tests for numeric and string validation</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2019-05-29 21:36:35</em></p></li>
+<li><p><strong>Update quickstart text and examples</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2019-05-29 21:24:53</em></p></li>
+<li><p><strong>Remove type conversion from validate_string()</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2019-05-29 21:23:33</em></p></li>
+<li><p><strong>Remove type conversion from validate_numeric()</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2019-05-29 21:22:51</em></p></li>
+<li><p><strong>Deprecate use of function validate_datetime()</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2019-05-29 15:31:44</em></p></li>
+<li><p><strong>Add function for validating values of type pandas.Timestamp</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2019-05-29 15:31:03</em></p></li>
+<li><p><strong>Add function for validating values of type datetime.date</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2019-05-29 15:30:26</em></p></li>
+<li><p><strong>Fix typos in validate_datetime() docstring</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2019-05-29 15:29:05</em></p></li>
+<li><p><strong>Merge pull request #19 from jmenglund/develop</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2019-05-27 21:48:49</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Develop</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Update release</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2019-05-27 21:45:20</em></p></li>
+<li><p><strong>Add console output to quickstart examples</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2019-05-27 21:28:52</em></p></li>
+<li><p><strong>Fix url to PyPI</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2019-05-27 21:28:17</em></p></li>
+<li><p><strong>Issue ValidationWarning at stack level 2</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2019-05-25 21:39:30</em></p></li>
+<li><p><strong>Add support for non-NumPy numeric dtypes</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2019-05-25 21:36:02</em></p></li>
+<li><p><strong>Fix default values in docstrings</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2019-02-02 15:00:27</em></p></li>
+<li><p><strong>Update conf.py</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2019-02-02 14:52:54</em></p></li>
+<li><p><strong>Merge branch ‘master’ of https://github.com/jmenglund/pandas-validation</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2019-02-02 12:30:11</em></p></li>
+<li><p><strong>Update version</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2019-02-02 12:29:11</em></p></li>
+<li><p><strong>Merge pull request #18 from jmenglund/develop</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2019-02-02 12:16:36</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Fix</span> <span class="n">validation</span> <span class="k">with</span> <span class="nb">min</span> <span class="ow">or</span> <span class="nb">max</span> <span class="n">equal</span> <span class="n">to</span> <span class="n">zero</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Update CHANGELOG.md</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2019-02-02 12:12:27</em></p></li>
+<li><p><strong>Fix validation with min or max equal to 0 (issue #17)</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2019-02-02 12:11:33</em></p></li>
+<li><p><strong>Add –universal to build command</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2018-10-18 12:12:50</em></p></li>
+<li><p><strong>Merge pull request #16 from jmenglund/develop</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2018-10-18 12:10:35</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Update</span> <span class="n">release</span> <span class="n">version</span> <span class="n">to</span> <span class="mf">0.3.1</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Update release version to 0.3.1</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2018-10-18 12:09:58</em></p></li>
+<li><p><strong>Merge pull request #15 from jmenglund/develop</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2018-10-18 12:04:16</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Add</span> <span class="n">install</span> <span class="n">of</span> <span class="n">codecov</span> <span class="n">to</span> <span class="o">.</span><span class="n">travis</span><span class="o">.</span><span class="n">yml</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Update description in changelog</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2018-10-18 12:01:56</em></p></li>
+<li><p><strong>Fix codecov in .travis.yml</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2018-10-18 12:01:28</em></p></li>
+<li><p><strong>Modify install of codecov in .travis.yml</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2018-10-18 11:53:22</em></p></li>
+<li><p><strong>Add install od codecov to .travis.yml</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2018-10-18 11:50:50</em></p></li>
+<li><p><strong>Merge pull request #14 from jmenglund/develop</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2018-10-18 10:55:46</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Add</span> <span class="n">codecov</span> <span class="n">token</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Add codecov token</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2018-10-18 10:50:07</em></p></li>
+<li><p><strong>Merge pull request #13 from jmenglund/develop</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2018-10-18 10:30:28</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Develop</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Fix raw strings</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2018-10-18 10:04:20</em></p></li>
+<li><p><strong>Use raw strings for regex</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2018-10-18 09:44:38</em></p></li>
+<li><p><strong>Add version 0.3.1 to changelog</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2018-10-18 09:20:33</em></p></li>
+<li><p><strong>Fix indentation in tests</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2018-10-18 08:56:03</em></p></li>
+<li><p><strong>Fix typo</strong><span> by </span><em>jmenglund</em><span> at </span><em>2018-01-03 22:39:04</em></p></li>
+<li><p><strong>Modify return_type in quickstart example</strong><span> by </span><em>jmenglund</em><span> at </span><em>2018-01-03 20:59:41</em></p></li>
+<li><p><strong>Modify text in release checklist</strong><span> by </span><em>jmenglund</em><span> at </span><em>2018-01-03 17:23:24</em></p></li>
+<li><p><strong>Replace arg “return_values” with “return_type” in quickstart examples</strong><span> by </span><em>jmenglund</em><span> at </span><em>2018-01-03 17:07:11</em></p></li>
+<li><p><strong>Add step for triggering build on readthedocs.io</strong><span> by </span><em>jmenglund</em><span> at </span><em>2018-01-03 17:01:34</em></p></li>
+<li><p><strong>Modify CHANGELOG text for v0.3.0</strong><span> by </span><em>jmenglund</em><span> at </span><em>2018-01-03 16:55:39</em></p></li>
+<li><p><strong>Merge pull request #10 from jmenglund/return_type</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2018-01-03 16:25:30</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Argument</span> <span class="s2">&quot;return_type&quot;</span> <span class="n">to</span> <span class="n">replace</span> <span class="s2">&quot;return_values&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Fix typos in travis config file</strong><span> by </span><em>jmenglund</em><span> at </span><em>2018-01-03 16:15:54</em></p></li>
+<li><p><strong>Add linebreak to long urls in README</strong><span> by </span><em>jmenglund</em><span> at </span><em>2018-01-03 16:10:29</em></p></li>
+<li><p><strong>Add link to “Read the Docs Sphinx Theme” to README</strong><span> by </span><em>jmenglund</em><span> at </span><em>2018-01-03 16:10:05</em></p></li>
+<li><p><strong>Modify text in CHANGELOG</strong><span> by </span><em>jmenglund</em><span> at </span><em>2018-01-03 16:05:52</em></p></li>
+<li><p><strong>Change code-block type to “python” instead of “pycon”</strong><span> by </span><em>jmenglund</em><span> at </span><em>2018-01-03 16:02:59</em></p></li>
+<li><p><strong>Change code-block type to “pythion” instead of “pycon”</strong><span> by </span><em>jmenglund</em><span> at </span><em>2018-01-03 16:01:34</em></p></li>
+<li><p><strong>Modify quickstart examples</strong><span> by </span><em>jmenglund</em><span> at </span><em>2018-01-03 15:55:07</em></p></li>
+<li><p><strong>Modify install and script in travis config file</strong><span> by </span><em>jmenglund</em><span> at </span><em>2018-01-03 15:45:45</em></p></li>
+<li><p><strong>Remove extras_require from setup.py</strong><span> by </span><em>jmenglund</em><span> at </span><em>2018-01-03 15:45:11</em></p></li>
+<li><p><strong>Make code in function “validate_string” PEP8 compliant</strong><span> by </span><em>jmenglund</em><span> at </span><em>2018-01-03 15:32:11</em></p></li>
+<li><p><strong>Fix bug in blacklist mask</strong><span> by </span><em>jmenglund</em><span> at </span><em>2018-01-03 15:31:16</em></p></li>
+<li><p><strong>Fix bug in whitelist mask</strong><span> by </span><em>jmenglund</em><span> at </span><em>2018-01-03 15:30:56</em></p></li>
+<li><p><strong>Add version 0.3.0 to CHANGELOG</strong><span> by </span><em>jmenglund</em><span> at </span><em>2018-01-03 15:08:33</em></p></li>
+<li><p><strong>Modify test instructions in README</strong><span> by </span><em>jmenglund</em><span> at </span><em>2018-01-03 15:07:14</em></p></li>
+<li><p><strong>Add function “_get_return_object”</strong><span> by </span><em>jmenglund</em><span> at </span><em>2018-01-03 14:22:00</em></p></li>
+<li><p><strong>Replace arg “return_values” with “return_type” in validate_string test</strong><span> by </span><em>jmenglund</em><span> at </span><em>2018-01-03 13:48:02</em></p></li>
+<li><p><strong>Modify validation code in “validate_string” function</strong><span> by </span><em>jmenglund</em><span> at </span><em>2018-01-03 13:46:30</em></p></li>
+<li><p><strong>Add error descriptions to “validate_string” function</strong><span> by </span><em>jmenglund</em><span> at </span><em>2018-01-03 13:44:27</em></p></li>
+<li><p><strong>Replace arg “retrun_values” with “return_type” in “validate_string” function</strong><span> by </span><em>jmenglund</em><span> at </span><em>2018-01-03 13:43:52</em></p></li>
+<li><p><strong>Replace arg “return_values” with “return_type” in “validate_string” function</strong><span> by </span><em>jmenglund</em><span> at </span><em>2018-01-03 13:43:10</em></p></li>
+<li><p><strong>Modify noninteger mask in “validate_numeric” function</strong><span> by </span><em>jmenglund</em><span> at </span><em>2018-01-03 13:41:43</em></p></li>
+<li><p><strong>Modify nonunique in “validate_numeric” function</strong><span> by </span><em>jmenglund</em><span> at </span><em>2018-01-03 13:41:13</em></p></li>
+<li><p><strong>Modify nonunique mask in “validate_datetime” function</strong><span> by </span><em>jmenglund</em><span> at </span><em>2018-01-03 13:40:37</em></p></li>
+<li><p><strong>Modify keys in validation functions</strong><span> by </span><em>jmenglund</em><span> at </span><em>2018-01-02 14:09:12</em></p></li>
+<li><p><strong>Replace arg “return_values” with “return_type”</strong><span> by </span><em>jmenglund</em><span> at </span><em>2018-01-02 13:45:54</em></p></li>
+<li><p><strong>Modify function “validate_numeric”</strong><span> by </span><em>jmenglund</em><span> at </span><em>2018-01-02 13:45:30</em></p></li>
+<li><p><strong>Fix typo</strong><span> by </span><em>jmenglund</em><span> at </span><em>2018-01-02 13:44:05</em></p></li>
+<li><p><strong>Att step for checking coding style</strong><span> by </span><em>jmenglund</em><span> at </span><em>2018-01-02 13:10:17</em></p></li>
+<li><p><strong>Modify test commands in release checklist</strong><span> by </span><em>jmenglund</em><span> at </span><em>2018-01-02 13:05:27</em></p></li>
+<li><p><strong>Replace arg ‘return_values’ with ‘return_type’</strong><span> by </span><em>jmenglund</em><span> at </span><em>2018-01-02 13:04:59</em></p></li>
+<li><p><strong>Specify exception type</strong><span> by </span><em>jmenglund</em><span> at </span><em>2018-01-02 12:49:42</em></p></li>
+<li><p><strong>Fix typos</strong><span> by </span><em>jmenglund</em><span> at </span><em>2018-01-02 12:36:13</em></p></li>
+<li><p><strong>Modify validate_datetime</strong><span> by </span><em>jmenglund</em><span> at </span><em>2018-01-02 12:34:51</em></p></li>
+<li><p><strong>Add function _get_error_messages</strong><span> by </span><em>jmenglund</em><span> at </span><em>2018-01-02 12:34:25</em></p></li>
+<li><p><strong>Add release 0.2.1 to CHANGELOG.md</strong><span> by </span><em>jmenglund</em><span> at </span><em>2017-09-30 22:39:31</em></p></li>
+<li><p><strong>Remove use of deprecated pandas.tslib</strong><span> by </span><em>jmenglund</em><span> at </span><em>2017-09-28 15:59:46</em></p></li>
+<li><p><strong>Fix typos in quickstart examples</strong><span> by </span><em>jmenglund</em><span> at </span><em>2017-09-18 07:45:48</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Replace ”pandas” with ”pd”
+</pre></div>
+</div>
+</li>
+<li><p><strong>Merge pull request #9 from jmenglund/develop</strong><span> by </span><em>Markus Englund</em><span> at </span><em>2017-09-17 21:47:56</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Develop</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Change version to 0.2.0</strong><span> by </span><em>jmenglund</em><span> at </span><em>2017-09-17 21:43:05</em></p></li>
+<li><p><strong>Add release 0.2.0 to changelog</strong><span> by </span><em>jmenglund</em><span> at </span><em>2017-09-17 21:42:21</em></p></li>
+<li><p><strong>Fixed typos in changelog</strong><span> by </span><em>jmenglund</em><span> at </span><em>2017-09-17 21:36:09</em></p></li>
+</ul>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="validation.html" class="btn btn-neutral float-left" title="validation - Functionality for validating a pandas data structure" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="contact.html" class="btn btn-neutral float-right" title="Contact Us" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022-2024 | s3dev | version 1.0.0rc1.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

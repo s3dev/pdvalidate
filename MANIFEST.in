@@ -1,4 +1,3 @@
-include *.rst
-include CHANGELOG.md
-include LICENSE.txt
+# Include docs
 recursive-include docs/build *
+

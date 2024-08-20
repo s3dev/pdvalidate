@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>validation - Functionality for validating a pandas data structure &mdash; pdvalidate Documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=cdd23728"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Change Log" href="changelog.html" />
+    <link rel="prev" title="Library API Documentation" href="library.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            pdvalidate
+              <img src="_static/s3dev_tri_white_sm.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.0.0rc1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="library.html">Library API Documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">validation - Functionality for validating a pandas data structure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#validation.Validation"><code class="docutils literal notranslate"><span class="pre">Validation</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#validation.Validation._build_message_dtype"><code class="docutils literal notranslate"><span class="pre">Validation._build_message_dtype()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#validation.Validation._build_message_range"><code class="docutils literal notranslate"><span class="pre">Validation._build_message_range()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#validation.Validation._datetime_to_string"><code class="docutils literal notranslate"><span class="pre">Validation._datetime_to_string()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#validation.Validation._get_error_messages"><code class="docutils literal notranslate"><span class="pre">Validation._get_error_messages()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#validation.Validation._get_return_object"><code class="docutils literal notranslate"><span class="pre">Validation._get_return_object()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#validation.Validation._numeric_to_string"><code class="docutils literal notranslate"><span class="pre">Validation._numeric_to_string()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#validation.Validation.ei"><code class="docutils literal notranslate"><span class="pre">Validation.ei</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#validation.Validation.mask_nonconvertible"><code class="docutils literal notranslate"><span class="pre">Validation.mask_nonconvertible()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#validation.Validation.test_dtype_numeric"><code class="docutils literal notranslate"><span class="pre">Validation.test_dtype_numeric()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#validation.Validation.test_dtype_object"><code class="docutils literal notranslate"><span class="pre">Validation.test_dtype_object()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#validation.Validation.to_datetime"><code class="docutils literal notranslate"><span class="pre">Validation.to_datetime()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#validation.Validation.to_numeric"><code class="docutils literal notranslate"><span class="pre">Validation.to_numeric()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#validation.Validation.to_string"><code class="docutils literal notranslate"><span class="pre">Validation.to_string()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#validation.Validation.validate_date"><code class="docutils literal notranslate"><span class="pre">Validation.validate_date()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#validation.Validation.validate_numeric"><code class="docutils literal notranslate"><span class="pre">Validation.validate_numeric()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#validation.Validation.validate_string"><code class="docutils literal notranslate"><span class="pre">Validation.validate_string()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#validation.Validation.validate_timestamp"><code class="docutils literal notranslate"><span class="pre">Validation.validate_timestamp()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contact.html">Contact Us</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pdvalidate</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="library.html">Library API Documentation</a></li>
+      <li class="breadcrumb-item active">validation - Functionality for validating a pandas data structure</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="validation-functionality-for-validating-a-pandas-data-structure">
+<h1>validation - Functionality for validating a pandas data structure<a class="headerlink" href="#validation-functionality-for-validating-a-pandas-data-structure" title="Link to this heading"></a></h1>
+<p>Module providing <code class="docutils literal notranslate"><span class="pre">pandas</span></code> data structure validation functionality.</p>
+<dl class="field-list" id="module-validation">
+<dt class="field-odd">Purpose<span class="colon">:</span></dt>
+<dd class="field-odd"><p>This module contains functionality to validate <code class="docutils literal notranslate"><span class="pre">pandas</span></code>
+data structures.</p>
+<p>In the event of a validation error, the warning is displayed
+to the terminal and can be returned along with the rows of
+the data structure containing the validation error(s).</p>
+</dd>
+<dt class="field-even">Platform<span class="colon">:</span></dt>
+<dd class="field-even"><p>Linux/Windows | Python 3.10+</p>
+</dd>
+<dt class="field-odd">Developer<span class="colon">:</span></dt>
+<dd class="field-odd"><p>J Berendt</p>
+</dd>
+<dt class="field-even">Email<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="mailto:support&#37;&#52;&#48;s3dev&#46;uk">support<span>&#64;</span>s3dev<span>&#46;</span>uk</a></p>
+</dd>
+<dt class="field-odd">Source<span class="colon">:</span></dt>
+<dd class="field-odd"><p>This project (<code class="docutils literal notranslate"><span class="pre">pdvalidate</span></code>) is a fork from Markus Englund’s
+<code class="docutils literal notranslate"><span class="pre">pandas-validation</span></code> project (v0.5.0), which can be found
+on GitHub:</p>
+<blockquote>
+<div><p><a class="reference external" href="https://github.com/jmenglund/pandas-validation">https://github.com/jmenglund/pandas-validation</a></p>
+</div></blockquote>
+<p>This fork was built to provide additional functionality,
+specifically the returning of the validation error message
+from the test. Whereas the original project provided a
+<code class="docutils literal notranslate"><span class="pre">ValidationWarning</span></code> via the <code class="docutils literal notranslate"><span class="pre">warnings</span></code> library; which
+prevented the validation error from being logged.</p>
+<p>We have worked to keep the initial integrity of the project,
+while adding some features.</p>
+<p>Thank you Markus for the excellent framework, and for sharing
+it with us all!</p>
+</dd>
+<dt class="field-even">Example Use<span class="colon">:</span></dt>
+<dd class="field-even"><p>Example code use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pdvalidate.validation</span> <span class="kn">import</span> <span class="n">validate</span> <span class="k">as</span> <span class="n">pv</span>
+
+<span class="go"># Create a Series and validation rules.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">&#39;aaa&#39;</span><span class="p">,</span> <span class="s1">&#39;bb&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;dddd&#39;</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;TestSeries&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span><span class="p">,</span> <span class="n">msg</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">validate_string</span><span class="p">(</span><span class="n">s</span><span class="p">,</span>
+<span class="go">                                     min_length=1,</span>
+<span class="go">                                     max_length=2,</span>
+<span class="go">                                     return_type=&#39;mask_series&#39;)</span>
+
+<span class="go">[RangeWarning]: &#39;TestSeries&#39;: string(s) too long.</span>
+
+<span class="go"># Show row(s) which fail validation.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">result</span><span class="p">])</span>
+
+<span class="go">0     aaa</span>
+<span class="go">3    dddd</span>
+<span class="go">Name: TestSeries, dtype: object</span>
+
+<span class="go"># Show row(s) which pass validation.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="o">~</span><span class="n">result</span><span class="p">])</span>
+
+<span class="go">1    bb</span>
+<span class="go">2     c</span>
+<span class="go">Name: TestSeries, dtype: object</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="validation.Validation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">validation.</span></span><span class="sig-name descname"><span class="pre">Validation</span></span><a class="reference internal" href="_modules/validation.html#Validation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#validation.Validation" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class container for all validation functionality.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="validation.Validation._build_message_dtype">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_build_message_dtype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">series_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rec</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/validation.html#Validation._build_message_dtype"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#validation.Validation._build_message_dtype" title="Link to this definition"></a></dt>
+<dd><p>Build the unexpected datatype warning message for terminal output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>series_name</strong> (<em>str</em>) – Name of the Series causing the error.</p></li>
+<li><p><strong>exp</strong> (<em>str</em>) – Expected datatype.</p></li>
+<li><p><strong>rec</strong> (<em>str</em>) – Received datatype.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Compiled error message string.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="validation.Validation._build_message_range">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_build_message_range</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">series_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/validation.html#Validation._build_message_range"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#validation.Validation._build_message_range" title="Link to this definition"></a></dt>
+<dd><p>Build the range warning message string for terminal output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>series_name</strong> (<em>str</em>) – Name of the Series causing the error.</p></li>
+<li><p><strong>message_list</strong> (<em>list</em>) – List of error message strings to be
+printed to the terminal.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Compiled error message string.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="validation.Validation._datetime_to_string">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_datetime_to_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">series</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datetime_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'%Y-%m-%d'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Series</span></span></span><a class="reference internal" href="_modules/validation.html#Validation._datetime_to_string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#validation.Validation._datetime_to_string" title="Link to this definition"></a></dt>
+<dd><p>Convert datetime values in a pandas Series to strings.</p>
+<p>Other values are left as they are.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>series</strong> (<em>pd.Series</em>) – Values to convert.</p></li>
+<li><p><strong>datetime_format</strong> (<em>str</em><em>, </em><em>optional</em>) – Format string for datetime
+type. Defaults to <code class="docutils literal notranslate"><span class="pre">'%Y-%m-%d'</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A converted pd.Series.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="validation.Validation._get_error_messages">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_get_error_messages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">masks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/validation.html#Validation._get_error_messages"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#validation.Validation._get_error_messages" title="Link to this definition"></a></dt>
+<dd><p>Compile a list of error messages.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>masks</strong> (<em>list</em>)</p></li>
+<li><p><strong>error_info</strong> (<em>dict</em>) – Dictionary with error messages
+corresponding to different validation errors.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A compiled list of error messages.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="validation.Validation._get_return_object">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_get_return_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">masks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Series</span></span></span><a class="reference internal" href="_modules/validation.html#Validation._get_return_object"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#validation.Validation._get_return_object" title="Link to this definition"></a></dt>
+<dd><p>Build the return object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>masks</strong> (<em>dict</em>) – Dictionary of validation failure masks.</p></li>
+<li><p><strong>values</strong> (<em>pd.Series</em>) – Series of values which were validated.</p></li>
+<li><p><strong>return_type</strong> (<em>str</em>) – Return type string descriptor.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – For an invalid return type string.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Series containing the records which failed
+validation.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pd.Series</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="validation.Validation._numeric_to_string">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_numeric_to_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">series</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">float_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'%g'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Series</span></span></span><a class="reference internal" href="_modules/validation.html#Validation._numeric_to_string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#validation.Validation._numeric_to_string" title="Link to this definition"></a></dt>
+<dd><p>Convert numeric values in a pandas Series to strings.</p>
+<p>Other values are left as they are.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>series</strong> (<em>pd.Series</em>) – Values to convert.</p></li>
+<li><p><strong>float_format</strong> (<em>str</em><em>, </em><em>optional</em>) – Format string for floating
+point number. Defaults to <code class="docutils literal notranslate"><span class="pre">'%g'</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A converted pd.Series.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.Series</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="validation.Validation.ei">
+<span class="sig-name descname"><span class="pre">ei</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;validation.ErrorInfo</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#validation.Validation.ei" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="validation.Validation.mask_nonconvertible">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mask_nonconvertible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">series</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_datatype</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datetime_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exact_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Series</span></span></span><a class="reference internal" href="_modules/validation.html#Validation.mask_nonconvertible"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#validation.Validation.mask_nonconvertible" title="Link to this definition"></a></dt>
+<dd><p>Determine if values cannot be converted.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>series</strong> (<em>pd.Series</em>) – Values to check.</p></li>
+<li><p><strong>to_datatype</strong> (<em>str</em>) – Datatype to which values should be
+converted. Available options are ‘numeric’ and
+‘datetime’.</p></li>
+<li><p><strong>datetime_format</strong> (<em>str</em><em>, </em><em>optional</em>) – Datetime format string. For
+example: <code class="docutils literal notranslate"><span class="pre">'%d/%m/%Y'</span></code>. Note that <code class="docutils literal notranslate"><span class="pre">'%f'</span></code> will parse
+nanoseconds to six decimal places. Defaults to None.</p></li>
+<li><p><strong>exact_date</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True (default), require an
+exact format match. If False, allow the format to match
+anywhere in the target string. Defaults to True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A boolean same-sized Series indicating whether
+values can or cannot be converted.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.Series</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="validation.Validation.test_dtype_numeric">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">test_dtype_numeric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">series</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/validation.html#Validation.test_dtype_numeric"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#validation.Validation.test_dtype_numeric" title="Link to this definition"></a></dt>
+<dd><p>Test if the Series has a numeric datatype.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>series</strong> (<em>pd.Series</em>) – Series to be tested.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if a numeric datatype, otherwise False.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="validation.Validation.test_dtype_object">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">test_dtype_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">series</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/validation.html#Validation.test_dtype_object"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#validation.Validation.test_dtype_object" title="Link to this definition"></a></dt>
+<dd><p>Test if the Series has an object datatype.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>series</strong> (<em>pd.Series</em>) – Series to be tested.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if an object datatype, otherwise False.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="validation.Validation.to_datetime">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">to_datetime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dayfirst</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yearfirst</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">utc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datetime_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exact</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Series</span></span></span><a class="reference internal" href="_modules/validation.html#Validation.to_datetime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#validation.Validation.to_datetime" title="Link to this definition"></a></dt>
+<dd><p>Convert argument to datetime. Set nonconvertible values to NaT.</p>
+<p>This function calls <code class="xref py py-func docutils literal notranslate"><span class="pre">to_datetime()</span></code> with
+<code class="docutils literal notranslate"><span class="pre">errors='coerce'</span></code> and issues a warning if values cannot be
+converted.</p>
+<p>For detailed parameter documentation, please refer to the
+docstring for <code class="docutils literal notranslate"><span class="pre">pandas.to_datetime</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dayfirst</strong> (<em>bool</em><em>, </em><em>optional</em>) – See pandas documentation.
+Defaults to False.</p></li>
+<li><p><strong>yearfirst</strong> (<em>bool</em><em>, </em><em>optional</em>) – See pandas documentation.
+Defaults to False.</p></li>
+<li><p><strong>utc</strong> (<em>bool</em><em>, </em><em>optional</em>) – See pandas documentation.
+Defaults to False.</p></li>
+<li><p><strong>datetime_format</strong> (<em>str</em><em>, </em><em>optional</em>) – See pandas documentation.
+Defaults to None.</p></li>
+<li><p><strong>exact</strong> – See pandas documentation.
+Defaults to True.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="validation.Validation.to_numeric">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">to_numeric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Series</span></span></span><a class="reference internal" href="_modules/validation.html#Validation.to_numeric"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#validation.Validation.to_numeric" title="Link to this definition"></a></dt>
+<dd><p>Convert argument to numeric type. Set nonconvertible values
+to NaN.</p>
+<p>This function calls <code class="xref py py-func docutils literal notranslate"><span class="pre">to_numeric()</span></code> with
+<code class="docutils literal notranslate"><span class="pre">errors='coerce'</span></code> and issues a warning if values cannot be
+converted.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>arg</strong> (<em>list</em><em>, </em><em>tuple</em><em>, </em><em>1-d array</em><em>, or </em><em>Series</em>) – Values to convert.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A converted pd.Series.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.Series</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="validation.Validation.to_string">
+<span class="sig-name descname"><span class="pre">to_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">series</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">float_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'%g'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datetime_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'%Y-%m-%d'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Series</span></span></span><a class="reference internal" href="_modules/validation.html#Validation.to_string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#validation.Validation.to_string" title="Link to this definition"></a></dt>
+<dd><p>Convert values in a pandas Series to strings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>series</strong> (<em>pd.Series</em>) – Values to convert.</p></li>
+<li><p><strong>float_format</strong> (<em>str</em><em>, </em><em>optional</em>) – Format string for floating
+point number. Defaults to <code class="docutils literal notranslate"><span class="pre">'%g'</span></code>.</p></li>
+<li><p><strong>datetime_format</strong> (<em>str</em><em>, </em><em>optional</em>) – Format string for datetime
+type. Defaults to <code class="docutils literal notranslate"><span class="pre">'%Y-%m-%d'</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A converted pd.Series.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.Series</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="validation.Validation.validate_date">
+<span class="sig-name descname"><span class="pre">validate_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">series</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">convert</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dateformat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nullable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unique</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">date</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">date</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/validation.html#Validation.validate_date"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#validation.Validation.validate_date" title="Link to this definition"></a></dt>
+<dd><p>Validate a pandas Series with values of type <code class="docutils literal notranslate"><span class="pre">datetime.date</span></code>.</p>
+<p>Values of a different data type will be replaced with NaN prior to
+the validation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>series</strong> (<em>pd.Series</em>) – Values to validate.</p></li>
+<li><p><strong>convert</strong> (<em>bool</em><em>, </em><em>optional</em>) – Convert the Series to datetime
+using the <code class="xref py py-func docutils literal notranslate"><span class="pre">pd.to_datetime()</span></code> function. Also use the
+<code class="docutils literal notranslate"><span class="pre">dateformat</span></code> parameter to define the format.
+Defaults to False.</p></li>
+<li><p><strong>dateformat</strong> (<em>str</em><em>, </em><em>optional</em>) – Format code for the datetimes
+being passed in the Series. For use with the <code class="docutils literal notranslate"><span class="pre">convert</span></code>
+parameter. Defaults to None.</p></li>
+<li><p><strong>nullable</strong> (<em>bool</em><em>, </em><em>optional</em>) – If False, check for NaN values.
+Defaults to True.</p></li>
+<li><p><strong>unique</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, check that values are
+unique. Defaults to False</p></li>
+<li><p><strong>min_date</strong> (<em>datetime.date</em><em>, </em><em>optional</em>) – If defined, check for
+values before <code class="docutils literal notranslate"><span class="pre">min_date</span></code>, inclusive. Defaults to None.</p></li>
+<li><p><strong>max_date</strong> (<em>datetime.date</em><em>, </em><em>optional</em>) – If defined, check for
+value later than <code class="docutils literal notranslate"><span class="pre">max_date</span></code>, inclusive. Defaults to
+None.</p></li>
+<li><p><strong>return_type</strong> (<em>str</em><em>, </em><em>optional</em>) – Kind of data object to return.
+Options: ‘mask_series’, ‘mask_frame’, ‘values’.
+Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>If a <code class="docutils literal notranslate"><span class="pre">return_type</span></code> is specified, return a
+tuple of the following, otherwise return None:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">return_object</span><span class="p">,</span> <span class="n">error_messages</span><span class="p">)</span>
+</pre></div>
+</div>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="validation.Validation.validate_numeric">
+<span class="sig-name descname"><span class="pre">validate_numeric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">series</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nullable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unique</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">integer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/validation.html#Validation.validate_numeric"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#validation.Validation.validate_numeric" title="Link to this definition"></a></dt>
+<dd><p>Validate a pandas Series containing numeric values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>series</strong> (<em>pd.Series</em>) – Values to validate.</p></li>
+<li><p><strong>nullable</strong> (<em>bool</em><em>, </em><em>optional</em>) – If False, check for NaN values.
+Defaults to True.</p></li>
+<li><p><strong>unique</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, check that values are
+unique. Defaults to False.</p></li>
+<li><p><strong>integer</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, check that values are
+integers. Defaults to False.</p></li>
+<li><p><strong>min_value</strong> (<em>int</em><em>, </em><em>optional</em>) – If defined, check for values below
+minimum, inclusive. Defaults to None.</p></li>
+<li><p><strong>max_value</strong> (<em>int</em><em>, </em><em>optional</em>) – If defined, check for value above
+maximum, inclusive. Defaults to None.</p></li>
+<li><p><strong>return_type</strong> (<em>str</em><em>, </em><em>optional</em>) – Kind of data object to return.
+Options: ‘mask_series’, ‘mask_frame’, ‘values’.
+Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>If a <code class="docutils literal notranslate"><span class="pre">return_type</span></code> is specified, return a
+tuple of the following, otherwise return None:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">return_object</span><span class="p">,</span> <span class="n">error_messages</span><span class="p">)</span>
+</pre></div>
+</div>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="validation.Validation.validate_string">
+<span class="sig-name descname"><span class="pre">validate_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">series</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nullable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unique</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">case</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newlines</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trailing_whitespace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">whitespace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matching_regex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">non_matching_regex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">whitelist</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blacklist</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/validation.html#Validation.validate_string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#validation.Validation.validate_string" title="Link to this definition"></a></dt>
+<dd><p>Validate a pandas Series with strings.</p>
+<p>Non-string values will be flagged as errors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>series</strong> (<em>pd.Series</em>) – Values to validate.</p></li>
+<li><p><strong>nullable</strong> (<em>bool</em><em>, </em><em>optional</em>) – If False, check for NaN values.
+Defaults to True.</p></li>
+<li><p><strong>unique</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, check that values are
+unique. Defaults to False.</p></li>
+<li><p><strong>min_length</strong> (<em>int</em><em>, </em><em>optional</em>) – If defined, check for strings
+shorter than <code class="docutils literal notranslate"><span class="pre">min_length</span></code>, inclusive. Defaults to None.</p></li>
+<li><p><strong>max_length</strong> (<em>int</em><em>, </em><em>optional</em>) – If defined, check for strings
+longer than <code class="docutils literal notranslate"><span class="pre">max_length</span></code>, inclusive. Defaults to None.</p></li>
+<li><p><strong>case</strong> (<em>str</em><em>, </em><em>optional</em>) – Check for a character case constraint.
+Options: ‘lower’, ‘upper’, ‘title’. Defaults to None.</p></li>
+<li><p><strong>newlines</strong> (<em>bool</em><em>, </em><em>optional</em>) – If False, check for
+platform-specific newline characters. Note: Linux
+searches for ‘n’. Windows searches for ‘rn’. Defaults
+to True.</p></li>
+<li><p><strong>trailing_whitespace</strong> (<em>bool</em><em>, </em><em>optional</em>) – If False, check for
+trailing whitespace. Defaults to True.</p></li>
+<li><p><strong>whitespace</strong> (<em>bool</em><em>, </em><em>optional</em>) – If False, check for whitespace.
+Defaults to True.</p></li>
+<li><p><strong>matching_regex</strong> (<em>str</em><em>, </em><em>optional</em>) – Check that strings match the
+provided regular expression. Defaults to None.</p></li>
+<li><p><strong>non_matching_regex</strong> (<em>str</em><em>, </em><em>optional</em>) – Check that strings do not
+match the provided regular expression. Defaults to None.</p></li>
+<li><p><strong>whitelist</strong> (<em>list</em><em>, </em><em>optional</em>) – Check that values are in
+<code class="docutils literal notranslate"><span class="pre">whitelist</span></code>. Defaults to None.</p></li>
+<li><p><strong>blacklist</strong> (<em>list</em><em>, </em><em>optional</em>) – Check that values are not in
+<code class="docutils literal notranslate"><span class="pre">blacklist</span></code>. Defaults to None.</p></li>
+<li><p><strong>return_type</strong> (<em>str</em><em>, </em><em>optional</em>) – Kind of data object to return.
+Options: ‘mask_series’, ‘mask_frame’, ‘values’. Defaults
+to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>If a <code class="docutils literal notranslate"><span class="pre">return_type</span></code> is specified, return a
+tuple of the following, otherwise return None:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">return_object</span><span class="p">,</span> <span class="n">error_messages</span><span class="p">)</span>
+</pre></div>
+</div>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="validation.Validation.validate_timestamp">
+<span class="sig-name descname"><span class="pre">validate_timestamp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">series</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nullable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unique</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_timestamp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Timestamp</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_timestamp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Timestamp</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/validation.html#Validation.validate_timestamp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#validation.Validation.validate_timestamp" title="Link to this definition"></a></dt>
+<dd><p>Validate a pandas Series with values of type <cite>pandas.Timestamp</cite>.</p>
+<p>Values of a different data type will be replaced with <code class="docutils literal notranslate"><span class="pre">NaT</span></code>
+prior to the validation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>series</strong> (<em>pd.Series</em>) – Values to validate.</p></li>
+<li><p><strong>nullable</strong> (<em>bool</em><em>, </em><em>optional</em>) – If False, check for NaN values.
+Defaults to True.</p></li>
+<li><p><strong>unique</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, check that values are unique.
+Defaults to False.</p></li>
+<li><p><strong>min_timestamp</strong> (<em>pd.Timestamp</em><em>, </em><em>optional</em>) – If defined, check for
+values before <code class="docutils literal notranslate"><span class="pre">min_timestamp</span></code>, inclusive. Defaults to
+None.</p></li>
+<li><p><strong>max_timestamp</strong> (<em>pd.Timestamp</em><em>, </em><em>optional</em>) – If defined, check for
+value later than <code class="docutils literal notranslate"><span class="pre">max_timestamp</span></code>, inclusive.
+Defaults to None.</p></li>
+<li><p><strong>return_type</strong> (<em>str</em><em>, </em><em>optional</em>) – Kind of data object to return.
+Options: ‘mask_series’, ‘mask_frame’, ‘values’.
+Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>If a <code class="docutils literal notranslate"><span class="pre">return_type</span></code> is specified, return a
+tuple of the following, otherwise return None:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">return_object</span><span class="p">,</span> <span class="n">error_messages</span><span class="p">)</span>
+</pre></div>
+</div>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="library.html" class="btn btn-neutral float-left" title="Library API Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="changelog.html" class="btn btn-neutral float-right" title="Change Log" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022-2024 | s3dev | version 1.0.0rc1.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

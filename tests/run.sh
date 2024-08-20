@@ -1,11 +1,8 @@
 #!/usr/bin/env bash
 
-printf "\nRunning test cases ...\n"
-pytest -v ./test_validation.py
-printf "\nDone.\n\n"
+export PYTHONPATH=$( realpath .. )
 
-#printf "\nRunning doc coverage checks ...\n"
-#coverage run -m pytest
-#coverage report -m ../pdvalidate/validation.py
-#printf "\nDone.\n\n"
+printf "\nRunning unit tests ..."
+python -m unittest discover
+printf "\nTesting complete.\n\n"
 
